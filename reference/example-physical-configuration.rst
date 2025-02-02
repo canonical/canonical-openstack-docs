@@ -231,21 +231,21 @@ Some basic reference parameters of all those machines are listed in Tab. 3 below
      - eno1
      - Generic
      - 172.16.1.33
-   * - sunbeam-database-1
+   * - sunbeam-controller-1
      - Virtual
      - governor-1
      - N/A
      - eno1
      - Generic
      - 172.16.1.41
-   * - sunbeam-database-2
+   * - sunbeam-controller-2
      - Virtual
      - governor-2
      - N/A
      - eno1
      - Generic
      - 172.16.1.42
-   * - sunbeam-database-3
+   * - sunbeam-controller-3
      - Virtual
      - governor-3
      - N/A
@@ -342,19 +342,19 @@ When using Canonical MAAS as a bare metal provider, some additional parameters h
      - openstack-mycloud, control, compute, storage
      - ceph
      - neutron:physnet1
-   * - sunbeam-database-1
+   * - sunbeam-controller-1
      - AZ1
-     - openstack-mycloud, infra
+     - openstack-mycloud, sunbeam
      -
      -
-   * - sunbeam-database-2
+   * - sunbeam-controller-2
      - AZ2
-     - openstack-mycloud, infra
+     - openstack-mycloud, sunbeam
      -
      -
-   * - sunbeam-database-3
+   * - sunbeam-controller-3
      - AZ3
-     - openstack-mycloud, infra
+     - openstack-mycloud, sunbeam
      -
      -
    * - juju-controller-1

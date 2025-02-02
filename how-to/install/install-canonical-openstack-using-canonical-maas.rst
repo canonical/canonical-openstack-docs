@@ -57,7 +57,7 @@ You will need:
 * one (or at least three for full HA) dedicated virtual machine(s), running on the *Governor*
   node(s), with:
   
-  * hardware specifications matching minimum hardware specifications for the *Sunbeam Database*
+  * hardware specifications matching minimum hardware specifications for the *Sunbeam Controller*
     node as documented under the Enterprise requirements section
 
 * one (or at least three for full HA) dedicated virtual machine(s), running on the *Governor*
@@ -138,7 +138,7 @@ Enlist, commission and configure machines
 All machines but the Governor and Sunbeam Client nodes must be enlisted, commissioned and
 configured in MAAS.
 
-In the example configuration `sunbeam-database-1`, `sunbeam-database-2`, `sunbeam-database-3`,
+In the example configuration `sunbeam-controller-1`, `sunbeam-controller-2`, `sunbeam-controller-3`,
 `juju-controller-1`, `juju-controller-2` and `juju-controller-3` machines are VMs running on
 Governor nodes.
 
@@ -161,7 +161,7 @@ in the cluster:
      - Nodes to assign the tag to
    * - openstack-<name>
      - Defines which machines to use in this particular deployment
-     - Cloud, Control, Compute, Storage, Sunbeam Database, Juju Controller
+     - Cloud, Control, Compute, Storage, Sunbeam Controller, Juju Controller
    * - control
      - Defines where to host cloud control functions
      - Cloud, Control
@@ -172,8 +172,8 @@ in the cluster:
      - Defines where to host cloud storage functions
      - Cloud, Storage
    * - sunbeam
-     - Defines where to host the Sunbeam database
-     - Sunbeam Database
+     - Defines where to host the Sunbeam controller
+     - Sunbeam Controller
    * - juju-controller
      - Defines where to host the Juju controller
      - Juju Controller
