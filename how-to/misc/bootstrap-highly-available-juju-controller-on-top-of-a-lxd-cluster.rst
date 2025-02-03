@@ -20,7 +20,7 @@ You will need:
 * at least three dedicated physical machines with:
 
   * hardware specifications matching minimum hardware specifications for the *Cloud* node as documented under the Enterprise requirements section
-  * fresh Ubuntu Server 22.04 LTS installed
+  * fresh Ubuntu Server 24.04 LTS installed
 
 .. TODO: Add a link to the Enterprise requirements section
 

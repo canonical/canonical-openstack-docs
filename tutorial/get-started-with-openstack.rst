@@ -23,7 +23,7 @@ You will only need one dedicated physical machine with:
 * 4+ core amd64 processor
 * minimum of 16 GiB of RAM
 * minimum of 50 GiB SSD storage on the ``rootfs`` partition
-* fresh Ubuntu Desktop 22.04 LTS installed
+* fresh Ubuntu Desktop 24.04 LTS installed
 * unlimited access to the Internet
 
 .. TODO: Update once https://warthogs.atlassian.net/browse/OPEN-2486 is completed

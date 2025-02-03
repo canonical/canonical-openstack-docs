@@ -26,7 +26,7 @@ You will need:
 * one dedicated physical machine with:
 
   * hardware specifications matching minimum hardware specifications as documented under the Enterprise requirements section
-  * fresh Ubuntu Server 22.04 LTS installed
+  * fresh Ubuntu Server 24.04 LTS installed
 
 .. TODO: Add links to the "Install Canonical OpenStack using the manual bare metal provider" how-to guide and the Enterprise requirements section
 
