@@ -49,6 +49,7 @@ Miscellaneous
    :maxdepth: 1
 
    misc/accessing-the-openstack-dashboard
+   misc/backup-and-restore-maas-deployment
    misc/manage-workloads-with-juju
    misc/managing-deployment-manifests
    misc/using-an-existing-juju-controller
