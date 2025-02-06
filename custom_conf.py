@@ -64,7 +64,7 @@ ogp_image = 'https://assets.ubuntu.com/v1/253da317-image-document-ubuntudocs.svg
 
 # Update with the local path to the favicon for your product
 # (default is the circle of friends)
-html_favicon = '.sphinx/_static/favicon.png'
+html_favicon = '.sphinx/_static/openstack_favicon.png'
 
 # (Some settings must be part of the html_context dictionary, while others
 #  are on root level. Don't move the settings.)
@@ -79,7 +79,7 @@ html_context = {
     # Add your product tag (the orange part of your logo, will be used in the
     # header) to ".sphinx/_static" and change the path here (start with "_static")
     # (default is the circle of friends)
-    'product_tag': '_static/tag.png',
+    'product_tag': '_static/openstack_tag.png',
 
     # Change to the discourse instance you want to be able to link to
     # using the :discourse: metadata at the top of a file
