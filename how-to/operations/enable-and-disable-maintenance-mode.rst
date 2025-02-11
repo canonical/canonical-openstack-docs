@@ -4,12 +4,14 @@ Enable and Disable Maintenance Mode
 Overview
 --------
 
-Maintenance mode helps protect the cluster during potentially disruptive operations. It is particularly useful when an operator needs to manually perform tasks on a node that carry a risk of node failure or data loss.
+Maintenance mode helps protect the cluster during operations that could be disruptive. It is particularly useful when an operator needs to manually perform tasks on a node that may pose a risk of failure or data loss.
+
+Before proceeding, refer to the :doc:`Maintenance Mode </explanation/maintenance-mode>` to understand its functionality and impact.
 
 Deploy OpenStack Watcher Before Proceeding
 ------------------------------------------
 
-Maintenance mode relies on `OpenStack Watcher`_ to manage hypervisor services and virtual machine instances. If the compute role is active on your target node, ensure that Watcher is enabled before proceeding.
+Maintenance mode relies on `OpenStack Watcher`_ to manage hypervisor services and virtual machine instances. If the target node has an active compute role, ensure that Watcher is enabled before proceeding:
 
 .. code:: text
 
@@ -18,13 +20,13 @@ Maintenance mode relies on `OpenStack Watcher`_ to manage hypervisor services an
 Enabling Maintenance Mode
 -------------------------
 
-Before enabling maintenance mode, you can perform a dry run to check for potential issues:
+Before enabling maintenance mode, perform a dry run to check for potential issues:
 
 .. code:: text
 
    sunbeam cluster maintenance enable <node> --dry-run
 
-If the dry run output shows no issues, proceed with enabling maintenance mode:
+If no issues are reported, enable maintenance mode:
 
 .. code:: text
 
@@ -33,13 +35,13 @@ If the dry run output shows no issues, proceed with enabling maintenance mode:
 Disabling Maintenance Mode
 --------------------------
 
-To disable maintenance mode, you can first perform a dry run:
+To disable maintenance mode, first run a dry run to validate the operation:
 
 .. code:: text
 
    sunbeam cluster maintenance disable <node> --dry-run
 
-Once confirmed, disable maintenance mode:
+If the output confirms a safe transition, disable maintenance mode:
 
 .. code:: text
 
@@ -47,4 +49,3 @@ Once confirmed, disable maintenance mode:
 
 .. LINKS
 .. _OpenStack Watcher: https://wiki.openstack.org/wiki/Watcher
-
