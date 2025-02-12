@@ -165,4 +165,7 @@ jujucharms
 maas
 snapcraft
 snapcraftcontent
-
+MDS
+kubectl
+unschedulable
+PV
