@@ -43,6 +43,8 @@ preceding question.
      - | The network addresses of the subnets used for management traffic. This is typically the same as the network used by the machines supporting the deployment. Multiple CIDRs can be specified, separated by commas.
    * - **OpenStack APIs IP ranges**
      - | OpenStack services are exposed via virtual IP addresses. This range should contain at least ten addresses and must not overlap with external network CIDR. To access APIs from a remote host, the range must reside within the subnet that the primary network interface is on.
+       |
+       | On multi-node deployments, the range must be addressable from all nodes in the deployment.
    * - **Local or remote access to VMs**
      - | If 'local' is selected then VMs will **only** be accessible from the local host, whereas if 'remote' is selected then VMs will **only** be accessible from remote hosts.
        |
