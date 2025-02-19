@@ -1,4 +1,4 @@
-Object storage
+Object Storage
 ==============
 
 The object storage service providing Swift and S3 endpoints is enabled

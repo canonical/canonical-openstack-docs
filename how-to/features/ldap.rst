@@ -1,5 +1,5 @@
-LDAP
-====
+LDAP Integration
+================
 
 This feature integrates the OpenStack
 `Keystone <https://docs.openstack.org/keystone>`__ service with an
