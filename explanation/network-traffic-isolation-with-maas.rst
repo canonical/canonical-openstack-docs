@@ -42,20 +42,21 @@ traffic types, and examples of such traffic is given here:
 | Cloud network   | Traffic type               | Example traffic        |
 +=================+============================+========================+
 | data            | hypervisor-to-hypervisor   | intra-Project routing  |
-|                 | (East-West)                | by OVN/OVS             |
+|                 | (East-West)                | via OVN/OVS            |
 +-----------------+----------------------------+------------------------+
-| internal        | control plane              | Nova to RabbitMQ       |
-|                 |                            | queries                |
+| internal        | service-to-service         | Nova queries to        |
+|                 |                            | RabbitMQ               |
 +-----------------+----------------------------+------------------------+
-| management      | cloud node management      | Juju                   |
+| management      | machine management         | Machine provisioning   |
+|                 |                            | with MAAS              |
 +-----------------+----------------------------+------------------------+
-| public          | service API endpoints      | Identity service via   |
-|                 |                            | Keystone               |
+| public          | user-to-service            | User authentication    |
+|                 |                            | via Keystone           |
 +-----------------+----------------------------+------------------------+
-| storage         | instance-to-storage        | Ceph-based volumes     |
+| storage         | hypervisor-to-storage      | Ceph-based volumes     |
 +-----------------+----------------------------+------------------------+
 | storage-cluster | storage-to-storage         | Ceph data rebalancing  |
-+---------------+------------------------------+------------------------+
++-----------------+----------------------------+------------------------+
 
 There are other types of traffic that don’t necessarily map to the above
 cloud networks. They are described below:
@@ -64,11 +65,11 @@ cloud networks. They are described below:
 | Other          | Traffic type              | Example traffic         |
 | networking     |                           |                         |
 +================+===========================+=========================+
-| “external      | instance-to-external      | instance remote access  |
-| networking”    | (North-South)             | over SSH                |
+| “external      | hypervisor-to-external    | Remote access to        |
+| networking”    | (North-South)             | instances over SSH      |
 +----------------+---------------------------+-------------------------+
-| “private       | instance-to-openstack     | OpenStack internal      |
-| networking”    |                           |                         |
+| “private       | instance-to-service       | Instances contacting    |
+| networking”    |                           | OpenStack APIs          |
 +----------------+---------------------------+-------------------------+
 
 Machine access
