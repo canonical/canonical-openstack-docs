@@ -20,6 +20,7 @@ Operations
    operations/removing-the-primary-node
    operations/scaling-the-cluster-in
    operations/scaling-the-cluster-out
+   operations/enable-and-disable-maintenance-mode
 
 Optional Features
 -----------------
