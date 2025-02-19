@@ -20,6 +20,12 @@ A node in Sunbeam can exist in one of three states: **Active**, **Maintenance**,
 
 By defining these states, Sunbeam ensures that operators can perform maintenance efficiently while minimizing disruptions to the system.
 
+.. note ::
+
+    The states here differ from the `sunbeam cluster list` output, which displays the roles enabled on each node.
+    Maintenance mode states are dynamic because an operator can manually trigger operations on the cluster at any time. A node is considered to be in maintenance mode only if it passes all necessary checks to confirm its status. However, since operations can occur at any moment, a node's status is not static.
+
+
 Definition of Maintenance Mode in Sunbeam
 -----------------------------------------
 
@@ -42,13 +48,13 @@ Storage Role
 - OSD (Object Storage Daemon):
     - OSDs on the node must be ``ok-to-stop``, ensuring sufficient redundancy to tolerate the loss of OSDs on the node. See ``ok-to-stop`` part in `ceph administration tool`_ for more information.
     - *(Optional)* OSDs on the node must be either:
-      - ``IN`` and ``UP``, or
-      - ``OUT`` and ``DOWN``.
+      - ``IN`` and ``UP``
+      - ``DOWN``
       This allows the operator to decide whether the OSDs should remain active during maintenance.
     - *(Optional)* Rebalancing is disabled to prevent automatic rebalancing from being triggered during maintenance.
 
-- Non-OSD services (MDS, MGR, MON, RGW):
-    - The number of running services must be greater than the minimum required for quorum.
+- Non-OSD services (MDS, MGR, MON):
+    - The number of running services must be greater than the minimum required for quorum, the numbers are 3 mons, 1 mds, 1 mgr.
 
 Control Role (Future work)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
