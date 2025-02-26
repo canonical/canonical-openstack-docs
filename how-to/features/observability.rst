@@ -245,3 +245,16 @@ metrics from openstack-exporter.
 
 .. figure:: grafana-project-overview.png
    :alt: OpenStack Project Overview dashboard
+
+OpenStack Logging dashboard
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is a dashboard providing a consolidated view of logs
+from various OpenStack services,
+and also the HTTP status codes from different OpenStack APIs.
+
+.. figure:: ./grafana-openstack-service-logs.png
+   :alt: OpenStack service logs in Grafana
+
+.. figure:: ./grafana-openstack-http-status-codes-dashboard.png
+   :alt: OpenStack API HTTP response codes trends on panels in Grafana
