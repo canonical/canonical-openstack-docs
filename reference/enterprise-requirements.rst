@@ -29,8 +29,9 @@ applies:
 |                       |                       | storage service       |
 +-----------------------+-----------------------+-----------------------+
 
-[note] **Note:** A single-node deployment has no resilience and has
-limited performance. [/note]
+.. note ::
+    A single-node deployment has no resilience and has
+    limited performance.
 
 Multi-node
 ----------
@@ -58,5 +59,37 @@ applies:
 |                       |                       | services              |
 +-----------------------+-----------------------+-----------------------+
 
-[note] **Note:** Three nodes are required for multi-node operation.
-[/note]
+.. note ::
+    Three nodes are required for multi-node operation.
+
+Role Based Minimum Memory Sizing
+--------------------------------
+
+For multi-node deployments the following minimum component memory sizing may be
+used to size each node based on the roles it hosts within the deployment:
+
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Component       | Control  | Compute | Storage      | Sunbeam  | Client | Juju-Controller |
++=================+==========+=========+==============+==========+========+=================+
+| Kubernetes      | 4 GiB    |         |              |          |        |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Ceph OSD        |          |         | 5GiB per OSD |          |        |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Ceph MON/MGR    |          |         | 2GiB         |          |        |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Ceph RGW        |          |         | 2GiB         |          |        |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Control Plane   | 10 GiB   | 1GiB    |              |          |        |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| SunbeamD        |          |         |              | 4 GiB    |        |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Juju Controller |          |         |              |          |        | 4GiB            |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+| Sunbeam Client  |          |         |              |          | 1 GiB  |                 |
++-----------------+----------+---------+--------------+----------+--------+-----------------+
+
+.. note ::
+    For Ceph components, the scale of the deployment will have an
+    impact on the memory footprint for MON/MGR daemons (3 nodes) and more memory and
+    cores may be needed per Ceph OSD if using NVMe drives instead of SSD of spinning
+    disks.
