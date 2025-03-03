@@ -20,6 +20,8 @@ Example physical configuration layout is shown in Fig. 1:
 
    Fig. 1. Example physical configuration layout.
 
+.. Image source: https://assets.ubuntu.com/v1/0400fd56-Minimal%20network%20setup.png
+
 Networks
 ++++++++
 
