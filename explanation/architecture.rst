@@ -84,7 +84,7 @@ A software architecture diagram of Canonical OpenStack is shown in Fig. 1:
 
    Fig. 1. Canonical OpenStack software architecture.
 
-.. TODO: Replace the Fig. 1 image with the one created by the Design team
+.. Image source: https://assets.ubuntu.com/v1/32e2a1ce-Canonical%20OpenStack%20software%20architecture.png
 
 Roles
 ~~~~~
@@ -155,7 +155,7 @@ In a single-node deployment, all of the components of the deployed OpenStack Clo
 
    Fig. 2. Single-node topology.
 
-.. TODO: Replace the Fig. 2 image with the one created by the Design team
+.. Image source: https://assets.ubuntu.com/v1/eac5c9be-Canonical%20OpenStack%20single-node%20topology.png
 
 In a single-node deployment the node will assume control and compute roles by default. Note that the use of the storage role currently requires pristine, un-partitioned block devices on the node being used.
 
@@ -173,7 +173,7 @@ Multi-node deployments all start off as single-node deployments; additional node
 
    Fig. 3. Multi-node topology.
 
-.. TODO: Replace the Fig. 3 image with the one created by the Design team
+.. Image source: https://assets.ubuntu.com/v1/1f47adf6-Canonical%20OpenStack%20multi-node%20topology.png
 
 .. note ::
 
