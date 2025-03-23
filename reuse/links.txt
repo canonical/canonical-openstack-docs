@@ -16,5 +16,6 @@
 .. _Canonical Kubernetes: https://ubuntu.com/kubernetes
 .. _Canonical OpenStack: https://canonical.com/openstack
 .. _Canonical MAAS: https://maas.io/
+.. _Canonical MAAS installation requirements: https://maas.io/docs/installation-requirements
 
 .. _Multipass: https://multipass.run
