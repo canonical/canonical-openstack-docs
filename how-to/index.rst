@@ -41,6 +41,7 @@ Optional Features
    features/ubuntu-pro
    features/validation
    features/vault
+   features/maintenance
 
 Miscellaneous
 -------------
