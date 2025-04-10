@@ -45,6 +45,7 @@ namespace
 namespaces
 NodePort
 Numbat
+NVMe
 observability
 OEM
 OIF
@@ -67,6 +68,7 @@ subdirectories
 subfolders
 subtree
 synchronized
+SunbeamD
 UA
 Ubuntu
 UCA
