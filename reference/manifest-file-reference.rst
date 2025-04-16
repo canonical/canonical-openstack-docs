@@ -67,7 +67,13 @@ supported in channel ``2023.2/edge`` of the **openstack** snap. [/note]
 
      # External networking
      external_network:
-       nic: <interface-name>
+       nic: <interface-name> # deprecated
+       nics:
+         <node-hostname>: <interface-name>
+         # Examples:
+         # sunbeam-1.localdomain: enp5s0
+         # sunbeam-2.localdomain: enp8s0
+         # sunbeam-3.localdomain: eno3
        # CIDR of OpenStack external network
        cidr: <cidr>
        # IP address of default gateway for external network
