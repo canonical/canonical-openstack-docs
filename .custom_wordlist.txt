@@ -41,6 +41,7 @@ Livepatch
 LXC
 LXD
 MAAS
+MDS
 MetalLB
 MicroCeph
 MicroCluster
@@ -57,13 +58,14 @@ OSDs
 OSI
 OVN
 OVS
-openssh
+PV
 QCOW
 QEMU
 RabbitMQ
 RefStack
 RBAC
 RPC
+SHUTOFF
 SSD
 SimpleStreams
 TLS
@@ -103,12 +105,15 @@ https
 init
 intra
 juju
+kubectl
 kube-api
 filesystem
 filesystems
 localhost
 loadbalancer
 lp
+mds
+mons
 metallb
 misconfiguration
 mycloud
@@ -125,6 +130,7 @@ myuser
 nameserver
 nameservers
 openrc
+openssh
 openstack
 openstackclient
 ovs
@@ -153,6 +159,7 @@ un
 unconfigured
 unregister
 unroutable
+unschedulable
 untagged
 vlan
 vSwitch
@@ -168,4 +175,3 @@ jujucharms
 maas
 snapcraft
 snapcraftcontent
-
