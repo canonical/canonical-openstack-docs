@@ -8,12 +8,12 @@ multi-network environment, where each of these cloud networks is coupled
 with specific cloud activity. It does this through the integration of
 Juju network spaces.
 
-[note type=“note”] **Network space:** A `Juju <https://juju.is>`__
-object that abstracts away the
-`OSI <https://en.wikipedia.org/wiki/OSI_model>`__ Layer 3 network
-concepts. A space is created on a backing cloud (e.g. MAAS) to represent
-one or more subnets. The purpose of a space is to allow for user-defined
-network traffic segmentation. [/note]
+.. note::
+   A `Juju <https://juju.is>`__ object that abstracts away the
+   `OSI <https://en.wikipedia.org/wiki/OSI_model>`__ Layer 3 network
+   concepts. A space is created on a backing cloud (e.g. MAAS) to represent
+   one or more subnets. The purpose of a space is to allow for user-defined
+   network traffic segmentation.
 
 Traffic isolation is implemented at the discretion of the cloud
 architect, where the degree of isolation is dependent upon the number of
@@ -27,10 +27,10 @@ Sunbeam. The space:network mappings are done at the Sunbeam level.
 In the case of an environment consisting of a sole subnet, each cloud
 network will be mapped to the same space.
 
-[note type=“note”] **Note:** The
-:doc:`Install Canonical OpenStack using Canonical MAAS
-</how-to/install/install-canonical-openstack-using-canonical-maas>`
-page shows how to use Canonical OpenStack with MAAS. [/note]
+.. note::
+   The :doc:`Install Canonical OpenStack using Canonical MAAS
+   </how-to/install/install-canonical-openstack-using-canonical-maas>`
+   page shows how to use Canonical OpenStack with MAAS.
 
 Cloud networks
 --------------

@@ -122,8 +122,8 @@ to an empty string:
 
    sunbeam configure validation schedule=""
 
-[note type=“info”] **Note:** Due to performance considerations,
-intervals under 15 minutes are not supported. [/note]
+.. note::
+   Due to performance considerations, intervals under 15 minutes are not supported.
 
 Results will be displayed in a validation-specific Grafana dashboard and
 alerts will be fired when periodic checks fail. For more information on

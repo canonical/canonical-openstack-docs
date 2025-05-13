@@ -7,8 +7,8 @@ It does this by interfacing with the existing Traefik instances in the
 cloud. A Traefik instance is associated with either public or private
 cloud traffic.
 
-[note type=“note”] **Note:** TLS CA is currently the only way to enable
-TLS in Canonical OpenStack. [/note]
+.. note::
+   TLS CA is currently the only way to enable TLS in Canonical OpenStack.
 
 Enable TLS CA
 -------------

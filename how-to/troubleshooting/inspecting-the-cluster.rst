@@ -38,8 +38,9 @@ with the Juju controller:
 
    sunbeam utils juju-login
 
-[note type=“caution”] The ``juju-login`` command is only available in
-the ``2023.1/edge`` version of the ``openstack`` snap. [/note]
+.. caution::
+   The ``juju-login`` command is only available in the ``2023.1/edge`` version
+   of the ``openstack`` snap.
 
 Controller model
 ~~~~~~~~~~~~~~~~
@@ -79,10 +80,11 @@ The status of this model can be queried using the following command:
 
 This should work from any node in the deployment.
 
-[note type=“caution”] If the storage role is not specified for any nodes
-in the deployment the ``cinder-ceph`` application will remain in a
-blocked state. This is expected and means that the deployed OpenStack
-cloud does not support the block storage service. [/note]
+.. caution::
+   If the storage role is not specified for any nodes in the deployment the
+   ``cinder-ceph`` application will remain in a blocked state. This is expected
+   and means that the deployed OpenStack cloud does not support the block storage
+   service.
 
 OpenStack Hypervisor
 --------------------
@@ -155,9 +157,9 @@ the charm of a particular unit:
 
    sudo k8s kubectl logs --namespace openstack --container charm <pod_name>
 
-[note type=“information”] **Information**: The charm container logs are
-also available through ``juju debug-log -m openstack``, and will be
-present in the sunbeam inspection report. [/note]
+.. note::
+   The charm container logs are also available through ``juju debug-log -m openstack``,
+   and will be present in the sunbeam inspection report.
 
 To fetch the payload logs, use:
 
@@ -226,7 +228,7 @@ To unlock a specific Terraform plan:
 This command may prompt you to confirm unlocking depending on how recent
 the lock timestamp is.
 
-[note type=“caution”] **Caution**: Ensure that there are no
-administrative operations underway in the deployment when unlocking a
-Terraform plan. Otherwise, the deployment’s integrity can be
-compromised. [/note]
+.. caution::
+   Ensure that there are no administrative operations underway in the
+   deployment when unlocking a Terraform plan. Otherwise, the deployment’s
+   integrity can be compromised.

@@ -4,8 +4,9 @@ Manifest file reference
 This resource aims to provide a definitive structure of a deployment
 manifest file will all its supported keys.
 
-[note type=“info”] **Note:** The manifest file is currently only
-supported in channel ``2023.2/edge`` of the **openstack** snap. [/note]
+.. note::
+   The manifest file is currently only supported in channel ``2023.2/edge`` of
+   the **openstack** snap.
 
 .. tip::
    For a conceptual overview of manifests, see the :doc:`Deployment manifest

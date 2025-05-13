@@ -145,8 +145,8 @@ Check cluster list status using the following command:
    | 27eba31c-66a5-4efe-8373-49dd186567e6 | sunbeam-k8s-ovn | sunbeam |          1 |            1 | CREATE_COMPLETE | HEALTHY       |
    +--------------------------------------+-----------------+---------+------------+--------------+-----------------+---------------+
 
-[note type=“info”] **Note:** You may need to wait a few minutes before
-the cluster is ready. [/note]
+.. note::
+   You may need to wait a few minutes before the cluster is ready.
 
 Check cluster status using the following command:
 

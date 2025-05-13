@@ -108,11 +108,10 @@ Sample output:
    admin-password: ******
    url: http://10.20.21.13/observability-grafana
 
-[note type=“note” status=“Information”] Only the initial admin password
-is displayed in the above action. If the admin password is changed using
-the Grafana UI, a message
-``Admin password has been changed by an administrator`` will be
-displayed. [/note]
+.. note::
+   Only the initial admin password is displayed in the above action. If the
+   admin password is changed using the Grafana UI, a message
+   ``Admin password has been changed by an administrator`` will be displayed.
 
 Login Grafana dashboard
 -----------------------
@@ -141,8 +140,9 @@ You can now look at the different dashboards configured.
 Dashboard
 ---------
 
-[note type=“info”] **Note:** Dashboard is currently only supported in
-channel ``2023.2`` of the **:spelling:ignore:`openstack`** snap. [/note]
+.. note::
+   Dashboard is currently only supported in channel ``2023.2`` of the
+   **:spelling:ignore:`openstack`** snap.
 
 OpenStack Service Overview dashboard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -203,12 +203,12 @@ given node.
 .. figure:: grafana-days-until-threshold.png
    :alt: Days until resource consumption dashboard
 
-[note type=“note” status=“Note”] You can filter the nodes using the
-multi-select dropdown menu: **Hostname**. [/note]
+.. note::
+   You can filter the nodes using the multi-select dropdown menu: **Hostname**.
 
-[note type=“note” status=“Note”] The 90% threshold and the 360 days of
-estimation can also be changed using the dropdown menu: **Resource Usage
-Threshold** and **Days of Estimation**. [/note]
+.. note::
+   The 90% threshold and the 360 days of estimation can also be changed using
+   the dropdown menu: **Resource Usage Threshold** and **Days of Estimation**.
 
 Disk usage
 ^^^^^^^^^^

@@ -7,8 +7,9 @@ Overview
 An instance migration is the relocation of an instance from one
 hypervisor to another.
 
-[note type=“info”] **Note:** This feature is currently only supported in
-channel ``2023.2/edge`` of the **openstack** snap. [/note]
+.. note::
+   This feature is currently only supported in channel ``2023.2/edge`` of the
+   **openstack** snap.
 
 When an instance has a live migration performed it is not shut down
 during the process. This is useful when there is an imperative to not

@@ -6,8 +6,9 @@ This feature integrates the OpenStack
 external LDAP service. Effectively, the feature maps LDAP-based users to
 cloud users via an OpenStack domain.
 
-[note type=“caution”] **Note:** This feature is currently only supported
-in channel ``2023.2`` of the **openstack** snap. [/note]
+.. caution::
+   This feature is currently only supported in channel ``2023.2`` of the
+   **openstack** snap.
 
 Enabling LDAP
 -------------
@@ -114,8 +115,8 @@ To remove an LDAP domain:
 
    sunbeam ldap remove-domain <domain-name>
 
-[note type=“important”] **Important:** Since configuration
-(e.g. OpenStack projects) could have been made to the domain after it
-was added, the ``remove-domain`` command only removes the LDAP
-connection. To completely remove the domain, the ``openstack`` CLI
-should be used (i.e. ``openstack domain delete``). [/note]
+.. important::
+   Since configuration (e.g. OpenStack projects) could have been made to the
+   domain after it was added, the ``remove-domain`` command only removes the
+   LDAP connection. To completely remove the domain, the ``openstack`` CLI
+   should be used (i.e. ``openstack domain delete``).

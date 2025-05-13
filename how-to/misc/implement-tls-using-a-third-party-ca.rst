@@ -9,8 +9,9 @@ Authority for your certificates.
    :doc:`Service endpoint encryption </explanation/service-endpoint-encryption>`
    page.
 
-[note type=“caution”] **Note:** This feature is currently only supported
-in channel ``2023.2/edge`` of the **openstack** snap. [/note]
+.. caution::
+   This feature is currently only supported in channel ``2023.2/edge`` of the
+   **openstack** snap.
 
 Enable the TLS CA feature
 -------------------------
@@ -92,9 +93,9 @@ You’ll need to supply the Certificate Authority (identified in the
 ``enable`` command) with the CSRs. Do this via the certificate authority's
 web site.
 
-[note type=“info”] **Note:** Ensure the TLS certificate from CA has
-Subject Alternative Name with IP Address of the service if DNS names are
-not used. [/note]
+.. note::
+   Ensure the TLS certificate from CA has Subject Alternative Name with IP
+   Address of the service if DNS names are not used.
 
 Input TLS certificates
 ----------------------

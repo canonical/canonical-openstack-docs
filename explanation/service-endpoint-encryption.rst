@@ -9,9 +9,9 @@ method for the creation and distribution of TLS certificates. Canonical
 OpenStack supports enabling TLS via the Traefik application, which is the
 ingress point for all service endpoints.
 
-[note type=“info”] **Note:** Currently, only the TLS CA feature method
-is supported. This feature only works with certificates signed by an
-external Certificate Authority. [/note]
+.. note::
+   Currently, only the TLS CA feature method is supported. This feature only
+   works with certificates signed by an external Certificate Authority.
 
 TLS CA feature
 --------------
@@ -19,8 +19,9 @@ TLS CA feature
 The TLS CA feature is the method to use for deployments that use a third
 party CA for certificates.
 
-[note type=“caution”] **Note:** This feature is currently only supported
-in channel ``2023.2/edge`` of the **openstack** snap. [/note]
+.. caution::
+   This feature is currently only supported in channel ``2023.2/edge`` of the
+   **openstack** snap.
 
 .. tip::
    For a how-to on using the TLS CA feature see :doc:`Implement TLS using a third-party CA

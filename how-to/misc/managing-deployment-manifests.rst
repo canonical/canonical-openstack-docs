@@ -1,12 +1,13 @@
 This page shows how to manage deployment manifests. For an overview of
 manifests, see the :doc:`Deployment manifest </explanation/deployment-manifest>` page.
 
-[note type=“caution”] **Note:** This feature is currently only supported
-in channel ``2023.2/edge`` and later of the **openstack** snap. [/note]
+.. caution::
+   This feature is currently only supported in channel ``2023.2/edge`` and
+   later of the **openstack** snap.
 
-[note type=“info”] **Note:** Looking to use a manifest from an edge
-deployment ? Take a look at `Manifest for non-stable
-deployments <#manifest-for-non-stable-deployments-4>`__. [/note]
+.. note::
+   Looking to use a manifest from an edge deployment? Take a look at
+   `Manifest for non-stable deployments <#manifest-for-non-stable-deployments-4>`__.
 
 List manifests
 --------------
@@ -103,8 +104,9 @@ To specify a manifest during a cluster refresh (update) process:
 Only components managed via Terraform can be changed (bootstrap options
 will be immutable at this point).
 
-[note type=“note”] **Note:** A manifest update must be accompanied by a
-complete manifest file (i.e. not a delta). [/note]
+.. note::
+   A manifest update must be accompanied by a complete manifest file
+   (i.e. not a delta).
 
 Feature enablement
 ~~~~~~~~~~~~~~~~~~
@@ -118,5 +120,6 @@ feature:
 
 A post-enablement invocation implies a manifest update.
 
-[note type=“note”] **Note:** A manifest update must be accompanied by a
-complete manifest file (i.e. not a delta). [/note]
+.. note::
+   A manifest update must be accompanied by a complete manifest file
+   (i.e. not a delta).

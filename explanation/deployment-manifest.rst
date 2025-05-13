@@ -11,8 +11,9 @@ Manifests are supported by the following commands:
 -  ``sunbeam configure``
 -  ``sunbeam enable``
 
-[note type=“positive”] **Note:** For a how-to on using manifests see
-:doc:`Managing deployment manifests </how-to/misc/managing-deployment-manifests>`. [/note]
+.. note::
+   For a how-to on using manifests see
+   :doc:`Managing deployment manifests </how-to/misc/managing-deployment-manifests>`.
 
 A manifest file
 ---------------
@@ -145,6 +146,6 @@ Option     Description
 
 This section is for demonstration and development purposes only.
 
-[note type=“caution”] **Caution:** There is significant risk of
-misconfiguration when using a local Terraform plan due to the fact that
-Sunbeam depends heavily on the plan variables. [/note]
+.. caution::
+   There is significant risk of misconfiguration when using a local Terraform
+   plan due to the fact that Sunbeam depends heavily on the plan variables.

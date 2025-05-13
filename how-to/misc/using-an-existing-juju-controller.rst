@@ -12,8 +12,9 @@ Register the Juju controller
 :doc:`Register an existing Juju controller </how-to/misc/manage-external-juju-controllers>`
 in Sunbeam.
 
-[note type=“note”] **Note:** Ensure a dedicated user is created in the
-external Juju controller and has ``superuser`` permissions granted on this controller. [/note]
+.. note::
+   Ensure a dedicated user is created in the external Juju controller and has
+   ``superuser`` permissions granted on this controller.
 
 Bootstrap with registered Juju controller
 -----------------------------------------

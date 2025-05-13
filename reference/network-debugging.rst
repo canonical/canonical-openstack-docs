@@ -6,10 +6,9 @@ cloud’s virtual networking system (OVN). Whether prompted by sheer
 interest or by necessity (an issue has arisen), this page will assist
 you in looking into the internals of your cloud’s networking layer.
 
-[note] **Note:** This page was inspired by `upstream OVN
-documentation <https://docs.ovn.org/en/latest/tutorials/ovn-openstack.html>`__.
-Many OVN troubleshooting techniques can be applied equally to a Sunbeam
-environment. [/note]
+.. note::
+   This page was inspired by `upstream OVN documentation <https://docs.ovn.org/en/latest/tutorials/ovn-openstack.html>`__.
+   Many OVN troubleshooting techniques can be applied equally to a Sunbeam environment.
 
 Contents:
 
@@ -167,9 +166,10 @@ ports, we see that they are used internally for guest metadata:
    | network_id   | 856fe9e3-60bf-4177-bb8b-831f68bb55c0         |
    +--------------+----------------------------------------------+
 
-[note] **Note:** The two metadata ports are marked as down and each of
-the guests floating IP ports is in a ``N/A`` state. In both cases, this
-is normal and not an indication of any kind of problem. [/note]
+.. note::
+   The two metadata ports are marked as down and each of the guests floating IP
+   ports is in a ``N/A`` state. In both cases, this is normal and not an
+   indication of any kind of problem.
 
 These entities are reflected in the configuration of the Northbound DB.
 
