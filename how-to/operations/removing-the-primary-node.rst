@@ -14,17 +14,18 @@ Remove components from the machine
 
 Software components now need to be removed from the primary node. Perform all the below steps on the primary node.
 
-Remove the Juju model:
+Remove the Juju models:
 
 .. code-block :: text
 
    juju destroy-model --destroy-storage --no-prompt --force --no-wait openstack
+   juju destroy-model --destroy-storage --no-prompt --force --no-wait admin/openstack-machines
 
 Remove the Juju controller:
 
 .. code-block :: text
 
-   juju destroy-controller --no-prompt --destroy-storage  --force --no-wait sunbeam-controller
+   juju destroy-controller --no-prompt --destroy-storage  --force --no-wait localhost-localhost
 
 Remove the Juju agent:
 
@@ -64,7 +65,6 @@ Remove the ``k8s`` snap:
 
 .. code-block :: text
 
-   sudo k8s remove-node
    sudo snap remove --purge k8s
 
 .. note ::
@@ -76,13 +76,16 @@ Remove the disk(s) used by MicroCeph on this node:
 .. code-block :: text
 
    sudo microceph disk list
-   sudo microceph disk remove <OSD on this node>
+   sudo microceph disk remove --bypass-safety-checks <OSD on this node>
+
+.. note ::
+
+   ``sudo microceph disk list`` may list the un-partitioned disks on the system. These can be ignored.
 
 Remove the ``microceph`` snap:
 
 .. code-block :: text
 
-   sudo microceph disk list
    sudo snap remove --purge microceph
 
 If required clean the disk(s) identified in the earlier command:

@@ -33,6 +33,10 @@ applies:
     A single-node deployment has no resilience and has
     limited performance.
 
+.. note ::
+   More storage may be required for the root disk, if additional features
+   are enabled that require persistent storage.
+
 Multi-node
 ----------
 

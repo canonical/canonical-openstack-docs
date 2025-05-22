@@ -23,6 +23,7 @@ You will only need one dedicated physical machine with:
 * minimum of 100 GiB SSD storage on the ``rootfs`` partition
 * fresh Ubuntu Desktop 24.04 LTS installed
 * unlimited access to the Internet
+* spare un-formatted disk for MicroCeph
 
 You can also use a virtual machine instead, but you can expect some performance degradation in this case.
 
@@ -102,11 +103,27 @@ To bootstrap the cloud for sample usage, execute the following command:
    
    sunbeam cluster bootstrap --accept-defaults --role control,compute,storage
 
+.. important::
+
+   Bootstrapping may fail if the ``rootfs`` partition does not have sufficient
+   available storage, or if there is no free, un-partitioned disk for MicroCeph.
+   If any issue is encountered, consult the :doc:`Troubleshooting guide </how-to/troubleshooting/inspecting-the-cluster>`.
+
 Once it completes, you should be able to see the following message on your screen:
 
 .. code-block :: text
    
    Node has been bootstrapped with roles: storage, control, compute
+
+.. note ::
+
+   Sunbeam uses a set of credentials for access to the Juju controller. The
+   authenticated session expires after 24 hours. You can re-authenticate by
+   running:
+
+   .. code-block :: text
+
+        sunbeam utils juju-login
 
 Configure the cloud
 -------------------
@@ -180,4 +197,5 @@ You have reached the end of this tutorial.
 You can now:
 
 * Move to the next tutorial in this series - :doc:`"Get familiar with OpenStack"</tutorial/get-familiar-with-openstack>`,
+* If you need to clean up the node and start over, you can check :doc:`how to remove the node </how-to/operations/removing-the-primary-node>`,
 * Explore :doc:`How-to Guides</how-to/index>` for instructions on setting up a production-grade environment.

@@ -137,6 +137,13 @@ You can get the different units by running:
 
    sudo k8s kubectl get pods --namespace openstack
 
+If a pod is in an error state, or is stuck in a ``Pending`` state, you
+can retrieve more information on it and events related to it by running:
+
+::
+
+   sudo k8s kubectl describe --namespace openstack pod <pod_name>
+
 To fetch the logs of a specific unit on K8S, it is necessary to
 know the name of the containers running inside a given pod. To get the
 names of the containers:
