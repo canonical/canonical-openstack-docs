@@ -78,3 +78,4 @@ For a commercial usage, consider visiting the following links instead:
    how-to/index
    explanation/index
    reference/index
+   For Contributors <contributor/index>
