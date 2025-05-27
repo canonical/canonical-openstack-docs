@@ -16,6 +16,11 @@ Requirements
 
 You will need:
 
+* one dedicated physical network with:
+  
+  * unlimited access to the Internet
+  * DHCP server configured to serve LXD containers
+
 * at least three dedicated physical machines with:
 
   * hardware specifications matching minimum hardware specifications for the *Cloud* node as documented under the :doc:`Enterprise requirements</reference/enterprise-requirements>` section
@@ -73,6 +78,7 @@ When prompted, answer some interactive questions. Below is a sample output from 
 
 .. code-block :: text
 
+   Installing LXD snap, please be patient.
    Would you like to use LXD clustering? (yes/no) [default=no]: yes
    What IP address or DNS name should be used to reach this server? [default=172.16.1.101]: 172.16.1.101
    Are you joining an existing cluster? (yes/no) [default=no]: no
@@ -207,11 +213,8 @@ To create a dedicated system account and to switch into it, execute the followin
 
 .. code-block :: text
 
-   sudo groupadd bootstrap
-   sudo useradd -m -g bootstrap -s /bin/bash bootstrap
+   sudo adduser bootstrap
    sudo usermod -a -G lxd,sudo bootstrap
-   sudo passwd bootstrap
-   sudo -i
    su bootstrap
    cd
 
@@ -360,6 +363,10 @@ At this point you should be able to see all three containers being equally distr
    | juju-e4ce90-2 | RUNNING | 172.16.1.250 (eth0) |      | CONTAINER | 0         | cloud-3  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
 
+.. warning ::
+
+   To avoid an unintended change of IPs and thus, loosing connectivity with Juju controllers post-deployment, reconfigure LXD containers to use static IP addresses at this point. Use the same IPs that were assigned during bootstrap. In order to reconfigure LXD containers to use static IP addresses, refer to the `Netplan documentation <https://documentation.ubuntu.com/server/explanation/networking/about-netplan/>`_.
+
 Create necessary credentials for the Sunbeam client
 ---------------------------------------------------
 
@@ -419,4 +426,5 @@ For example:
 
 .. code-block :: text
 
+   sunbeam prepare-node-script --bootstrap | bash -x && newgrp snap_daemon
    sunbeam cluster bootstrap --role control,compute,storage --controller mylxdcluster-default
