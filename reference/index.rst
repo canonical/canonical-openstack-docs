@@ -16,3 +16,4 @@ Index
    proxy-acl-access
    release-cycle-and-supported-versions
    underlying-projects-and-charms
+   api-auditing

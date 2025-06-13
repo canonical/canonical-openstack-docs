@@ -1,12 +1,14 @@
 # Leave a blank line at the end of this file to support concatenation
 Alertmanager
 Alertness
+AMQP
 Ansible
 ACL
 ACLs
 APIs
 Aodh
 Barbican
+CADF
 CaaS
 Caracal
 Catalogue
@@ -121,6 +123,7 @@ lp
 masakari
 mds
 mem
+middleware
 mons
 metallb
 misconfiguration
@@ -146,6 +149,7 @@ passwordless
 pcap
 physnet
 proxied
+pyCADF
 qcow
 rebalancing
 refstack
