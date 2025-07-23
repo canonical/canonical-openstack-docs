@@ -54,6 +54,7 @@ NATed
 NIC
 NOPASSWD
 Northd
+OpenDev
 OpenFlow
 OpenStack
 OCI
@@ -88,6 +89,8 @@ args
 balancers
 balancer's
 backend
+backport
+backported
 br
 ceph
 cirros
