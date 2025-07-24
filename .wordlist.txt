@@ -43,6 +43,7 @@ Mattermost
 MyST
 namespace
 namespaces
+Netplan
 NodePort
 Numbat
 NVMe
