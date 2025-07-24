@@ -27,6 +27,7 @@ extensions = [
     'sphinx_design',
     'sphinx_copybutton',
     'sphinxcontrib.jquery',
+    "sphinx_tabs.tabs",
     'canonical.related-links',
     'canonical.terminal-output',
 ]

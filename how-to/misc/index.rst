@@ -8,7 +8,6 @@ Miscellaneous
    backup-and-restore-maas-deployment
    bootstrap-highly-available-juju-controller-on-top-of-a-lxd-cluster
    identity-provider-enablement
-   implement-tls-using-a-third-party-ca
    manage-workloads-with-juju
    managing-deployment-manifests
    manage-external-juju-controllers

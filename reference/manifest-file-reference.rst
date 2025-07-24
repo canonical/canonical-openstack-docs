@@ -93,6 +93,11 @@ manifest file will all its supported keys.
          # sunbeam-3.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
 
+       traefik_endpoints:
+         traefik: <traefik_external_hostname>
+         traefik-public: <traefik_public_external_hostname>
+         traefik-rgw: <traefik_rgw_external_hostname>
+
      software:
 
        juju:
@@ -185,5 +190,11 @@ manifest file will all its supported keys.
              <CSR x500UniqueIdentifier>:
                # Base64 encoded certificate for unit CSR Unique ID: subject
                certificate: <Base64 encoded certificate>
-
+       vault:
+         config:
+           # TLS
+           certificates:
+             <CSR x500UniqueIdentifier>:
+               # Base64 encoded certificate for unit CSR Unique ID: subject
+               certificate: <Base64 encoded certificate>
       ...

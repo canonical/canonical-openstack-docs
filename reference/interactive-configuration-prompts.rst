@@ -45,6 +45,12 @@ preceding question.
      - | OpenStack services are exposed via virtual IP addresses. This range should contain at least ten addresses and must not overlap with external network CIDR. To access APIs from a remote host, the range must reside within the subnet that the primary network interface is on.
        |
        | On multi-node deployments, the range must be addressable from all nodes in the deployment.
+   * - **Hostname for Traefik internal endpoint**
+     - | The hostname for the internal endpoint of the Traefik service. This is used to configure TLS Vault.
+   * - **Hostname for Traefik public endpoint**
+     - | The hostname for the public endpoint of the Traefik service. This is used to configure TLS Vault.
+   * - **Hostname for Traefik RGW endpoint**
+     - | The hostname for the RGW endpoint of the Traefik service. This is used to configure TLS Vault.
    * - **Local or remote access to VMs**
      - | If 'local' is selected then VMs will **only** be accessible from the local host, whereas if 'remote' is selected then VMs will **only** be accessible from remote hosts.
        |

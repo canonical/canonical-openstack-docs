@@ -10,13 +10,18 @@ Optional Features
    instance-recovery
    ldap
    load-balancer
+.. toctree::
+   :maxdepth: 2
+   :caption: Managing TLS
+
+   managing-tls/index
+
    object-storage
    observability
    orchestration
    resource-optimization
    secrets
    telemetry
-   tls-ca
    ubuntu-pro
    validation
    vault
