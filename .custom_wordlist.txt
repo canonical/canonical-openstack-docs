@@ -122,6 +122,7 @@ idp
 init
 initiator
 intra
+isolCPUs
 juju
 kubectl
 kube-api
@@ -191,6 +192,7 @@ unregister
 unroutable
 unschedulable
 untagged
+unallocated
 vlan
 vm
 vSwitch
@@ -200,9 +202,18 @@ amazonaws
 charmhub
 cloudflare
 coreos
+cpu
+cpus
+CPUs
+epa
 fedoraproject
 io
+isolcpus
 jujucharms
 maas
+orchestrator
+Orchestrator
 snapcraft
 snapcraftcontent
+deallocation
+sys
