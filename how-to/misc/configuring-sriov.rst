@@ -127,7 +127,7 @@ Example:
 
     sunbeam cluster bootstrap --role control,compute
     # output #
-
+    # ...
     Configure SR-IOV? [y/n] (n): y
     Found the following SR-IOV capable devices:
       [ ] Mellanox Technologies MT2892 Family [ConnectX-6 Dx] (enp3s0f0np0) [physnet: None]
