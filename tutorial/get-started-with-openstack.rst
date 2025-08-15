@@ -106,7 +106,8 @@ To bootstrap the cloud for sample usage, execute the following command:
 .. important::
 
    Bootstrapping may fail if the ``rootfs`` partition does not have sufficient
-   available storage, or if there is no free, un-partitioned disk for MicroCeph.
+   available storage, or if there is no free, un-partitioned disk for MicroCeph,
+   or if pods in the control plane fail to start due to image pull timeouts.
    If any issue is encountered, consult the :doc:`Troubleshooting guide </how-to/troubleshooting/inspecting-the-cluster>`.
 
 Once it completes, you should be able to see the following message on your screen:
