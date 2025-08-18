@@ -7,6 +7,8 @@
 .. _Barbican CLI: https://docs.openstack.org/python-barbicanclient/latest/cli/
 .. _Designate: https://docs.openstack.org/designate/latest/index.html
 .. _Magnum: https://docs.openstack.org/magnum/latest/index.html
+.. _Manila: https://docs.openstack.org/manila/latest/index.html
+.. _Manila CLI: https://docs.openstack.org/python-manilaclient/latest/cli/osc_plugin_cli.html
 .. _Masakari: https://docs.openstack.org/masakari/latest/index.html
 
 .. _OpenStack snap: https://snapcraft.io/openstack
