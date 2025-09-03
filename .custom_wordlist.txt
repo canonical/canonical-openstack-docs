@@ -86,6 +86,7 @@ QCOW
 QEMU
 RabbitMQ
 RefStack
+ReplicaSet
 RBAC
 RPC
 SAML
@@ -93,6 +94,7 @@ SEV
 SHUTOFF
 SSD
 SimpleStreams
+StatefulSet
 IOV
 TLS
 Terraform

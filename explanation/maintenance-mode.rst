@@ -160,6 +160,14 @@ Check
     maintenance mode for the node hosting the juju controller pod without causing the cluster to go
     down. Enabling maintenance mode for the node hosting the juju controller pod is not allowed.
 
+* Workload redundancy
+
+  * The node-to-be-maintained should have at least one replica for all workloads (Deployment,
+    StatefulSet, or ReplicaSet). If it only has less than or equal to one replica, draining the
+    node could cause potential service downtime (e.g. some openstack related pods have PVC bound to
+    a node, those pods cannot be rescheduled to another node after they are evicted). Operators
+    should review the error message, and decide if it's okay to continue to drain the node.
+
 Apply
 ^^^^^
 
