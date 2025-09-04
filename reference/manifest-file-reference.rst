@@ -13,7 +13,98 @@ manifest file will all its supported keys.
    core:
 
      config:
-
+       # The identity section allows the configuration of different
+       # identity providers. At this point, this section configures OpenID Connect
+       # and SAML2 keystone federated providers.
+       identity:
+         # The SAML2 Service Provider x509 certificate and key. When enabling any SAML2
+         # IDP, this option becomes mandatory.
+         saml2_x509:
+           certificate: "/home/ubuntu/cert.pem"
+           key: "/home/ubuntu/key.pem"
+         # This section defines the providers we want to enable.
+         profiles:
+           # The name of the provider. This will be used as a provider ID when configured
+           # in OpenStack.
+           openid-example:
+             # The provider type. There are several specific provider types and one generic
+             # type.
+             provider: entra | google | okta | canonical | generic
+             # The federated identity protocol. The "canonical" provider type only supports
+             # "openid" for now.
+             protocol: openid | saml2
+             # Configuration options for the above mentioned provider/protocol pair.
+             config: {}
+           # Examples:
+           # entra-saml2:
+           #   provider: entra
+           #   protocol: saml2
+           #   config:
+           #     app-id: 82590875-2a9c-48cb-ba04-5125f0bed664
+           #     microsoft-tenant: 86e92722-ba4c-4b8d-95f2-216e612a9bc3
+           #     label: "Log in with Entra ID (SAML2)"
+           # entra-openid:
+           #   provider: entra
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     microsoft-tenant: 86e92722-ba4c-4b8d-95f2-216e612a9bc3
+           #     label: "Log in with Entra ID (OIDC)"
+           # okta-saml2:
+           #   provider: okta
+           #   protocol: saml2
+           #   config:
+           #     app-id: app-id-goes-here
+           #     okta-org: dev-123456
+           #     label: "Log in with Okta (SAML2)"
+           # okta-openid:
+           #   provider: okta
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     okta-org: dev-123456
+           #     label: "Log in with Okta (OIDC)"
+           # google-saml2:
+           #   provider: google
+           #   protocol: saml2
+           #   config:
+           #     app-id: 82590875-2a9c-48cb-ba04-5125f0bed664
+           #     label: "Log in with Google (SAML2)"
+           # google-openid:
+           #   provider: google
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     label: "Log in with Google (OIDC)"
+           # canonical-openid:
+           #   provider: canonical
+           #   protocol: openid
+           #   config:
+           #     # This is the offer for the oauth endpoint of the hydra deployment
+           #     # in canonical identity platform
+           #     oauth-offer: "iam.controller/iam.hydra"
+           #     # Optional: the offer for the CA certificate provider of the
+           #     # canonical identity platform.
+           #     cert-offer: iam.controller/iam.self-signed-certificates
+           # generic-saml2:
+           #   provider: generic
+           #   protocol: saml2
+           #   config:
+           #     metadata-url: https://saml2.example.com/app/sso/saml/metadata
+           #     # optional: The CA chain to validate the IDP.
+           #     ca-chain: /path/to/ca-chain.pem
+           #     label: "Log in with My-SAML2-IDP"
+           # generic-openid:
+           #   provider: generic
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     issuer-url: https://oidc.example.com/.well-known/openid-configuration
+           #     label: "Log in with My-OIDC-IDP"
        # Use local network proxy to access external resources
        proxy:
          proxy_required: [true,false]
@@ -36,7 +127,7 @@ manifest file will all its supported keys.
        region: <region>
        # Example:
        # region: RegionOne
-     
+
        k8s-addons:
          # Load balancer ranges
          loadbalancer: <cidr>,<cidr>,...
