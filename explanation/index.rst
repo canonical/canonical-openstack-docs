@@ -14,3 +14,4 @@ Index
    service-endpoint-encryption
    technical-motives
    maintenance-mode
+   moving-from-charmed-openstack
