@@ -17,6 +17,7 @@ CAPI
 Ceilometer
 Ceph
 CirrOS
+Cloudbase
 ConnectX
 CoreOS
 Curtin
@@ -226,6 +227,7 @@ sandboxing
 scalable
 scalability
 schedulable
+schemas
 sdb
 sev
 snapd
