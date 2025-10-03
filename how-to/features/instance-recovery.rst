@@ -412,7 +412,62 @@ Check the current PID, kill the process, wait a minute, and verify that a new pr
 
     juju exec --unit openstack-hypervisor/2 'pgrep -f guest=instance-00000001'
     juju exec --unit openstack-hypervisor/2 'sudo pkill -f -9 guest=instance-00000001'
-    juju exec --unit openstack-hyperivsor/2 'pgrep -f guest=instance-00000001'
+    juju exec --unit openstack-hypervisor/2 'pgrep -f guest=instance-00000001'
+
+TCP health checks
+-----------------
+
+Expected behavior
+^^^^^^^^^^^^^^^^^
+
+Refer to the recovery matrix above for when recovery is triggered and whether instances are
+evacuated. In short: management network failure triggers maintenance and evacuation per the
+segment’s recovery method; tenant or storage-only failures may put the node in maintenance
+without evacuating instances. See the Limitations section for details.
+
+NIC monitoring and evacuation
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Each hypervisor runs a Consul-based TCP health check against Consul servers at 10-second intervals (5-second timeout). On failure, a NIC-down
+  signal is raised and handled by Masakari on the affected node.
+  
+  Subsequence on the affected node:
+  
+  - Instances are shut down gracefully.
+  - The ``nova-compute`` service is disabled.
+- Evacuation destinations are chosen per the failover segment’s recovery method (reserved
+  hosts when available; otherwise any host in the same segment as per the policy).
+
+
+Automated checks (Consul)
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- Verify on a compute node:
+
+  ::
+
+      sudo cat /var/snap/consul-client_*/common/consul/config/client.json
+
+  Confirm:
+
+  - ``"enable_script_checks": true``.
+  - Service ``"tcp-health-check"`` with ``"interval": "10s"``, ``"timeout": "5s"`` and
+    ``"args"`` invoking ``tcp_health_check.py``.
+
+Disable TCP health checks
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Disable the Consul TCP health checks while keeping Instance Recovery enabled by removing the
+``consul-notify`` relation(s):
+
+::
+
+    juju remove-relation consul-client-management:consul-notify openstack-hypervisor:consul-notify
+
+Repeat for tenant/storage apps if present:
+
+- ``consul-client-tenant:consul-notify``
+- ``consul-client-storage:consul-notify``
 
 Supplementary information
 -------------------------
