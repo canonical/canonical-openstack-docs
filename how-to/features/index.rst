@@ -21,6 +21,7 @@ Optional Features
    orchestration
    resource-optimization
    secrets
+   shared-filesystem
    telemetry
    ubuntu-pro
    validation

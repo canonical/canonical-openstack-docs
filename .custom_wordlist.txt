@@ -16,6 +16,7 @@ Catalogue
 CAPI
 Ceilometer
 Ceph
+CephFS
 CirrOS
 ConnectX
 CoreOS
@@ -67,6 +68,7 @@ Multipass
 NATed
 Netplan
 Numa
+NFS
 NIC
 NOPASSWD
 Northd
