@@ -40,6 +40,7 @@ Gbps
 Geneve
 GiB
 Github
+GPUs
 HOTs
 HTTP
 HTTPS
@@ -67,6 +68,7 @@ Multipass
 NATed
 Netplan
 Numa
+Nvidia
 NIC
 NOPASSWD
 Northd
@@ -81,6 +83,7 @@ OSDs
 OSI
 OVN
 OVS
+Passthrough
 PCI
 PF
 PFs
@@ -203,6 +206,7 @@ openstack
 openstackclient
 os
 ovs
+passthrough
 passwordless
 pcap
 pci
