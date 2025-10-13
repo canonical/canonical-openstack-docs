@@ -1,29 +1,25 @@
 Use the EPA orchestrator
 ==========================
 
-The snap `epa-orchestrator` provides CPU core allocation functionality for CPU pinning through the EPA orchestrator service.
+The snap `epa-orchestrator` provides NUMA-aware CPU cores and Huge Pages allocation functionality.
 
 Prerequisites
 -------------
 
-Before using EPA orchestrator, ensure that:
+Before using the EPA orchestrator, ensure that the following kernel command line parameters are configured. For MAAS deployments, configure these via the MAAS UI for each node. For single node deployments, configure them manually on the node.
 
-1. CPU isolation is configured via the ``isolcpus`` kernel command line parameter (if CPU pinning is required)
-   
-   - For MAAS, this can be done via MAAS UI for each node.
-   - For single node, this should be done manually on the node.
-2. The target service has the appropriate plug to connect to the ``epa-info`` slot
-3. The ``sunbeam-machine`` charm, which will install the ``epa-orchestrator`` charm as a subordinate charm, is deployed.
+1. **CPU isolation**: Configure via the ``isolcpus`` parameter.
+2. **Huge Pages**: Configure via the ``default_hugepagesz``, ``hugepagesz``, and ``hugepages`` parameters (e.g., ``default_hugepagesz=1G hugepagesz=1G hugepages=16``).
 
-Set up socket communication
--------------------------------
+Snap Interface
+--------------
 
 To enable communication between the EPA orchestrator and other snaps (like ``openstack-hypervisor``), you need to connect the `epa-info` interface.
 
 Manual Connection
 ~~~~~~~~~~~~~~~~~
 
-This is required until the ``epa-orchestrator`` charm is published to stable channel and the ownership is transferred to Canonical.
+This is required until the ``epa-orchestrator`` charm is published to the stable channel and the ownership is transferred to Canonical.
 
 Connect the interface using:
 
@@ -50,17 +46,13 @@ Example output:
 
 The `manual` status indicates the connection was manually established and is active.
 
-EPA socket API
---------------------
+Request resource allocation
+---------------------------
 
-To request CPU cores for your service, use the EPA Socket API.
+Use the socket API to request and manage CPU pinning and huge pages allocation for your services. Connect to the ``epa.sock`` socket and send JSON-based requests using the following APIs: CPU core allocation (``allocate_cores``), NUMA-aware core allocation (``allocate_numa_cores``), listing allocations (``list_allocations``), memory allocation information (``get_memory_info``), and huge pages allocation (``allocate_hugepages``). The orchestrator returns JSON responses containing the allocated resources, including CPU ranges and huge pages assignments, along with information about remaining available resources.
 
-1. **Connect to the EPA orchestrator socket**
-2. **Send an allocation request** with your desired number of cores
-3. **Process the response** to get your allocated CPU ranges
-
-Verify EPA orchestrator status
----------------------------------
+Verify the EPA orchestrator status
+-----------------------------------
 
 To verify that the EPA orchestrator is properly installed and running, use the `juju status` command. A successful deployment should show the `epa-orchestrator` application in an active state.
 
@@ -81,12 +73,3 @@ Example output:
    
    Machine  State    Address       Inst id        Base          AZ  Message  
    0        started  10.28.254.92  juju-ea75f5-0  ubuntu@24.04      Running
-
-In this example:
-
-* **Model**: Shows the current Juju model (`example-model`)
-* **App**: The `epa-orchestrator` application is listed with status `active`
-* **Unit**: The `epa-orchestrator/0*` unit shows `active` workload and `idle` agent status
-* **Machine**: The unit is deployed on machine `0` which is in `started` state
-
-The ``*`` indicates the primary unit for the application. When you see this status, the EPA Orchestrator is ready to handle CPU core allocation requests.
