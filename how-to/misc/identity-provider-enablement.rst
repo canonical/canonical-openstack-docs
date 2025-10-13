@@ -36,16 +36,16 @@ Requirements
 ------------
 
 Before we begin, make sure that you have enabled TLS through the use of Vault. Virtually all providers require that
-the redirect URL is TLS enabled. Moreover, some providers require that the redirect URL uses a host name and not an IP
-address. This means that for the external host name you must also set a valid hostname. Both of these operations can be
-done by enabling Vault.
+the redirect URL is TLS enabled. Moreover, some providers require that the redirect URL uses a fully qualified domain
+name and not an IP address. This means that for the external host name you must also set a valid hostname. Both of
+these operations can be done by enabling Vault.
 
 Adding an Identity provider
 ---------------------------
 
 There are two types of relations supported by Canonical OpenStack:
 
-* External OpenID connect providers (Google, Okta, Entra ID)
+* External providers (Google, Okta, Entra ID) for both OpenID connect and SAML2
 * `Canonical Identity Platform <https://charmhub.io/topics/canonical-identity-platform>`_ which is expected to be deployed in a different juju model.
 
 Enabling Canonical Identity Platform as an IdP
@@ -99,12 +99,12 @@ Now we can list the providers:
 ::
 
     sunbeam identity provider list
-    +-----------------------------+------------+----------+
-    | Name                        | Provider   | Protocol |
-    +-----------------------------+------------+----------+
-    | Keystone Credentials        | Built-in   | keystone |
-    | canonical-identity-platform | canonical  | openid   |
-    +-----------------------------+------------+----------+
+    +-----------------------------+------------+----------+------------+
+    | Name                        | Provider   | Protocol | Remote ID  |
+    +-----------------------------+------------+----------+------------+
+    | Keystone Credentials        | Built-in   | keystone | N/A        |
+    | canonical-identity-platform | canonical  | openid   | N/A        |
+    +-----------------------------+------------+----------+------------+
 
 At this point the configurations exist in apache, keystone and horizon that enable a cloud administrator to configure it as an authentication backend. We will
 cover that part later.
@@ -114,9 +114,13 @@ External IdPs
 
 Canonical OpenStack currently supports the following IdP types:
 
-* `Google <https://developers.google.com/identity/openid-connect/openid-connect>`_
-* `Okta <https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm>`_
-* `Entra ID <https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc#enable-id-tokens>`_
+* `Google (OIDC) <https://developers.google.com/identity/openid-connect/openid-connect>`_
+* `Google (SAML2) <https://cloud.google.com/chronicle/docs/soar/admin-tasks/saml-soar-only/saml-configuration-for-g-suite>`_
+* `Okta (OIDC) <https://help.okta.com/en-us/content/topics/apps/apps_app_integration_wizard_oidc.htm>`_
+* `Okta (SAML2) <https://developer.okta.com/docs/guides/add-an-external-idp/saml2/main/>`_
+* `Entra ID (OIDC) <https://learn.microsoft.com/en-us/entra/identity-platform/v2-protocols-oidc#enable-id-tokens>`_
+* `Entra ID (SAML2) <https://learn.microsoft.com/en-us/entra/architecture/auth-saml>`_
+* Generic (SAML2 and OIDC)
 
 Each of these provider types require specific configurations in order to enable them and each have their own procedure for creating the client credentials needed to initiate the authentication workflow.
 You will have to consult the official documentation for each, in order to generate the required client credentials. The configuration formats that Canonical OpenStack requires are detailed below. The configuration
@@ -130,16 +134,43 @@ the following command:
     sunbeam identity provider get-oidc-redirect-url
     https://sunbeam.example.com/openstack-keystone/v3/OS-FEDERATION/protocols/openid/redirect_uri
 
+For SAML2 you will need to know the metadata URL of the Service Provider (Keystone in our case). The metadata URL will return the SP XML for keystone, where you can find
+the signing certificate that keystone will use, the single sign out URL and the Assertion Consumer Service URL. You will need this information to set up the SAML2 application
+in your provider of choice.
+
+The metadata URL for a particular provider can be inferred from the FQDN of keystone, the provider name and the provider protocol.
+If we have a provider named `entra` that uses `saml2` and our FQDN is `sunbeam.example.com` then the metadata URL will be:
+
+::
+
+    https://sunbeam.example.com/openstack-keystone/v3/OS-FEDERATION/identity_providers/entra/protocols/saml2/auth/mellon/metadata
+
+
 Note, the schema **must** be **https** and you **should** have a fully qualified domain name configured instead of an IP address. Depending on IdP, this might be a requirement (Google for example). If that is not the case,
 you should enable TLS in sunbeam, using Vault.
 
-Google config format
-^^^^^^^^^^^^^^^^^^^^
+SAML2 special consideration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+When creating a SAML2 entry in Canonical OpenStack, there is a bit of a chicken and egg situation. The application needs to exist in the provider of choice before you
+can add it to Canonical OpenStack, but you also need the information in the metadata XML we offer to configure the application in the IDP of choice. Luckily, the information
+you use when creating the application does not need to be accurate. You will be able to create the application even with placeholder values. Once you create the application, you
+can add it to Canonical OpenStack. Once added, you will be able to get the values from the metadata URL mentioned above and edit the application in the IDP of choice.
+
+Another important consideration is that for SAML2 you will need to make sure you've added an x509 signing certificate and the corresponding key:
+
+::
+
+    sunbeam identity set-saml-x509 /path/to/cert.pem /path/to/key.pem
+
+
+Google config format (OIDC)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There are two mandatory configuration parameters and one optional parameter:
 
-* `client_id` - mandatory
-* `client_secret` - mandatory
+* `client-id` - mandatory
+* `client-secret` - mandatory
 * `label` - optional
 
 Example config:
@@ -148,16 +179,31 @@ Example config:
 
     client-id: client_id_obtained_from_your_console
     client-secret: client_secret_associated_with_the_id
-    label: "Log in with Google"
+    label: "Log in with Google (OIDC)"
+
+Google config format (SAML2)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There is one mandatory configuration parameter and one optional parameter:
+
+* `app-id` - mandatory
+* `label` - optional
+
+Example config:
+
+::
+
+    app-id: saml2_app_id
+    label: "Log in with Google (SAML2)"
 
 
-Okta config format
-^^^^^^^^^^^^^^^^^^^^
+Okta config format (OIDC)
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There are three mandatory configuration parameters and one optional parameter:
 
-* `client_id` - mandatory
-* `client_secret` - mandatory
+* `client-id` - mandatory
+* `client-secret` - mandatory
 * `okta-org` - mandatory
 * `label` - optional
 
@@ -170,13 +216,30 @@ Example config:
     okta-org: dev-123456
     label: "Log in with Okta"
 
-Entra ID config format
-^^^^^^^^^^^^^^^^^^^^^^
+Okta config format (SAML2)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are two mandatory configuration parameters and one optional parameter:
+
+* `app-id` - mandatory
+* `okta-org` - mandatory
+* `label` - optional
+
+Example config:
+
+::
+
+    app-id: app_id_goes_here
+    okta-org: dev-123456
+    label: "Log in with Okta (SAML2)"
+
+Entra ID config format (OIDC)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 There are three mandatory configuration parameters and one optional parameter:
 
-* `client_id` - mandatory
-* `client_secret` - mandatory
+* `client-id` - mandatory
+* `client-secret` - mandatory
 * `microsoft-tenant` - mandatory
 * `label` - optional
 
@@ -187,7 +250,85 @@ Example config:
     client-id: client_id_obtained_from_your_console
     client-secret: client_secret_associated_with_the_id
     microsoft-tenant: tenant-uuid-goes-here
-    label: "Log in with Entra ID"
+    label: "Log in with Entra ID (OIDC)"
+
+Entra ID config format (SAML2)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There are two mandatory configuration parameters and one optional parameter:
+
+* `app-id` - mandatory
+* `microsoft-tenant` - mandatory
+* `label` - optional
+
+Example config:
+
+::
+
+    app-id: app_id_goes_here
+    microsoft-tenant: tenant-uuid-goes-here
+    label: "Log in with Entra ID (SAML2)"
+
+Generic (OIDC)
+^^^^^^^^^^^^^^
+
+The generic provider allows you to configure any OIDC compatible provider.
+
+There are three mandatory parameters and one optional parameter:
+
+* `client-id` - mandatory
+* `client-secret` - mandatory
+* `issuer-url` - mandatory
+* `label` - optional
+
+Example config:
+
+::
+
+    client-id: client_id_obtained_from_your_console
+    client-secret: client_secret_associated_with_the_id
+    issuer-url: https://oidc.example.com
+    label: "Log in with My OpenID connect provider"
+
+A note about the `issuer-url`. This URL identifies the provider. It is also the URL from which we get the OpenID connect configuration.
+The issuer URL, must have the well-known openid configuration URL available. This URL can be constructed by appending
+`/.well-known/openid-configuration` to the issuer URL.
+
+Example:
+
+::
+
+    https://accounts.google.com/.well-known/openid-configuration
+
+
+In the above example, `https://accounts.google.com` is the `issuer-url`.
+
+For the generic OpenID connect there is no option to specify a custom CA certificate chain to validate the `issuer-url`. You will need to use
+a certificate issued by a CA that your deployment already trusts.
+
+Generic (SAML2)
+^^^^^^^^^^^^^^^
+
+Similar to the OIDC generic provider, the generic SAML2 provider allow you to configure any SAML2 compliant IDP, as long as you know the metadata URL.
+
+There is only one mandatory configuration parameter for the SAML2 provider and two optional parameters.
+
+
+* `metadata-url` - mandatory
+* `ca-chain` - optional
+* `label` - optional
+
+Example config:
+
+::
+
+    metadata-url: https://saml2.example.com/metadata
+    ca-chain: base64-encoded-ca-chain-goes-here
+    label: "Log in with My Custom SAML2 IDP"
+
+The metadata URL must contain a XML response that identifies the IDP. The XML must contain the remote `entityID`, as well as the signing x509 keys of the remote IDP.
+The value of the `entityID` property must be used when defining the IDP in Canonical OpenStack as the remote ID.
+
 
 Adding an external IdP
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -206,15 +347,15 @@ Now we can list the providers:
 ::
 
     sunbeam identity provider list
-    +-----------------------------+------------+----------+
-    | Name                        | Provider   | Protocol |
-    +-----------------------------+------------+----------+
-    | Keystone Credentials        | Built-in   | keystone |
-    | canonical-identity-platform | canonical  | openid   |
-    | my-google-idp               | google     | openid   |
-    +-----------------------------+------------+----------+
+    +-----------------------------+------------+----------+------------------------------+
+    | Name                        | Provider   | Protocol | Remote ID                    |
+    +-----------------------------+------------+----------+------------------------------|
+    │ Keystone Credentials        │ Built-in   │ keystone │ N/A                          │
+    | canonical-identity-platform | canonical  | openid   | N/A                          |
+    │ my-google-idp               │ google     │ openid   │ https://accounts.google.com  │
+    +-----------------------------+------------+----------+------------------------------|
 
-Okta and Entra ID have identical procedures.
+Adding a SAML2 or OIDC provider has a similar procedure for all above mentioned options.
 
 Make a note of the name of the provider and of the protocol. We will use them in the next steps to enable these providers in keystone.
 
@@ -250,15 +391,17 @@ Get the issuer URL for the desired IdP. In this case we'll go with `my-google-id
 
 ::
 
-    ISSUER_URL=$(sunbeam identity provider list \
-        --format=yaml |  yq -r '."my-google-idp".issuer_url')
+    REMOTE_ID=$(sunbeam identity provider list \
+        --format=yaml |  yq -r '.openid."my-google-idp".remote_id')
+
+Note, if you're configuring a saml2 IDP, you will need to adapt the `yq` arguments in the above command.
 
 Create the identity provider in Keystone:
 
 ::
 
     openstack identity provider create \
-        --remote-id $ISSUER_URL \
+        --remote-id $REMOTE_ID \
         --domain google \
         my-google-idp
 
@@ -329,7 +472,7 @@ Create a file with the rules:
     EOF
 
 Note, we're using **REMOTE_USER** as the remote user ID, but you may also use other attributes like **OIDC-preferred_username** or **OIDC-email**. But that
-is a call left to the cloud administrator. The above rules will create a user and add it to the group **federated_users** in the domain **google**. 
+is a call left to the cloud administrator. The above rules will create a user and add it to the group **federated_users** in the domain **google**.
 
 Create the mapping:
 

@@ -5,7 +5,7 @@ Sunbeam requires a properly cabled and configured hardware to be able to install
 
 .. note ::
   Depending on your scenario you might not need both physical networks and all six machines.
-  Please refer to instructions under tutorials and how-go guides for exact hardware requirements
+  Please refer to instructions under tutorials and how-to guides for exact hardware requirements
   for each scenario.
 
 Layout
@@ -114,7 +114,7 @@ The following section documents example physical configuration of machines.
 Physical machines
 -----------------
 
-The example physical configuration assumes 3 Cloud nodes and 3 Governor nodes spread across 3 different physical zones for full HA regardless of the cloud architecture being used. Depending on your scenario you might not need all six machines. Please refer to instructions under tutorials and how-go guides for exact hardware requirements for each scenario.
+The example physical configuration assumes 3 Cloud nodes and 3 Governor nodes spread across 3 different physical zones for full HA regardless of the cloud architecture being used. Depending on your scenario you might not need all six machines. Please refer to instructions under tutorials and how-to guides for exact hardware requirements for each scenario.
 
 Virtual machines
 ----------------

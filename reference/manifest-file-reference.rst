@@ -13,7 +13,98 @@ manifest file will all its supported keys.
    core:
 
      config:
-
+       # The identity section allows the configuration of different
+       # identity providers. At this point, this section configures OpenID Connect
+       # and SAML2 keystone federated providers.
+       identity:
+         # The SAML2 Service Provider x509 certificate and key. When enabling any SAML2
+         # IDP, this option becomes mandatory.
+         saml2_x509:
+           certificate: "/home/ubuntu/cert.pem"
+           key: "/home/ubuntu/key.pem"
+         # This section defines the providers we want to enable.
+         profiles:
+           # The name of the provider. This will be used as a provider ID when configured
+           # in OpenStack.
+           openid-example:
+             # The provider type. There are several specific provider types and one generic
+             # type.
+             provider: entra | google | okta | canonical | generic
+             # The federated identity protocol. The "canonical" provider type only supports
+             # "openid" for now.
+             protocol: openid | saml2
+             # Configuration options for the above mentioned provider/protocol pair.
+             config: {}
+           # Examples:
+           # entra-saml2:
+           #   provider: entra
+           #   protocol: saml2
+           #   config:
+           #     app-id: 82590875-2a9c-48cb-ba04-5125f0bed664
+           #     microsoft-tenant: 86e92722-ba4c-4b8d-95f2-216e612a9bc3
+           #     label: "Log in with Entra ID (SAML2)"
+           # entra-openid:
+           #   provider: entra
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     microsoft-tenant: 86e92722-ba4c-4b8d-95f2-216e612a9bc3
+           #     label: "Log in with Entra ID (OIDC)"
+           # okta-saml2:
+           #   provider: okta
+           #   protocol: saml2
+           #   config:
+           #     app-id: app-id-goes-here
+           #     okta-org: dev-123456
+           #     label: "Log in with Okta (SAML2)"
+           # okta-openid:
+           #   provider: okta
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     okta-org: dev-123456
+           #     label: "Log in with Okta (OIDC)"
+           # google-saml2:
+           #   provider: google
+           #   protocol: saml2
+           #   config:
+           #     app-id: 82590875-2a9c-48cb-ba04-5125f0bed664
+           #     label: "Log in with Google (SAML2)"
+           # google-openid:
+           #   provider: google
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     label: "Log in with Google (OIDC)"
+           # canonical-openid:
+           #   provider: canonical
+           #   protocol: openid
+           #   config:
+           #     # This is the offer for the oauth endpoint of the hydra deployment
+           #     # in canonical identity platform
+           #     oauth-offer: "iam.controller/iam.hydra"
+           #     # Optional: the offer for the CA certificate provider of the
+           #     # canonical identity platform.
+           #     cert-offer: iam.controller/iam.self-signed-certificates
+           # generic-saml2:
+           #   provider: generic
+           #   protocol: saml2
+           #   config:
+           #     metadata-url: https://saml2.example.com/app/sso/saml/metadata
+           #     # optional: The CA chain to validate the IDP.
+           #     ca-chain: /path/to/ca-chain.pem
+           #     label: "Log in with My-SAML2-IDP"
+           # generic-openid:
+           #   provider: generic
+           #   protocol: openid
+           #   config:
+           #     client-id: "the-client-id-goes-here"
+           #     client-secret: "super-secret-client-secret"
+           #     issuer-url: https://oidc.example.com/.well-known/openid-configuration
+           #     label: "Log in with My-OIDC-IDP"
        # Use local network proxy to access external resources
        proxy:
          proxy_required: [true,false]
@@ -21,6 +112,87 @@ manifest file will all its supported keys.
          http_proxy: <url>:<port>
          https_proxy: <url>:<port>
          no_proxy: <host>,<host>,...
+
+       # Configure OVS DPDK datapath (userspace), improving network performance.
+       dpdk:
+         # If enabled, OVS bridges are configured to use the netdev (DPDK) datapath
+         # instead of the standard system datapath.
+         enabled: [true, false]
+         # The number of CPU cores to allocate for OVS control plane processing.
+         control_plane_cores: 1
+         # The number of CPU cores to allocate for OVS data plane processing.
+         dataplane_cores: 1
+         # The amount of hugepage memory (MB) to reserve for OVS DPDK.
+         memory: 1024
+         # The DPDK compatible driver that will be assigned to physical
+         # interfaces connected to the DPDK dapapath.
+         driver: vfio-pci
+         # A list of physical interfaces to use with DPDK for each node.
+         #
+         # The interfaces will be persistently bound to the configured DPDK
+         # compatible driver, no longer being visible to the host.
+         #
+         # OVS bridges containing those interfaces (or bonds) are expected to
+         # be defined through Netplan or MAAS. Canonical Openstack will move
+         # the corresponding Netplan configuration to OVS, using the resulting
+         # OVS DPDK physical ports.
+         #
+         # Example:
+         # ports:
+         #   r740-dc1-ceph.maas:
+         #     - eno2
+         #     - enp94s0
+         ports:
+           <host-fqdn>:
+             - <iface1>
+             - <iface2>
+
+       # This section defines PCI passthrough configuration, allowing SR-IOV
+       # VFs, GPUs and other PCI devices to be exposed to Openstack instances.
+       pci:
+         # A list of PCI filters specifying which devices to expose.
+         # The specs can contain exact PCI addresses, address wildcards,
+         # address regular expressions or vendor/product id tuples.
+         # SR-IOV interfaces may also contain a Neutron physical network,
+         # usually known as "physnet".
+         #
+         # See the Nova documentation for more details.
+         # https://docs.openstack.org/nova/latest/configuration/config.html#pci.device_spec
+         #
+         # Note that the following list applies to all compute nodes, use
+         # the "excluded_devices" field to define per-node exclusion lists.
+         #
+         # Example:
+         # device_specs:
+         #   - address: "0000:1b:00.0"
+         #     vendor_id: "8086"
+         #     product_id: "1563"
+         #     physical_network: "physnet1"
+         device_specs: []
+         # Per-node PCI device exclusion list, containing excluded PCI addresses.
+         #
+         # Example:
+         # excluded_devices:
+         #   r740-dc1-ceph.maas:
+         #     - "0000:19:00.0"
+         #     - "0000:19:00.1"
+         excluded_devices:
+           <host-fqdn>:
+             - <pci-addr1>
+             - <pci-addr2>
+         # A list of aliases that can be used to request PCI devices through
+         # Nova flavor extra specs.
+         #
+         # See the Nova documentation for more details.
+         # https://docs.openstack.org/nova/latest/configuration/config.html#pci.alias
+         #
+         # Example:
+         # aliases:
+         #   - vendor_id: "8086"
+         #     product_id: "1565"
+         #     device_type: type-VF
+         #     name: "intel-vf"
+         aliases: {}
 
        bootstrap:
          # Management networks shared by hosts
@@ -36,7 +208,7 @@ manifest file will all its supported keys.
        region: <region>
        # Example:
        # region: RegionOne
-     
+
        k8s-addons:
          # Load balancer ranges
          loadbalancer: <cidr>,<cidr>,...

@@ -84,14 +84,14 @@ Regions
 
 Regions are general divisions of an OpenStack cloud with their own API endpoints and resources (compute, network and storage), while sharing the same identity records. The purpose of regions is to facilitate deployments of OpenStack across geographically distributed locations.
 
-In general, Canonical recommends running several small clouds rather than one big cloud and using :ref:`third-party tools<Third-party software>` third-party tools, such as a Cloud Platform Management (CPM) solution to manage them centrally.
+In general, Canonical recommends running several small clouds rather than one big cloud and using :ref:`third-party tools<Third-party software>`, such as a Cloud Platform Management (CPM) solution to manage them centrally.
 
 Cells
 +++++
 
 Cells are OpenStack’s internal concept that enables cloud deployments on a large scale by sharding some of its internal components, such as databases and messaging queues.
 
-In general, Canonical recommends running several small clouds rather than one big cloud and using :ref:`third-party tools<Third-party software>` third-party tools, such as a Cloud Platform Management (CPM) solution to manage them centrally.
+In general, Canonical recommends running several small clouds rather than one big cloud and using :ref:`third-party tools<Third-party software>`, such as a Cloud Platform Management (CPM) solution to manage them centrally.
 
 Hypervisor
 ++++++++++
@@ -113,7 +113,7 @@ Air-gapped and offline deployments
 ++++++++++++++++++++++++++++++++++
 
 Canonical OpenStack can be deployed in an air-gapped mode by using an :doc:`external proxy
-</how-to/misc/manage-a-proxied-environment>` external proxy to download all necessary artifacts
+</how-to/misc/manage-a-proxied-environment>` to download all necessary artifacts
 from the Internet. Fully offline deployments will be available soon.
 
 .. _Third-party software:

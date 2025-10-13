@@ -147,7 +147,12 @@ linkcheck_ignore = [
     # TODO(wolsen) remove when this site is active
     'https://canonical.com/openstack',
     'https://matrix.to/#/#openstack-sunbeam:ubuntu.com',
+    # Extremely slow to load, times out even after 30s
+    'https://bugs.launchpad.net/sunbeam-charms',
 ]
+
+linkcheck_retries = 10
+linkcheck_timeout = 30
 
 # Pages on which to ignore anchors
 # (This list will be appended to linkcheck_anchors_ignore_for_url)
