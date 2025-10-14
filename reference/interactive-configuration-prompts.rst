@@ -95,3 +95,7 @@ preceding question.
      - | A list of DNS server IP addresses (comma separated) that should be used for external DNS resolution from cloud instances.
    * - **Enable ping and SSH access to instances**
      - | Whether security group rules are to be added that allow ICMP and SSH traffic to reach VMs. In most cases this is desirable.
+   * - **External network's interface**
+     - | *Shown for remote access only.*
+       | Name of the NIC on the **network** node that connects to your upstream
+       | external network.

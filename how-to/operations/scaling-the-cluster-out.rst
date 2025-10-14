@@ -102,7 +102,7 @@ In order to add the machine to the cluster, execute the ``sunbeam cluster join``
 
 ``FILE`` is a name of the file with the registration token.
 
-``ROLES``` is a comma-separated list of roles (``control``, ``compute``, ``storage``) to assign to the machine being added.
+``ROLES``` is a comma-separated list of roles (``control``, ``compute``, ``network``, ``storage``) to assign to the machine being added.
 
 For example, to add the *cloud-2* machine from the :doc:`Example physical configuration</reference/example-physical-configuration>` section, execute the following command:
 
