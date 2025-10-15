@@ -50,9 +50,10 @@ abstracting its complexity from operators.
 
 To install the ``openstack`` snap, execute the following terminal command:
 
-.. code-block :: text
-   
-   sudo snap install openstack
+.. literalinclude:: snippets/get-started-with-openstack.task.sh
+   :language: bash
+   :start-after: [docs-view:installation]
+   :end-before:  [docs-view:installation-end]
 
 Prepare the machine
 -------------------
@@ -70,14 +71,15 @@ In order to facilitate this process, Sunbeam can generate a script that you can 
 and execute step by step:
 
 .. code-block :: text
-   
+
    sunbeam prepare-node-script --bootstrap
 
 However, if you simply want to execute all those commands at once, you can also pipe them directly to Bash instead:
 
-.. code-block :: text
-   
-   sunbeam prepare-node-script --bootstrap | bash -x && newgrp snap_daemon
+.. literalinclude:: snippets/get-started-with-openstack.task.sh
+   :language: bash
+   :start-after: [docs-view:prepare-node-script]
+   :end-before:  [docs-view:prepare-node-script-end]
 
 Bootstrap the cloud
 -------------------
@@ -99,9 +101,10 @@ a while to complete. In principle, Sunbeam orchestrates the following actions in
 
 To bootstrap the cloud for sample usage, execute the following command:
 
-.. code-block :: text
-   
-   sunbeam cluster bootstrap --accept-defaults --role control,compute,storage
+.. literalinclude:: snippets/get-started-with-openstack.task.sh
+   :language: bash
+   :start-after: [docs-view:bootstrap]
+   :end-before:  [docs-view:bootstrap-end]
 
 .. important::
 
@@ -112,7 +115,7 @@ To bootstrap the cloud for sample usage, execute the following command:
 Once it completes, you should be able to see the following message on your screen:
 
 .. code-block :: text
-   
+
    Node has been bootstrapped with roles: storage, control, compute
 
 .. note ::
@@ -138,9 +141,10 @@ We will explore in :doc:`another tutorial</tutorial/on-board-your-users>` how th
 
 To configure the cloud for sample usage, execute the following command:
 
-.. code-block :: text
-   
-   sunbeam configure --accept-defaults --openrc demo-openrc
+.. literalinclude:: snippets/get-started-with-openstack.task.sh
+   :language: bash
+   :start-after: [docs-view:configure]
+   :end-before:  [docs-view:configure-end]
 
 Once it completes, you should be able to see the following message on your screen:
 
@@ -159,14 +163,15 @@ The best way to verify whether Canonical OpenStack has been deployed successfull
 
 In order to launch a test VM, execute the following command:
 
-.. code-block :: text
-   
-   sunbeam launch ubuntu --name test
+.. literalinclude:: snippets/get-started-with-openstack.task.sh
+   :language: bash
+   :start-after: [docs-view:launch]
+   :end-before:  [docs-view:launch-end]
 
 Sample output:
 
 .. code-block :: text
-   
+
    Launching an OpenStack instance ...
    Access instance with `ssh -i /home/ubuntu/snap/openstack/584/sunbeam ubuntu@10.20.20.94`
 
@@ -174,14 +179,15 @@ Sample output:
 
 You should now be able to connect to your VM over SSH using the provided command:
 
-.. code-block :: text
-   
-   ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.200
+.. literalinclude:: snippets/get-started-with-openstack.task.sh
+   :language: bash
+   :start-after: [docs-view:ssh]
+   :end-before:  [docs-view:ssh-end]
 
 That's it. You're now connected to the VM. You can use regular shell commands to execute various tasks:
 
 .. code-block :: text
-   
+
    $ uptime
    10:54:29 up 1 min,  1 user,  load average: 0.00, 0.00, 0.00
 
