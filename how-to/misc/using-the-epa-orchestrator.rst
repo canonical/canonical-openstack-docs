@@ -1,9 +1,10 @@
 Use the EPA orchestrator
-==========================
+========================
 
-The snap `epa-orchestrator` provides NUMA-aware CPU cores and Huge Pages allocation functionality.
+The snap `epa-orchestrator` provides NUMA-aware CPU cores and huge pages allocation functionality, and this guide explains how to configure and manage the EPA orchestrator to optimize resource allocation for OpenStack workloads.
 
-System Configuration Requirements
+
+System configuration requirements
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Before using the EPA orchestrator, ensure that the following kernel command line parameters are configured. For MAAS deployments, configure these via the MAAS UI for each node. For single node deployments, configure them manually on the node.
@@ -14,15 +15,15 @@ For detailed instructions on setting kernel boot parameters via the CLI, refer t
 For **single-node deployments**, configure these parameters manually on the node.
 
 1. **CPU isolation**: Reserve dedicated CPU cores for EPA workloads by setting the ``isolcpus`` kernel parameter.
-2. **Huge Pages**: Enable large memory pages by setting parameters such as ``default_hugepagesz``, ``hugepagesz``, and ``hugepages`` (for example, to configure 16 × 1 GB Huge Pages).
+2. **Huge pages**: Enable large memory pages by setting parameters such as ``default_hugepagesz``, ``hugepagesz``, and ``hugepages`` (for example, to configure 16 × 1 GB huge pages).
 
 
-Snap Interface
+Snap interface
 --------------
 
 To enable communication between the EPA orchestrator and other snaps (like ``openstack-hypervisor``), you need to connect the `epa-info` interface.
 
-Manual Connection
+Manual connection
 ~~~~~~~~~~~~~~~~~
 
 This is required until the ``epa-orchestrator`` charm is published to the stable channel and the ownership is transferred to Canonical.
