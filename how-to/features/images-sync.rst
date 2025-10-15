@@ -13,18 +13,20 @@ Enable Images Sync
 
 To enable Images Sync, run the following command:
 
-::
-
-   sunbeam enable images-sync
+.. literalinclude:: ../snippets/images-sync.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-images-sync]
+   :end-before:  [docs-view:enable-images-sync-end]
 
 Disable Images Sync
 -------------------
 
 To disable Images Sync, run the following command:
 
-::
-
-   sunbeam disable images-sync
+.. literalinclude:: ../snippets/images-sync.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-images-sync]
+   :end-before:  [docs-view:disable-images-sync-end]
 
 .. caution::
    **Caution**: Disabling Images Sync will **not** remove images that have been

@@ -9,9 +9,10 @@ Enabling Orchestration
 
 To enable Orchestration, run the following command:
 
-::
-
-   sunbeam enable orchestration
+.. literalinclude:: ../snippets/orchestration.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-orchestration]
+   :end-before:  [docs-view:enable-orchestration-end]
 
 Use OpenStack CLI to manage orchestration stacks. See the upstream `Heat
 documentation <https://docs.openstack.org/heat/latest/getting_started/create_a_stack.html>`__
