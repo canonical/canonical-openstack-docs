@@ -15,3 +15,4 @@ Index
    technical-motives
    maintenance-mode
    epa-orchestrator
+   instance-recovery

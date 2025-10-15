@@ -40,6 +40,7 @@ Gbps
 Geneve
 GiB
 Github
+GPUs
 HOTs
 HTTP
 HTTPS
@@ -67,6 +68,7 @@ Multipass
 NATed
 Netplan
 Numa
+Nvidia
 NIC
 NOPASSWD
 Northd
@@ -81,6 +83,7 @@ OSDs
 OSI
 OVN
 OVS
+Passthrough
 PCI
 PF
 PFs
@@ -204,6 +207,7 @@ openstack
 openstackclient
 os
 ovs
+passthrough
 passwordless
 pcap
 pci
@@ -255,6 +259,8 @@ vm
 vSwitch
 webhook
 yaml
+NIC
+TCP
 yq
 # These are used for the proxy list. Need to find a better way to do this
 amazonaws
