@@ -40,3 +40,12 @@ Troubleshooting
    :maxdepth: 2
 
    troubleshooting/index
+
+Security
+--------
+
+.. toctree::
+   :maxdepth: 2
+
+   security/index
+
