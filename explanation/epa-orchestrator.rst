@@ -1,7 +1,7 @@
 CPU pinning and huge pages
 ==========================
 
-The Enhanced Performance Accelerator (EPA) orchestrator provides resource allocation for CPU pinning and huge pages within Sunbeam OpenStack. The EPA orchestrator is a snap that runs a daemon service `snap.epa-orchestrator.daemon.server` and exposes a Unix socket API for resource allocation, introspection, and management. The EPA orchestrator is designed to work seamlessly with other OpenStack services such as `openstack-hypervisor` through the socket connection.
+The Enhanced Performance Accelerator (EPA) orchestrator provides APIs for allocating isolated CPU cores and huge pages within Sunbeam OpenStack. The EPA orchestrator is a snap that runs a daemon service `snap.epa-orchestrator.daemon.server` and exposes a Unix socket API for resource allocation, introspection, and management. The EPA orchestrator is designed to work seamlessly with other OpenStack services such as `openstack-hypervisor` through the socket connection.
 
 This document explains the role and design of the EPA orchestrator within Sunbeam OpenStack.
 
@@ -42,7 +42,7 @@ Operational modes
 
 The EPA orchestrator supports different operational modes based on the configured resources:
 
-**No CPU pinning or huge pages Required:**
+**No CPU pinning or huge pages required:**
 No action is needed. EPA orchestrator will operate in a "no-op" mode for allocations, but will not cause errors for monitoring or automation tools querying allocations.
 
 **CPU pinning required:**
