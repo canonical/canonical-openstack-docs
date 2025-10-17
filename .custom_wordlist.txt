@@ -16,6 +16,7 @@ Catalogue
 CAPI
 Ceilometer
 Ceph
+CephFS
 CirrOS
 ConnectX
 CoreOS
@@ -68,6 +69,7 @@ Multipass
 NATed
 Netplan
 Numa
+NFS
 Nvidia
 NIC
 NOPASSWD
