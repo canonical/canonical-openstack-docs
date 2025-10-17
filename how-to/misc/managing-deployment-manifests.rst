@@ -89,7 +89,7 @@ To specify a manifest during the cluster bootstrap process:
 
 ::
 
-   sunbeam cluster bootstrap [--role <control|compute|storage>] [--manifest <manifest file path>] [--accept-defaults]
+   sunbeam cluster bootstrap [--role <control|compute|network|storage>] [--manifest <manifest file path>] [--accept-defaults]
 
 Cluster refresh
 ~~~~~~~~~~~~~~~

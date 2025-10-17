@@ -96,6 +96,7 @@ a while to complete. In principle, Sunbeam orchestrates the following actions in
 * Installs and configures cloud control functions on top of Canonical Kubernetes,
 * Installs the `OpenStack Hypervisor snap`_ and plugs it into cloud control services,
 * Installs the `MicroCeph snap`_ and plugs it into cloud control services.
+* Installs the `MicroOVN snap`_ and plugs it into cloud control services,
 
 To bootstrap the cloud for sample usage, execute the following command:
 
@@ -114,6 +115,9 @@ Once it completes, you should be able to see the following message on your scree
 .. code-block :: text
    
    Node has been bootstrapped with roles: storage, control, compute
+
+The node can also be bootstrapped with the ``network`` role assigned. This will install the
+`MicroOVN snap`_ and plug it into cloud control services. For more details, please refer to the :doc:`Enable the network role guide</how-to/install/enable-network-role>`.
 
 .. note ::
 

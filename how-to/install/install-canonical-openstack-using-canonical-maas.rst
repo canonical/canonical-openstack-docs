@@ -155,6 +155,9 @@ in the cluster:
    * - storage
      - Defines where to host cloud storage functions
      - Cloud, Storage
+   * - network
+     - Defines where to host cloud network functions
+     - Cloud, Network
    * - sunbeam
      - Defines where to host the Sunbeam controller
      - Sunbeam Controller
