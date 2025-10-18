@@ -14,9 +14,10 @@ Enable Validation
 
 To enable Validation, run the following command:
 
-::
-
-   sunbeam enable validation
+.. literalinclude:: ../snippets/validation.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-validation]
+   :end-before:  [docs-view:enable-validation-end]
 
 .. note ::
 
@@ -29,9 +30,10 @@ Disable Validation
 
 To disable Validation, run the following command:
 
-::
-
-   sunbeam disable validation
+.. literalinclude:: ../snippets/validation.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-validation]
+   :end-before:  [docs-view:disable-validation-end]
 
 Usage
 -----
@@ -61,14 +63,14 @@ Sample output:
 
 ::
 
-                                       Available profiles                                                                                                    
-     Name       Description                                                                  
-    ──────────────────────────────────────────────────────────────────────────────────────── 
-     refstack   Tests that are part of the RefStack project https://refstack.openstack.org/  
-     quick      A short list of tests for quick validation                                   
-     smoke      Tests tagged as "smoke"                                                      
-     all        All tests (very large number, not usually recommended)                       
-              
+                                       Available profiles
+     Name       Description
+    ────────────────────────────────────────────────────────────────────────────────────────
+     refstack   Tests that are part of the RefStack project https://refstack.openstack.org/
+     quick      A short list of tests for quick validation
+     smoke      Tests tagged as "smoke"
+     all        All tests (very large number, not usually recommended)
+
 
 A summary of the validation result will be printed out to the screen
 upon completion of the command:

@@ -11,18 +11,20 @@ Enabling LDAP
 
 To enable the LDAP feature, run the following command:
 
-::
-
-   sunbeam enable ldap
+.. literalinclude:: ../snippets/ldap.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-ldap]
+   :end-before:  [docs-view:enable-ldap-end]
 
 Disabling LDAP
 --------------
 
 To disable the LDAP feature, run the following command:
 
-::
-
-   sunbeam disable ldap
+.. literalinclude:: ../snippets/ldap.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-ldap]
+   :end-before:  [docs-view:disable-ldap-end]
 
 Usage
 -----
@@ -63,11 +65,10 @@ LDAP servers.
 3. Use the ``sunbeam ldap add-domain`` command to set up the domain,
    adding the ``--ca-cert-file`` option if TLS is in use:
 
-.. code:: text
-
-       sunbeam ldap add-domain \
-          --domain-config-file ./dom1.yaml \
-          --ca-cert-file ./dom1.cert dom1
+.. literalinclude:: ../snippets/ldap.task.sh
+   :language: bash
+   :start-after: [docs-view:ldap-add]
+   :end-before:  [docs-view:ldap-add-end]
 
 4. A new LDAP-backed domain will be created in Keystone. Verify this
    with the native ``openstack`` CLI:
@@ -89,27 +90,30 @@ Updating a domain
 
 To update an LDAP domain the process is similar to adding one:
 
-::
-
-   sunbeam ldap update-domain --domain-config-file ./dom1.yaml --ca-cert-file ./dom1.cert  dom1
+.. literalinclude:: ../snippets/ldap.task.sh
+   :language: bash
+   :start-after: [docs-view:ldap-update]
+   :end-before:  [docs-view:ldap-update-end]
 
 Listing domains
 ~~~~~~~~~~~~~~~
 
 To list LDAP domains:
 
-::
-
-   sunbeam ldap list-domains
+.. literalinclude:: ../snippets/ldap.task.sh
+   :language: bash
+   :start-after: [docs-view:ldap-list]
+   :end-before:  [docs-view:ldap-list-end]
 
 Removing a domain
 ~~~~~~~~~~~~~~~~~
 
 To remove an LDAP domain:
 
-::
-
-   sunbeam ldap remove-domain <domain-name>
+.. literalinclude:: ../snippets/ldap.task.sh
+   :language: bash
+   :start-after: [docs-view:ldap-remove]
+   :end-before:  [docs-view:ldap-remove-end]
 
 .. important::
    Since configuration (e.g. OpenStack projects) could have been made to the
