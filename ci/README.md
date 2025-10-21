@@ -107,21 +107,6 @@ If one snippet must run after another (e.g., a feature enable depends on sunbeam
 
 ---
 
-## Running Locally
-
-```bash
-# Build a plan from changed snippets
-printf '%s\n' how-to/snippets/secrets.task.sh > changed_snippets.txt
-python ci/select-doc-pages.py --changed-file-list changed_snippets.txt --out plan.txt
-
-# Preview what would run
-DOCS_DRY_RUN=1 python ci/run-doc-pages.py --plan plan.txt
-
-# Actually execute (be careful!)
-DOCS_DRY_RUN=0 python ci/run-doc-pages.py --plan plan.txt
-```
-
----
 
 ## CI Workflows
 

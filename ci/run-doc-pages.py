@@ -4,13 +4,14 @@ run-doc-pages.py
 
 Executor for docs snippets plan. This script extracts and runs shell commands
 found within special comment blocks (`[docs-exec:<name>] ... [docs-exec:<name>-end]`)
-in scripts. If no such blocks are found in a script, the step fails.
+in scripts. If no such blocks are found in a script, the step is skipped.
 
 Usage:
+  # For a real execution
   python ci/run-doc-pages.py --plan plan.txt
 
-Environment:
-  DOCS_DRY_RUN=1  # Print the plan, show the extracted bash, and skip execution.
+  # To print the assembled scripts without running them
+  python ci/run-doc-pages.py --plan plan.txt --dry-run
 
 Plan format: newline-delimited file where each line is a path to a *.task.sh script.
 """
@@ -18,13 +19,15 @@ Plan format: newline-delimited file where each line is a path to a *.task.sh scr
 from __future__ import annotations
 
 import argparse
-import os
 import re
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 from subprocess import run  # nosec B404
 
+EXEC_START = re.compile(r'^\s*#\s*\[docs-exec:([^\]]+)\]\s*$')
+EXEC_END = r'^\s*#\s*\[docs-exec:%s-end\]\s*$'
+HEADER = "#!/usr/bin/env bash\nset -euo pipefail\n"
 
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Run docs snippet plan sequentially.")
@@ -33,6 +36,11 @@ def parse_args() -> argparse.Namespace:
         required=True,
         type=Path,
         help="Path to a newline-delimited file of scripts to run (execution order).",
+    )
+    p.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Print the execution plan and assembled scripts without running them.",
     )
     return p.parse_args()
 
@@ -50,11 +58,6 @@ def require_files_exist(paths: list[Path]) -> None:
         raise FileNotFoundError("Script(s) in plan not found:\n  - " + "\n  - ".join(missing))
 
 
-EXEC_START = re.compile(r'^\s*#\s*\[docs-exec:([^\]]+)\]\s*$')
-EXEC_END = r'^\s*#\s*\[docs-exec:%s-end\]\s*$'
-HEADER = "#!/usr/bin/env bash\nset -euo pipefail\n"
-
-
 @dataclass
 class ExtractedScript:
     text: str
@@ -65,10 +68,7 @@ class ExtractedScript:
 
 def build_ci_text_from_exec_blocks(script_path: Path) -> ExtractedScript:
     """Parse script and concatenate all [docs-exec:<name>]...[docs-exec:<name>-end] blocks."""
-    try:
-        src_lines = script_path.read_text(encoding="utf-8", errors="ignore").splitlines(True)
-    except OSError as e:
-        raise OSError(f"Failed to read script file {script_path}: {e}") from e
+    src_lines = script_path.read_text(encoding="utf-8", errors="ignore").splitlines(True)
 
     out_chunks: list[str] = []
     names: list[str] = []
@@ -126,7 +126,7 @@ def main() -> int:
         return 0
 
     require_files_exist(scripts)
-    dry_run = os.environ.get("DOCS_DRY_RUN") == "1"
+    dry_run = args.dry_run
 
     print("\n--- Documentation Test Execution ---")
     print(f"Total steps: {len(scripts)}\n")
