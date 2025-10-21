@@ -2,15 +2,10 @@ name: Documentation Functional Testing
 
 on:
   push:
-    branches:
-      - main
-      - docs-testing
     paths:
       - "tutorial/**/*.task.sh"
       - "how-to/**/*.task.sh"
   pull_request:
-    branches:
-      - main
     paths:
       - "tutorial/**/*.task.sh"
       - "how-to/**/*.task.sh"
@@ -29,7 +24,6 @@ defaults:
     shell: bash
 
 env:
-  CI: "true"
   PYTHONUNBUFFERED: "1"
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
   # Dry-run switch. Set to "1" to print without executing.
@@ -43,37 +37,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Discover snippet files
-        id: discover
-        run: |
-          find tutorial how-to -type f -name '*.task.sh' -print0 2>/dev/null > all_snippets.null
-          COUNT=$(tr -cd '\0' < all_snippets.null | wc -c)
-          echo "count=${COUNT}" >> "$GITHUB_OUTPUT"
-
-          # Summary for GitHub output
-          {
-            echo "### Lint target discovery"
-            if [[ "$COUNT" -gt 0 ]]; then
-              echo "Found **$COUNT** snippet files to lint."
-            else
-              echo "_No snippet files found._"
-            fi
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Set up Python (for bashate)
-        if: steps.discover.outputs.count > 0
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.12"
 
-      - name: Install bashate
-        if: steps.discover.outputs.count > 0
-        run: python -m pip install --upgrade pip bashate
-
-      - name: Lint with bashate (ignore long lines)
-        if: steps.discover.outputs.count > 0
-        run: |
-          xargs -0 -r bashate -i E006 < all_snippets.null
+      - name: Lint shell snippets
+        run: make lint
 
   plan-and-run:
     name: Plan & run docs tests
@@ -120,7 +90,7 @@ jobs:
         if: steps.write-changed.outputs.count > 0
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "3.12"
 
       - name: Build and display execution plan
         if: steps.write-changed.outputs.count > 0
@@ -156,7 +126,7 @@ jobs:
         if: env.DOCS_DRY_RUN == '1' && steps.plan.outputs.count > 0
         run: |
           echo "Executing dry-run validation of the plan..."
-          python ci/run-doc-pages.py --plan plan.txt
+          python ci/run-doc-pages.py --plan plan.txt --dry-run
 
       - name: Execute plan
         if: env.DOCS_DRY_RUN != '1' && steps.plan.outputs.count > 0

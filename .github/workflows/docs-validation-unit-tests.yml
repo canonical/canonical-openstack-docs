@@ -2,11 +2,9 @@ name: Documentation Unit Tests
 
 on:
   push:
-    branches: [ main, docs-testing ]
     paths:
       - "ci/**"
   pull_request:
-    branches: [ main ]
     paths:
       - "ci/**"
   workflow_dispatch:

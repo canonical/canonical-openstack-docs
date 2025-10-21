@@ -138,6 +138,12 @@ sp-pdf: sp-pdf-prep
 	@rm -r $(BUILDDIR)/latex
 	@echo "\nOutput can be found in ./$(BUILDDIR)\n"
 
+sp-lint: sp-install
+	@echo "Linting shell snippets with bashate..."
+	@. $(VENV); pip show bashate > /dev/null || (echo "--> Installing bashate..."; pip install bashate)
+	@. $(VENV); find tutorial how-to -type f -name '*.task.sh' -print0 2>/dev/null | xargs -0 -r bashate -i E006
+	@echo "Linting finished successfully."
+
 # Catch-all target: route all unknown targets to Sphinx using the new
 # "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
 %: Makefile.sp

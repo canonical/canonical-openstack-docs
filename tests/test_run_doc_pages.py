@@ -12,9 +12,8 @@ def test_dry_run_prints_assembled_scripts(tmp_repo: Path):
                "tests/snippets/fixture-multi-blocks.task.sh\n")
 
     rc = run_cmd(
-        ["python3", "ci/run-doc-pages.py", "--plan", str(plan)],
+        ["python3", "ci/run-doc-pages.py", "--plan", str(plan), "--dry-run"],
         cwd=tmp_repo,
-        env={"DOCS_DRY_RUN": "1"}, # Explicitly set dry-run mode
     )
 
     assert rc.returncode == 0, rc.stderr
@@ -37,9 +36,8 @@ def test_dry_run_fails_on_structural_error(tmp_repo: Path):
     write_file(plan, "tests/snippets/fixture-missing-end.task.sh\n")
 
     rc = run_cmd(
-        ["python3", "ci/run-doc-pages.py", "--plan", str(plan)],
+        ["python3", "ci/run-doc-pages.py", "--plan", str(plan), "--dry-run"],
         cwd=tmp_repo,
-        env={"DOCS_DRY_RUN": "1"}, # Explicitly set dry-run mode
     )
 
     # Structural errors should cause a failure with exit code 1.
@@ -58,9 +56,8 @@ def test_dry_run_handles_no_blocks_gracefully(tmp_repo: Path):
     write_file(plan, "tests/snippets/fixture-no-blocks.task.sh\n")
 
     rc = run_cmd(
-        ["python3", "ci/run-doc-pages.py", "--plan", str(plan)],
+        ["python3", "ci/run-doc-pages.py", "--plan", str(plan), "--dry-run"],
         cwd=tmp_repo,
-        env={"DOCS_DRY_RUN": "1"}, # Explicitly set dry-run mode
     )
 
     # A dry run should always succeed if there are no structural errors.
