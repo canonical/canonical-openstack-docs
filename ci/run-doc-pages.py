@@ -149,19 +149,21 @@ def main() -> int:
         print("[run-doc-pages] Aborting due to structural errors in docs-exec blocks.", file=sys.stderr)
         return 1
 
-    # Phase 2: Process the validated plan
-    if dry_run:
-        print("[DRY RUN] Printing all assembled scripts (no execution):\n")
-        for i, (script, ex) in enumerate(extracted, start=1):
-            print(f"----- BEGIN SCRIPT [{i}] {script} -----")
-            if ex.used_exec_blocks:
-                sys.stdout.write(ex.text)
-            else:
-                print("# (no [docs-exec:*] blocks found - this would be skipped in a real run)")
-            print(f"----- END SCRIPT [{i}] {script} -----\n")
+    # Phase 2: Always print assembled scripts for visibility
+    print("\n[PLAN PREVIEW] Printing all assembled scripts:\n")
+    for i, (script, ex) in enumerate(extracted, start=1):
+        print(f"----- BEGIN SCRIPT [{i}] {script} -----")
+        if ex.used_exec_blocks:
+            sys.stdout.write(ex.text)
+        else:
+            print("# (no [docs-exec:*] blocks found - will be skipped)")
+        print(f"----- END SCRIPT [{i}] {script} -----\n")
 
+    # Phase 3: Execute if not in dry-run mode
+    if dry_run:
         print("[DRY RUN] Completed printing scripts. Nothing executed.")
     else:
+        print("\n[EXECUTION] Starting real execution of plan...\n")
         for i, (script, ex) in enumerate(extracted, start=1):
             print(f"==> [Step {i}/{len(scripts)}] {script}")
 
