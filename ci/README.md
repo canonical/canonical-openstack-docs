@@ -1,7 +1,3 @@
----
-orphan: true
----
-
 # Documentation Testing Framework
 
 ## Purpose
