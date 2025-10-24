@@ -51,6 +51,10 @@ preceding question.
      - | The hostname for the public endpoint of the Traefik service. This is used to configure TLS Vault.
    * - **Hostname for Traefik RGW endpoint**
      - | The hostname for the RGW endpoint of the Traefik service. This is used to configure TLS Vault.
+   * - **Do you plan to add dedicated network nodes to the cluster?**
+     - | *Question will appear for all nodes except network nodes during manual mode.*
+       | Whether a network node will be added to the cluster at a later time.
+       | If 'Yes', it will automatically set local access to VMs, leaving the external access options to be configured manually when joining a network node to the cluster.
    * - **Local or remote access to VMs**
      - | If 'local' is selected then VMs will **only** be accessible from the local host, whereas if 'remote' is selected then VMs will **only** be accessible from remote hosts.
        |
@@ -95,3 +99,7 @@ preceding question.
      - | A list of DNS server IP addresses (comma separated) that should be used for external DNS resolution from cloud instances.
    * - **Enable ping and SSH access to instances**
      - | Whether security group rules are to be added that allow ICMP and SSH traffic to reach VMs. In most cases this is desirable.
+   * - **External network's interface**
+     - | *Shown for remote access only.*
+       | Name of the NIC on the **network** node that connects to your upstream
+       | external network.
