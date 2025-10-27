@@ -10,7 +10,7 @@ cloud traffic.
 Prerequisites
 -------------
 
-To use TLS Vault, you must enable the Vault feature in your cloud and unseal and authorize the Vault charm.
+To use TLS Vault, you must configure the hostname for Traefik, enable the Vault feature in your cloud and unseal and authorize the Vault charm.
 Follow this guide :doc:`Enable Vault </how-to/features/vault>`.
 
 Enable TLS Vault
