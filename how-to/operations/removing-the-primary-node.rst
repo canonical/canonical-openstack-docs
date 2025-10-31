@@ -67,6 +67,12 @@ Remove the ``k8s`` snap:
 
    sudo snap remove --purge k8s
 
+Remove the ``microovn`` snap:
+
+.. code-block :: text
+
+   sudo snap remove --purge microovn
+
 .. note ::
 
    The above steps can take a few minutes to complete.
