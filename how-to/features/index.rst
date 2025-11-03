@@ -4,6 +4,7 @@ Optional Features
 .. toctree::
    :maxdepth: 2
 
+   baremetal
    caas
    dns
    images-sync
