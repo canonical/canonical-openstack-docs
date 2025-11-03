@@ -8,6 +8,7 @@ APIs
 API's
 AZs
 balancer
+baremetal
 Charmhub
 CLI
 CPM
@@ -28,6 +29,7 @@ Grafana
 IAM
 installable
 Integrations
+IPMI
 JSON
 Juju
 Kubeflow
@@ -43,6 +45,7 @@ Mattermost
 MyST
 namespace
 namespaces
+netconf
 NodePort
 Numbat
 NVMe
@@ -64,11 +67,13 @@ SDN
 SDS
 sharding
 SLAs
+sshkeys
 subdirectories
 subfolders
 subtree
 synchronized
 SunbeamD
+TFTP
 UA
 Ubuntu
 UCA
