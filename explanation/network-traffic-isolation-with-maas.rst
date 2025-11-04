@@ -101,6 +101,9 @@ requirements are described here:
 | storage               | Ceph                  | management, storage,  |
 |                       |                       | storage-cluster       |
 +-----------------------+-----------------------+-----------------------+
+| network               | MicroOVN              | management, internal, |
+|                       |                       | data                  |
++-----------------------+-----------------------+-----------------------+
 
 Client
 ~~~~~~

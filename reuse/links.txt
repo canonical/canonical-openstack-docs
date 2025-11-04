@@ -14,6 +14,7 @@
 .. _OpenStack snap: https://snapcraft.io/openstack
 .. _OpenStack Hypervisor snap: https://snapcraft.io/openstack-hypervisor
 .. _MicroCeph snap: https://snapcraft.io/microceph
+.. _MicroOVN snap: https://snapcraft.io/microovn
 
 .. _Canonical Juju: https://juju.is
 .. _Canonical Kubernetes: https://ubuntu.com/kubernetes
