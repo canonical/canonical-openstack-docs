@@ -8,6 +8,7 @@ APIs
 API's
 AZs
 balancer
+baremetal
 Charmhub
 CLI
 CPM
@@ -43,6 +44,7 @@ Mattermost
 MyST
 namespace
 namespaces
+netconf
 NodePort
 Numbat
 NVMe
@@ -64,6 +66,7 @@ SDN
 SDS
 sharding
 SLAs
+sshkeys
 subdirectories
 subfolders
 subtree
