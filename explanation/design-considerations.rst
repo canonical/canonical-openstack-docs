@@ -86,6 +86,8 @@ Regions are general divisions of an OpenStack cloud with their own API endpoints
 
 In general, Canonical recommends running several small clouds rather than one big cloud and using :ref:`third-party tools<Third-party software>`, such as a Cloud Platform Management (CPM) solution to manage them centrally.
 
+See the :doc:`multi-region guide</how-to/misc/multiregion-deployments>` for more details.
+
 Cells
 +++++
 
