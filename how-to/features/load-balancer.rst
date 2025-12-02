@@ -12,9 +12,10 @@ Enabling Load Balancer
 
 To enable Load Balancer, run the following command:
 
-::
-
-   sunbeam enable loadbalancer
+.. literalinclude:: ../snippets/load-balancer.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-load-balancer]
+   :end-before:  [docs-view:enable-load-balancer-end]
 
 Use OpenStack CLI to manage load balancers. See the upstream `Octavia
 documentation <https://docs.openstack.org/octavia/latest/user/guides/basic-cookbook.html>`__
@@ -27,9 +28,10 @@ Disabling Load Balancer
 
 To disable Load Balancer, run the following command:
 
-::
-
-   sunbeam disable loadbalancer
+.. literalinclude:: ../snippets/load-balancer.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-load-balancer]
+   :end-before:  [docs-view:disable-load-balancer-end]
 
 Usage
 -----
