@@ -272,3 +272,6 @@ maas
 snapcraft
 snapcraftcontent
 switchdev
+# CloudKitty additions
+CloudKitty
+hashmap
