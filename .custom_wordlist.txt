@@ -165,6 +165,7 @@ infrastructure
 init
 initiator
 intra
+ippool
 isolCPUs
 juju
 kube

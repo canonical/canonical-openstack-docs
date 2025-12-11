@@ -13,6 +13,11 @@ To enable Instance Recovery, run the following command:
 
     sunbeam enable instance-recovery
 
+.. note::
+   For MAAS provider, ensure to reserve an IP on storage subnet with label `<deployment name>-storage-ippool`,
+   see :ref:`reference<reserved-ipranges>`.
+   This will be used to perform health checks over the storage network.
+
 Disabling Instance Recovery
 ---------------------------
 
