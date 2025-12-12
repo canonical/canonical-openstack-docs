@@ -30,7 +30,7 @@ bootstrap:
 
 ::
 
-   sunbeam cluster bootstrap --roles compute,storage,control \
+   sunbeam cluster bootstrap --role compute,storage,control \
        --accept-defaults --controller prod-controller-01
 
 In MAAS mode the roles are determined by tags on the machines being
