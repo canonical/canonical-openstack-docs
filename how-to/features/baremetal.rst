@@ -15,10 +15,6 @@ following command:
 
    sunbeam enable baremetal
 
-.. note::
-   This feature requires the ``microceph`` charm channel to be on
-   ``squid/edge`` or newer.
-
 The openstack CLI can now be used to manage bare metal machines. See the
 upstream `Ironic CLI`_ documentation for details.
 
@@ -341,9 +337,11 @@ the IPMI driver:
    openstack baremetal node provide ironic-machine1
 
 .. important::
-   The `IRONIC_NETWORK` network mentioned above must be a network that can reach
-   its associated `ironic-conductor` HTTP and TFTP services, exposed through
-   its Internal Load Balancer IP.
+   During deployment, Ironic machines must be able to contact the
+   `ironic-conductor` HTTP and TFTP services (exposed via an internal Load
+   Balancer IP), as well as the OpenStack Swift Object store endpoint.
+   Therefore, the `IRONIC_NETWORK` mentioned above must be routable to these
+   endpoints.
 
 After the node has been registered and it became available, it can be deployed
 as needed. It can also be deployed through Nova, though it will require a
