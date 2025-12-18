@@ -2,3 +2,6 @@
 # cannot avoid for now, ie
 # https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
 doc-cheat-sheet*
+
+# the baremetal-usage document contains links containing blocked words.
+explanation/baremetal-usage.rst
