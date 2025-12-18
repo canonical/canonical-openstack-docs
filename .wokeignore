@@ -3,5 +3,5 @@
 # https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html
 doc-cheat-sheet*
 
-# the baremetal-usage document contains links containing blocked words.
-explanation/baremetal-usage.rst
+# the baremetal-nodes document contains links containing blocked words.
+explanation/baremetal-nodes.rst

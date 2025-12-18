@@ -8,7 +8,7 @@ Index
    :maxdepth: 1
 
    architecture
-   baremetal-usage
+   baremetal-nodes
    design-considerations
    deployment-manifest
    network-traffic-isolation-with-maas

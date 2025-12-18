@@ -1,5 +1,5 @@
-Baremetal feature usage
-=======================
+Bare metal nodes
+================
 
 This document details how to interact with `Ironic`_ (the bare metal
 provisioning service for OpenStack) in a Sunbeam deployment, which is made

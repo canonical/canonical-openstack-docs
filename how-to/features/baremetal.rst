@@ -1,5 +1,5 @@
-Baremetal deployment service
-============================
+Baremetal as a Service
+======================
 
 This feature deploys `Ironic`_, the bare metal provisioning service for
 OpenStack. It allows OpenStack users to provision bare metal machines,
@@ -193,7 +193,7 @@ To disable this feature, run the following command:
    sunbeam disable baremetal
 
 For information on how to access and use Ironic, check the
-:doc:`Baremetal feature usage</explanation/baremetal-usage>` page.
+:doc:`Baremetal feature nodes</explanation/baremetal-nodes>` page.
 
 .. LINKS
 .. _netconf configuration options: https://docs.openstack.org/networking-baremetal/2025.1/configuration/ml2/device_drivers/netconf-openconfig.html
