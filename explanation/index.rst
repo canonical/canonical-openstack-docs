@@ -17,3 +17,4 @@ Index
    maintenance-mode
    epa-orchestrator
    instance-recovery
+   moving-from-charmed-openstack
