@@ -8,9 +8,10 @@ Enabling Secrets
 
 To enable Secrets, run the following command:
 
-::
-
-   sunbeam enable secrets
+.. literalinclude:: ../snippets/secrets.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-secrets]
+   :end-before:  [docs-view:enable-secrets-end]
 
 The openstack CLI can now be used to manage Secrets. See the upstream
 `Barbican CLI`_ documentation for details.
@@ -25,9 +26,10 @@ Disabling Secrets
 
 To disable Secrets, run the following command:
 
-::
-
-   sunbeam disable secrets
+.. literalinclude:: ../snippets/secrets.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-secrets]
+   :end-before:  [docs-view:disable-secrets-end]
 
 Usage
 -----
@@ -41,7 +43,7 @@ Verify if a user belongs to this role with (admin rights needed):
 
    openstack role assignment list --user <user id> --role creator
    +----------------------------------+----------------------------------+-------+----------------------------------+--------+--------+-----------+
-   | Role                             | User                             | Group | Project                          | Domain | System | Inherited |   
+   | Role                             | User                             | Group | Project                          | Domain | System | Inherited |
    +----------------------------------+----------------------------------+-------+----------------------------------+--------+--------+-----------+
    | 3ef18094c76a403291ccf727851616ae | 4f2e8ef6b897403fb9865123b7b57a34 |       | 3e5bb39a247b471494e051ae8d0530fb |        |        | False     |
    +----------------------------------+----------------------------------+-------+----------------------------------+--------+--------+-----------+
