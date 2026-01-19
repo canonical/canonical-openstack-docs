@@ -230,7 +230,7 @@ manifest file will all its supported keys.
          # Local mode - single node only
          remote_access_location: [local,remote]
 
-       # External networking
+       # External networking (deprecated)
        external_network:
          nic: <interface-name> # deprecated
          nics:
@@ -251,6 +251,28 @@ manifest file will all its supported keys.
          network_type: [flat,vlan]
          # VLAN ID if 'vlan' is chosen above
          segmentation_id: <vlan-id>
+
+       # External networking
+       external-networks:
+         <physnet name>:
+           nics:
+             <node-hostname>: <interface-name>
+             # Examples:
+             # sunbeam-1.localdomain: enp5s0
+             # sunbeam-2.localdomain: enp8s0
+             # sunbeam-3.localdomain: eno3
+           # CIDR of OpenStack external network
+           cidr: <cidr>
+           # IP address of default gateway for external network
+           gateway: <ip-address>
+           # Start of IP allocation range
+           start: <ip-address>
+           # End of IP allocation range
+           end: <ip-address>
+           # Network type for access to external network
+           network_type: [flat,vlan]
+           # VLAN ID if 'vlan' is chosen above
+           segmentation_id: <vlan-id>
 
        # MicroCeph
        microceph_config:
