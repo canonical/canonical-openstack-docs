@@ -229,6 +229,9 @@ manifest file will all its supported keys.
          # Local or remote access to VMs
          # Local mode - single node only
          remote_access_location: [local,remote]
+         # Name of the physical network to populate the demo project network
+         # external routing
+         physnet: <physnet-name>
 
        # External networking (deprecated)
        external_network:
