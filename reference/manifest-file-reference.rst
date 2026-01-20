@@ -246,10 +246,8 @@ manifest file will all its supported keys.
          cidr: <cidr>
          # IP address of default gateway for external network
          gateway: <ip-address>
-         # Start of IP allocation range
-         start: <ip-address>
-         # End of IP allocation range
-         end: <ip-address>
+         # External network's allocation range
+         range: <ip-address>
          # Network type for access to external network
          network_type: [flat,vlan]
          # VLAN ID if 'vlan' is chosen above
@@ -268,10 +266,8 @@ manifest file will all its supported keys.
            cidr: <cidr>
            # IP address of default gateway for external network
            gateway: <ip-address>
-           # Start of IP allocation range
-           start: <ip-address>
-           # End of IP allocation range
-           end: <ip-address>
+           # External network's allocation range
+           range: <ip-address>
            # Network type for access to external network
            network_type: [flat,vlan]
            # VLAN ID if 'vlan' is chosen above
