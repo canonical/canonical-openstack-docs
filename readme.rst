@@ -92,7 +92,7 @@ pack* and *Work with your documentation* post-enablement.
     + `Add Python packages`_
     + `Add page-specific configuration`_
 
-  * `Change log`_
+   * `Change log <change-log-section>`_
 
 - `Work with your documentation`_
 
@@ -122,7 +122,7 @@ repository with the starter pack. Once this is done, documentation contributors
 should follow section `Work with your documentation`_.
 
 **Note:** After setting up your repository with the starter pack, you need to track the changes made to it and manually update your repository with the required files.
-The `change log <https://github.com/canonical/sphinx-docs-starter-pack/wiki/Change-log>`_ lists the most relevant (and of course all breaking) changes.
+The `change log <starter-pack-change-log_>`_ lists the most relevant (and of course all breaking) changes.
 We're planning to provide the contents of this repository as an installable package in the future to make updates easier.
 
 See the `Read the Docs at Canonical <https://library.canonical.com/documentation/read-the-docs>`_ and
@@ -389,7 +389,9 @@ See `Hiding Contents sidebar`_.
 Change log
 ~~~~~~~~~~
 
-See the `change log <https://github.com/canonical/sphinx-docs-starter-pack/wiki/Change-log>`_ for a list of relevant changes to the starter pack.
+.. _change-log-section:
+
+See the `change log <starter-pack-change-log_>`_ for a list of relevant changes to the starter pack.
 
 Work with your documentation
 ----------------------------
@@ -713,3 +715,5 @@ Other resources
 
 .. _woke documentation: https://docs.getwoke.tech/ignore
 .. _#197: https://github.com/canonical/sphinx-docs-starter-pack/issues/197
+
+.. _starter-pack-change-log: https://github.com/canonical/sphinx-docs-starter-pack/wiki/Change-log
