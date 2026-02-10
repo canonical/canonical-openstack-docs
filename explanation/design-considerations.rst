@@ -91,7 +91,7 @@ See the :doc:`multi-region guide</how-to/misc/multiregion-deployments>` for more
 Cells
 +++++
 
-Cells are OpenStack’s internal concept that enables cloud deployments on a large scale by sharding some of its internal components, such as databases and messaging queues.
+Cells are OpenStack’s internal concept that enables cloud deployments on a large scale by sharing some of its internal components, such as databases and messaging queues.
 
 In general, Canonical recommends running several small clouds rather than one big cloud and using :ref:`third-party tools<Third-party software>`, such as a Cloud Platform Management (CPM) solution to manage them centrally.
 
