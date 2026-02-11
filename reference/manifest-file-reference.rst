@@ -285,11 +285,26 @@ manifest file will all its supported keys.
          #   osd_devices: /dev/vdc,/dev/vdd
          # sunbeam-3.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
-
-       traefik_endpoints:
-         traefik: <traefik_external_hostname>
-         traefik-public: <traefik_public_external_hostname>
-         traefik-rgw: <traefik_rgw_external_hostname>
+      endpoints:
+        # Ips must be part of management_cidr defined above
+        # or public/internal spaces in MAAS deployments
+        ingress-internal: # optional
+          ip: <ip> # optional
+          hostname: <domain> # optional
+        ingress-public: # optional
+          ip: <ip> # optional
+          hostname: <domain> # optional
+        ingress-rgw: # optional
+          ip: <ip> # optional
+          hostname: <domain> # optional
+        # Examples:
+        # ingress-internal:
+        #   hostname: internal.openstack.example.com
+        # ingress-public:
+        #   ip: 192.168.29.27
+        #   hostname: public.openstack.example.com
+        # ingress-rgw:
+        #   ip: 192.168.29.28
 
      software:
 
