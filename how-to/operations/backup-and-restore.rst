@@ -91,6 +91,7 @@ Run the sync-s3-credentials action to configure the charm
     # do the same for all necessary apps
 
 Configure the s3-integrator charm to use the correct bucket for each application
+
 .. code-block :: text
 
     juju config mysql-s3-integrator bucket=mysql s3-uri-style=path endpoint=http:///<IP_RGW_SERVICE> path=mysql
