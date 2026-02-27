@@ -10,7 +10,7 @@ To enable DNS, run the following command:
 
 ::
 
-   sunbeam enable dns --nameservers="<ns record>"
+   sunbeam enable dns "<ns record>"
 
 The openstack CLI can now be used to manage DNS. See the upstream
 `Designate command-line interface documentation`_ for details.
