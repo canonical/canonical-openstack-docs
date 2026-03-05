@@ -20,7 +20,7 @@ attachment token associated with your subscription:
 
 ::
 
-   sunbeam enable pro --token <pro token>
+   sunbeam enable pro <pro token>
 
 Disabling Ubuntu Pro
 --------------------
