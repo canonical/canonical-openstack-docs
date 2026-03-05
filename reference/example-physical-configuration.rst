@@ -198,14 +198,14 @@ Some basic reference parameters of all those machines are listed in Tab. 3 below
      - 172.16.1.21
    * - maas-2
      - Virtual
-     - governor-1
+     - governor-2
      - N/A
      - eno1
      - Generic
      - 172.16.1.22
    * - maas-3
      - Virtual
-     - governor-1
+     - governor-3
      - N/A
      - eno1
      - Generic
