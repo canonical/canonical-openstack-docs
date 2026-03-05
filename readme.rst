@@ -92,7 +92,7 @@ pack* and *Work with your documentation* post-enablement.
     + `Add Python packages`_
     + `Add page-specific configuration`_
 
-   * `Change log <change-log-section>`_
+   * :ref:`Change log <change-log-section>`
 
 - `Work with your documentation`_
 
@@ -386,10 +386,10 @@ See the ``custom_conf.py`` file for more information.
 Another example for page-specific configuration is the ``hide-toc`` field (provided by `Furo <Furo documentation_>`_), which can be used to hide the page-internal table of content.
 See `Hiding Contents sidebar`_.
 
-Change log
-~~~~~~~~~~
-
 .. _change-log-section:
+
+Change log
+----------
 
 See the `change log <starter-pack-change-log_>`_ for a list of relevant changes to the starter pack.
 

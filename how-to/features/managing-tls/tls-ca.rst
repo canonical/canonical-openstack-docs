@@ -20,6 +20,9 @@ Run the following command to enable TLS for public endpoints:
 
    sunbeam enable tls ca --ca <base64 encoded ca certificate> --ca-chain <base64 encoded ca chain>
 
+.. note::
+   Omit the ``--ca-chain`` option when using self-signed certificates.
+
 To enable TLS for public, internal and rgw endpoints, be explicit by
 using the ``--endpoint`` option:
 
