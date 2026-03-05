@@ -43,8 +43,7 @@ You will need:
     documented in the `Canonical MAAS installation requirements`_.
   * fresh Ubuntu Server 24.04 LTS installed
  
-* one (or at least three for full HA) dedicated virtual machine(s), running on the *Governor*
-  node(s), with:
+* one dedicated virtual machine(s), running on a *Governor* node, with:
 
   * hardware specifications matching minimum hardware specifications for the *Sunbeam Client* node
     as documented under the :doc:`Enterprise requirements</reference/enterprise-requirements>` section
