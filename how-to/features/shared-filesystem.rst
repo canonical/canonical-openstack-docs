@@ -16,10 +16,6 @@ following command:
 
    sunbeam enable shared-filesystem
 
-.. note::
-   This feature requires the ``microceph`` charm channel to be on
-   ``squid/beta`` or newer.
-
 The openstack CLI can now be used to create and manage CephFS NFS Shared
 Filesystems. See the upstream `Manila CLI`_ documentation for details.
 

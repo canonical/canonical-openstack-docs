@@ -4,10 +4,6 @@ Images Sync
 This feature deploys OpenStack Images Sync, a tool for importing
 images from a SimpleStreams source to the OpenStack Glance image service.
 
-.. note::
-   This feature is currently only supported in channel ``2024.1/edge`` of the
-   **openstack** snap.
-
 Enable Images Sync
 ------------------
 
