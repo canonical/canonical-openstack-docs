@@ -292,3 +292,6 @@ snapcraftcontent
 deallocation
 sys
 switchdev
+# CloudKitty additions
+CloudKitty
+hashmap
