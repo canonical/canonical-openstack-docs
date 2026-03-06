@@ -406,3 +406,49 @@ manifest file will all its supported keys.
                # Base64 encoded certificate for unit CSR Unique ID: subject
                certificate: <Base64 encoded certificate>
       ...
+   storage:
+
+     # Storage is keyed by backend type, then by instance name.
+     # Current backend types are dellsc, hitachi, and purestorage.
+     dellsc:
+       <instance-name>:
+         config:
+           san-ip: <ip-or-hostname>
+           san-username: <username>
+           san-password: <password>
+           protocol: [fc, iscsi]
+           # Shared storage config fields.
+           volume-backend-name: <backend-name>
+           backend-availability-zone: <availability-zone>
+           # Additional Dell Storage Center options also use kebab-case.
+         # Same structure as core.software.
+         software: {}
+
+     hitachi:
+       <instance-name>:
+         config:
+           hitachi-storage-id: <storage-id>
+           hitachi-pools: <pool>,<pool>,...
+           san-ip: <ip-or-hostname>
+           san-username: <username>
+           san-password: <password>
+           protocol: [fc, iscsi]
+           volume-backend-name: <backend-name>
+           backend-availability-zone: <availability-zone>
+           # Additional Hitachi options also use kebab-case.
+         # Same structure as core.software.
+         software: {}
+
+     purestorage:
+       <instance-name>:
+         config:
+           san-ip: <ip-or-hostname>
+           pure-api-token: <api-token>
+           protocol: [iscsi, fc, nvme]
+           pure-iscsi-cidr: <cidr>
+           pure-nvme-cidr: <cidr>
+           volume-backend-name: <backend-name>
+           backend-availability-zone: <availability-zone>
+           # Additional Pure Storage options also use kebab-case.
+         # Same structure as core.software.
+         software: {}
