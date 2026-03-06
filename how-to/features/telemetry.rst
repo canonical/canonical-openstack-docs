@@ -9,9 +9,10 @@ Enabling Telemetry
 
 To enable Telemetry, run the following command:
 
-::
-
-   sunbeam enable telemetry
+.. literalinclude:: ../snippets/telemetry.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-telemetry]
+   :end-before:  [docs-view:enable-telemetry-end]
 
 Use the OpenStack CLI to create and manage alarms. See the upstream
 `Aodh
@@ -23,9 +24,10 @@ Disabling Telemetry
 
 To disable Telemetry, run the following command:
 
-::
-
-   sunbeam disable telemetry
+.. literalinclude:: ../snippets/telemetry.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-telemetry]
+   :end-before:  [docs-view:disable-telemetry-end]
 
 This will terminate the application but not remove it from the model. To
 do that, run the following:
