@@ -10,3 +10,4 @@ Operations
    removing-the-primary-node
    scaling-the-cluster-in
    scaling-the-cluster-out
+   backup-and-restore

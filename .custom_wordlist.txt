@@ -68,6 +68,7 @@ MicroCeph
 MicroCluster
 MicroOVN
 Multipass
+MySQL
 NATed
 Netplan
 Numa
@@ -97,11 +98,13 @@ PV
 PVCs
 QCOW
 QEMU
+Rados
 RabbitMQ
 RefStack
 ReplicaSet
 RBAC
 RPC
+RTO
 SAML
 SEV
 SHUTOFF
@@ -125,6 +128,7 @@ apache
 api
 args
 auth
+aws
 balancers
 balancer's
 backend
@@ -133,11 +137,13 @@ backported
 br
 ceph
 cirros
+cli
 clusterctl
 clusterd
 coe
 config
 configs
+cmd
 cron
 daemonset
 datapath
@@ -199,6 +205,7 @@ mypassword
 myproject
 myrouter
 myspace
+mysql
 mystack
 mysubnet
 myuser
@@ -259,7 +266,9 @@ unschedulable
 untagged
 unallocated
 url
+uri
 userspace
+velero
 vfio
 vlan
 vGPU
