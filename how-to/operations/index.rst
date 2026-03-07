@@ -4,6 +4,8 @@ Operations
 .. toctree::
    :maxdepth: 2
 
+   deploy-pure-storage-backend
+   enable-a-gated-storage-backend
    live-migration
    maintenance-mode
    manage-experimental-features
