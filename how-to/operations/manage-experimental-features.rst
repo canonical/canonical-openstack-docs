@@ -24,19 +24,24 @@ To list all available feature gates:
 
 Example output:
 
-.. code:: text
+::
 
-                                 Feature Gates                                 
-   ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━┓
-   ┃ Gate Key                  ┃ Type            ┃ Name              ┃ Unlocked ┃
-   ┡━━━━━━━━━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━╇━━━━━━━━━━━━━━━━━━━╇━━━━━━━━━━┩
-   │ feature.baremetal         │ feature         │ baremetal         │          │
-   │ feature.microovn-sdn      │ feature-gate    │ microovn-sdn      │          │
-   │ feature.multi-region      │ feature-gate    │ multi-region      │          │
-   │ feature.shared-filesystem │ feature         │ shared-filesystem │          │
-   │ feature.storage.dellsc    │ storage-backend │ dellsc            │          │
-   │ feature.storage.hitachi   │ storage-backend │ hitachi           │          │
-   └───────────────────────────┴─────────────────┴───────────────────┴──────────┘
+                                   Feature Gates
+   +---------------------------+-----------------+-------------------+----------+
+   | Gate Key                  | Type            | Name              | Unlocked |
+   +===========================+=================+===================+==========+
+   | feature.baremetal         | feature         | baremetal         |          |
+   +---------------------------+-----------------+-------------------+----------+
+   | feature.microovn-sdn      | feature-gate    | microovn-sdn      |          |
+   +---------------------------+-----------------+-------------------+----------+
+   | feature.multi-region      | feature-gate    | multi-region      |          |
+   +---------------------------+-----------------+-------------------+----------+
+   | feature.shared-filesystem | feature         | shared-filesystem |          |
+   +---------------------------+-----------------+-------------------+----------+
+   | feature.storage.dellsc    | storage-backend | dellsc            |          |
+   +---------------------------+-----------------+-------------------+----------+
+   | feature.storage.hitachi   | storage-backend | hitachi           |          |
+   +---------------------------+-----------------+-------------------+----------+
 
 The output lists each gate's key (used with ``snap set``), its type, and name.
 The **Unlocked** column is set when the feature gate has been enabled by setting
@@ -62,8 +67,7 @@ enable. For example, to enable the ``multi-region`` feature gate:
 .. note::
 
    Experimental features may change or be removed in future releases.
-   Enable them only in environments where instability is acceptable, or
-   when directed to do so by Canonical support.
+   Enable them only in environments where instability is acceptable.
 
 Disable an experimental feature
 --------------------------------
