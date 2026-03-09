@@ -4,6 +4,7 @@ Operations
 .. toctree::
    :maxdepth: 2
 
+   cluster-upgrades
    live-migration
    maintenance-mode
    manage-experimental-features
