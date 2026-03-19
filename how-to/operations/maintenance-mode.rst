@@ -101,13 +101,3 @@ If the output confirms a safe transition, disable maintenance mode:
 
 .. LINKS
 .. _OpenStack Watcher: https://wiki.openstack.org/wiki/Watcher
-
-
-Known issues
--------------
-
-Cold migration is not supported
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Currently cold migration is not supported in Sunbeam. So maintenance mode pre-flight check will block user to continue if there are any instances in SHUTOFF status.
-This will blocked until upstream watcher support disabling cold migration in host maintenance strategy.

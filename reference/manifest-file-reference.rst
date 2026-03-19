@@ -229,8 +229,11 @@ manifest file will all its supported keys.
          # Local or remote access to VMs
          # Local mode - single node only
          remote_access_location: [local,remote]
+         # Name of the physical network to populate the demo project network
+         # external routing
+         physnet: <physnet-name>
 
-       # External networking
+       # External networking (deprecated)
        external_network:
          nic: <interface-name> # deprecated
          nics:
@@ -243,14 +246,32 @@ manifest file will all its supported keys.
          cidr: <cidr>
          # IP address of default gateway for external network
          gateway: <ip-address>
-         # Start of IP allocation range
-         start: <ip-address>
-         # End of IP allocation range
-         end: <ip-address>
+         # External network's allocation range
+         range: <ip-address>
          # Network type for access to external network
          network_type: [flat,vlan]
          # VLAN ID if 'vlan' is chosen above
          segmentation_id: <vlan-id>
+
+       # External networking
+       external-networks:
+         <physnet name>:
+           nics:
+             <node-hostname>: <interface-name>
+             # Examples:
+             # sunbeam-1.localdomain: enp5s0
+             # sunbeam-2.localdomain: enp8s0
+             # sunbeam-3.localdomain: eno3
+           # CIDR of OpenStack external network
+           cidr: <cidr>
+           # IP address of default gateway for external network
+           gateway: <ip-address>
+           # External network's allocation range
+           range: <ip-address>
+           # Network type for access to external network
+           network_type: [flat,vlan]
+           # VLAN ID if 'vlan' is chosen above
+           segmentation_id: <vlan-id>
 
        # MicroCeph
        microceph_config:
@@ -264,11 +285,26 @@ manifest file will all its supported keys.
          #   osd_devices: /dev/vdc,/dev/vdd
          # sunbeam-3.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
-
-       traefik_endpoints:
-         traefik: <traefik_external_hostname>
-         traefik-public: <traefik_public_external_hostname>
-         traefik-rgw: <traefik_rgw_external_hostname>
+      endpoints:
+        # Ips must be part of management_cidr defined above
+        # or public/internal spaces in MAAS deployments
+        ingress-internal: # optional
+          ip: <ip> # optional
+          hostname: <domain> # optional
+        ingress-public: # optional
+          ip: <ip> # optional
+          hostname: <domain> # optional
+        ingress-rgw: # optional
+          ip: <ip> # optional
+          hostname: <domain> # optional
+        # Examples:
+        # ingress-internal:
+        #   hostname: internal.openstack.example.com
+        # ingress-public:
+        #   ip: 192.168.29.27
+        #   hostname: public.openstack.example.com
+        # ingress-rgw:
+        #   ip: 192.168.29.28
 
      software:
 
@@ -370,3 +406,50 @@ manifest file will all its supported keys.
                # Base64 encoded certificate for unit CSR Unique ID: subject
                certificate: <Base64 encoded certificate>
       ...
+   storage:
+
+     # Storage is keyed by backend type, then by instance name.
+     # Current backend types are dellsc, hitachi, and purestorage.
+     dellsc:
+       <instance-name>:
+         config:
+           san-ip: <ip-or-hostname>
+           san-username: <username>
+           san-password: <password>
+           protocol: [fc, iscsi]
+           # Shared storage config fields.
+           volume-backend-name: <backend-name>
+           backend-availability-zone: <availability-zone>
+           # Additional Dell Storage Center options also use kebab-case.
+         # Same structure as core.software.
+         software: {}
+
+     hitachi:
+       <instance-name>:
+         config:
+           hitachi-storage-id: <storage-id>
+           hitachi-pools: <pool>,<pool>,...
+           san-ip: <ip-or-hostname>
+           san-username: <username>
+           san-password: <password>
+           protocol: [fc, iscsi]
+           volume-backend-name: <backend-name>
+           backend-availability-zone: <availability-zone>
+           # Additional Hitachi options also use kebab-case.
+         # Same structure as core.software.
+         software: {}
+
+     purestorage:
+       <instance-name>:
+         config:
+           san-ip: <ip-or-hostname>
+           pure-api-token: <api-token>
+           protocol: [iscsi, fc, nvme]
+           pure-iscsi-cidr: <cidr>
+           pure-nvme-cidr: <cidr>
+           pure-nvme-transport: tcp
+           volume-backend-name: <backend-name>
+           backend-availability-zone: <availability-zone>
+           # Additional Pure Storage options also use kebab-case.
+         # Same structure as core.software.
+         software: {}

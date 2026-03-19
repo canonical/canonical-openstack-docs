@@ -43,8 +43,7 @@ You will need:
     documented in the `Canonical MAAS installation requirements`_.
   * fresh Ubuntu Server 24.04 LTS installed
  
-* one (or at least three for full HA) dedicated virtual machine(s), running on the *Governor*
-  node(s), with:
+* one dedicated virtual machine(s), running on a *Governor* node, with:
 
   * hardware specifications matching minimum hardware specifications for the *Sunbeam Client* node
     as documented under the :doc:`Enterprise requirements</reference/enterprise-requirements>` section
@@ -99,6 +98,8 @@ Canonical MAAS.
 In the :doc:`Example physical configuration</reference/example-physical-configuration>` section Canonical MAAS gets installed on `maas-1`, `maas-2` and `maas-3`
 machines in the HA mode. All of them are VMs running on Governor nodes.
 
+.. _reserved-ipranges:
+
 Create reserved IP ranges for OpenStack API endpoints
 """""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -110,6 +111,10 @@ Those ranges have to be created under subnets that :ref:`will be further mapped<
 ``<name>-public-api`` accordingly where the ``<name>`` prefix matches the deployment name.
 Depending on the number of optional features being used, you have to account for around 10-20
 IP addresses per each range.
+
+If the cloud is intended to use feature :doc:`Instance recovery</how-to/features/instance-recovery>`,
+new range have to be created under ``storage`` cloud networks with label ``<name>-storage-ippool``.
+Single IP address is sufficient for this range.
 
 Reserved IP ranges from the :doc:`Example physical configuration</reference/example-physical-configuration>` section would look like as follows:
 
@@ -155,6 +160,9 @@ in the cluster:
    * - storage
      - Defines where to host cloud storage functions
      - Cloud, Storage
+   * - network
+     - Defines where to host cloud network functions
+     - Cloud, Network
    * - sunbeam
      - Defines where to host the Sunbeam controller
      - Sunbeam Controller

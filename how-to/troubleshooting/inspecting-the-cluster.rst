@@ -52,7 +52,7 @@ this model can be queried using the following command:
 This should work from any node in the deployment
 
 This model contains the application deployments for the Canonical K8s
-(control role), MicroCeph (storage role) and OpenStack Hypervisor
+(control role), MicroOVN (network role), MicroCeph (storage role) and OpenStack Hypervisor
 (compute role) components of Canonical OpenStack.
 
 Depending on the roles assigned to individual machines, a unit of each

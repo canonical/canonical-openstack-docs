@@ -103,6 +103,10 @@ This will assign all roles (``control``, ``compute``, ``storage``) to the machin
 You can use the ``--role`` switch to narrow them down. See the :doc:`Architecture</explanation/architecture>` section for more
 details.
 
+.. note ::
+
+   A node can also be bootstrapped with the ``network`` role assigned.
+
 When prompted, answer some interactive questions. Below is a sample output from the *cloud-1*
 machine from the :doc:`Example physical configuration </reference/example-physical-configuration>` section:
 
@@ -117,6 +121,12 @@ machine from the :doc:`Example physical configuration </reference/example-physic
 
 You can also refer to the :doc:`Interactive configuration prompts</reference/interactive-configuration-prompts>` section for detailed description of
 each of those questions and some examples.
+
+.. note ::
+
+   The ``network`` role is mutually exclusive with the ``compute`` role and cannot be assigned
+   to the same machine. See the :doc:`Architecture</explanation/architecture>` section for more
+   details.
 
 Also note that answers to all those questions can be automated with the use of a
 :doc:`Deployment manifest</explanation/deployment-manifest>`.

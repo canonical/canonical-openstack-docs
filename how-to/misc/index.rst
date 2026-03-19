@@ -15,7 +15,9 @@ Miscellaneous
    managing-deployment-manifests
    manage-external-juju-controllers
    manage-a-proxied-environment
+   multiregion-deployments
    reconfigure-k8s-api-endpoint-juju
    using-an-existing-juju-controller
+   using-the-epa-orchestrator
    using-the-openstack-cli
    using-the-openstack-dashboard

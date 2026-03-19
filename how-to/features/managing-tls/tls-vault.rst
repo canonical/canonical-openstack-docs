@@ -10,7 +10,7 @@ cloud traffic.
 Prerequisites
 -------------
 
-To use TLS Vault, you must enable the Vault feature in your cloud and unseal and authorize the Vault charm.
+To use TLS Vault, you must configure the hostname for Traefik, enable the Vault feature in your cloud and unseal and authorize the Vault charm.
 Follow this guide :doc:`Enable Vault </how-to/features/vault>`.
 
 Enable TLS Vault
@@ -25,6 +25,9 @@ Run the following command to enable TLS Vault for public endpoints:
 ::
 
    sunbeam enable tls vault --ca <base64 encoded ca certificate> --ca-chain <base64 encoded ca chain>
+
+.. note::
+   Omit the ``--ca-chain`` option when using self-signed certificates.
 
 To enable TLS Vault for public, internal and rgw endpoints, be explicit by
 using the ``--endpoint`` option:

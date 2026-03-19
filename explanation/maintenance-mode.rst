@@ -69,12 +69,6 @@ Check
   * If there are any instance in **MIGRATING** status, operator should wait until migration
     finished.
 
-  * If there are any instance in **SHUTOFF** status, the maintenance will be blocked, because
-    sunbeam doesn't support cold migration now. This will blocked until we have disable cold
-    migration feature support in watcher. See:
-    https://bugs.launchpad.net/snap-openstack/+bug/2082056 and
-    https://review.opendev.org/c/openstack/watcher-specs/+/943873.
-
 * No ephemeral disks
 
   * Instances with ephemeral disk cannot be migrated, operator should handle it first.
@@ -101,6 +95,11 @@ Verify
   * Nova compute status should be set to **disabled**, preventing new instances from being
     scheduled on the node.
 
+
+Network Role
+~~~~~~~~~~~~
+
+Network role maintenance mode is not supported yet.
 
 Storage Role
 ~~~~~~~~~~~~

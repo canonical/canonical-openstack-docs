@@ -390,7 +390,7 @@ To associate newly created floating IP with the *my_instance_2* VM, execute the 
 
 .. code-block :: text
 
-   IP=$(penstack floating ip list | awk '/None/ { print $4 }')
+   IP=$(openstack floating ip list | awk '/None/ { print $4 }')
    openstack server add floating ip my_instance_2 $IP
 
 Connect to the VM

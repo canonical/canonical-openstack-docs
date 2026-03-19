@@ -16,6 +16,7 @@ Catalogue
 CAPI
 Ceilometer
 Ceph
+CephFS
 CirrOS
 ConnectX
 CoreOS
@@ -51,6 +52,7 @@ IdPs
 IPv
 IPs
 KVM
+Launchpad
 LDAP
 Libvirt
 Livepatch
@@ -64,15 +66,18 @@ Mellanox
 MetalLB
 MicroCeph
 MicroCluster
+MicroOVN
 Multipass
 NATed
 Netplan
 Numa
+NFS
 Nvidia
 NIC
 NOPASSWD
 Northd
 OIDC
+OpenDev
 OpenID
 OpenFlow
 OpenStack
@@ -123,6 +128,9 @@ auth
 balancers
 balancer's
 backend
+backends
+backport
+backported
 br
 ceph
 cirros
@@ -147,6 +155,7 @@ failover
 flavor
 flavors
 ghcr
+github
 githubusercontent
 gz
 hostname
@@ -162,6 +171,8 @@ infrastructure
 init
 initiator
 intra
+ippool
+isolCPUs
 juju
 kube
 kubeconfig
@@ -247,6 +258,7 @@ unregister
 unroutable
 unschedulable
 untagged
+unallocated
 url
 userspace
 vfio
@@ -265,12 +277,21 @@ amazonaws
 charmhub
 cloudflare
 coreos
+cpu
+cpus
+CPUs
+epa
 fedoraproject
 io
+isolcpus
 jujucharms
 maas
+orchestrator
+Orchestrator
 snapcraft
 snapcraftcontent
+deallocation
+sys
 switchdev
 # CloudKitty additions
 CloudKitty

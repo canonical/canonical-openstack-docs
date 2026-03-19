@@ -4,6 +4,7 @@ Optional Features
 .. toctree::
    :maxdepth: 2
 
+   baremetal
    caas
    dns
    images-sync
@@ -22,6 +23,7 @@ Optional Features
    rating
    resource-optimization
    secrets
+   shared-filesystem
    telemetry
    ubuntu-pro
    validation
