@@ -61,6 +61,49 @@ If no issues are reported, enable maintenance mode:
    Enable maintenance for node: <node>
 
 
+Controlling migration behavior
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+By default, enabling maintenance mode will live migrate active instances and cold
+migrate inactive instances. The ``--disable-migration`` flag allows operators to
+control this behavior during maintenance.
+
+.. note::
+
+   If ``--disable-migration`` is not specified, the default behavior is unchanged.
+
+To disable live migration (cold migrate both active and inactive instances):
+
+.. code:: text
+
+   sunbeam cluster maintenance enable <node> --disable-migration=live
+
+To disable cold migration (live migrate active instances, ignore inactive instances):
+
+.. code:: text
+
+   sunbeam cluster maintenance enable <node> --disable-migration=cold
+
+To disable all migration (only stop active instances, ignore inactive instances):
+
+.. code:: text
+
+   sunbeam cluster maintenance enable <node> --disable-migration=both
+
+Or equivalently, without specifying a value:
+
+.. code:: text
+
+   sunbeam cluster maintenance enable <node> --disable-migration
+
+The ``--disable-migration`` flag can be combined with ``--dry-run`` to preview the
+effect before applying:
+
+.. code:: text
+
+   sunbeam cluster maintenance enable <node> --disable-migration=live --dry-run
+
+
 Disabling Maintenance Mode
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
