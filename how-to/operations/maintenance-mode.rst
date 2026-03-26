@@ -28,7 +28,7 @@ Before enabling maintenance mode, perform a dry run to check for potential issue
 
 .. code:: text
 
-   sunbeam cluster maintenance enable <node> --dry-run
+   sunbeam cluster maintenance enable <node> [--disable-migration[=live|cold|both]] --dry-run
 
    Continue to run operations to enable maintenance mode for <node>:
            0: change_nova_service_state state=disabled resource=<node>
@@ -41,7 +41,7 @@ If no issues are reported, enable maintenance mode:
 
 .. code:: text
 
-   sunbeam cluster maintenance enable <node>
+   sunbeam cluster maintenance enable <node> [--disable-migration[=live|cold|both]]
 
    Continue to run operations to enable maintenance mode for <node>:
            0: change_nova_service_state state=disabled resource=<node>
