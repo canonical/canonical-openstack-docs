@@ -33,7 +33,7 @@ To view the content of a manifest, run the following command:
 
 ::
 
-   sunbeam manifest show --id <manifest id>
+   sunbeam manifest show <manifest id>
 
 Sample output:
 
@@ -51,7 +51,7 @@ manifest ID:
 
 ::
 
-   sunbeam manifest show --id latest
+   sunbeam manifest show latest
 
 Generate a manifest
 -------------------
