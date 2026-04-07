@@ -25,3 +25,5 @@
 .. _Canonical MAAS installation requirements: https://maas.io/docs/installation-requirements
 
 .. _Multipass: https://multipass.run
+
+.. _sunbeam-release tool: https://github.com/openstack-charmers/sunbeam-release

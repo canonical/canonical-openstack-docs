@@ -17,7 +17,7 @@ To remove the machine from the cluster, execute the ``sunbeam cluster remove`` c
 
 .. code-block :: text
 
-   sunbeam cluster remove --name FQDN
+   sunbeam cluster remove FQDN
 
 ``FQDN`` is a fully qualified domain name (FQDN) of the machine being removed.
 
@@ -25,7 +25,7 @@ For example, to remove the *cloud-2* machine from the :doc:`Example physical con
 
 .. code-block :: text
 
-   sunbeam cluster remove --name cloud-2.example.com
+   sunbeam cluster remove cloud-2.example.com
 
 Remove components from the machine
 ----------------------------------

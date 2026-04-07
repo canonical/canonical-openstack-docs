@@ -52,6 +52,7 @@ IdPs
 IPv
 IPs
 KVM
+Launchpad
 LDAP
 Libvirt
 Livepatch
@@ -77,6 +78,7 @@ NIC
 NOPASSWD
 Northd
 OIDC
+OpenDev
 OpenID
 OpenFlow
 OpenStack
@@ -130,6 +132,9 @@ aws
 balancers
 balancer's
 backend
+backends
+backport
+backported
 br
 ceph
 cirros
@@ -156,6 +161,7 @@ failover
 flavor
 flavors
 ghcr
+github
 githubusercontent
 gz
 hostname

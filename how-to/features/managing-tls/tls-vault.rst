@@ -26,6 +26,9 @@ Run the following command to enable TLS Vault for public endpoints:
 
    sunbeam enable tls vault --ca <base64 encoded ca certificate> --ca-chain <base64 encoded ca chain>
 
+.. note::
+   Omit the ``--ca-chain`` option when using self-signed certificates.
+
 To enable TLS Vault for public, internal and rgw endpoints, be explicit by
 using the ``--endpoint`` option:
 
