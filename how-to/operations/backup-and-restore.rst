@@ -368,4 +368,4 @@ If a unit has a corrupted database, it's possible to restore the backup by runni
 .. _velero-operator: https://charmhub.io/velero-operator
 .. _infra-backup-operator: https://charmhub.io/infra-backup-operator/docs/tutorial
 .. _juju-restore: https://github.com/juju/juju-restore/
-.. _charmed mysql documentation: https://canonical-charmed-mysql.readthedocs-hosted.com/how-to/back-up-and-restore/restore-a-backup/
+.. _charmed mysql documentation: https://canonical-charmed-mysql.readthedocs-hosted.com/8.0/how-to/back-up-and-restore/restore-a-backup/
