@@ -67,7 +67,7 @@ from the previous command to interact with the S3 storage provided by ceph-rgw.
 
     sudo snap install aws-cli --classic
     aws configure --profile ceph # fill the asked information
-    aws --profile ceph --endpoint-url http:///<IP_RGW_SERVICE> s3api create-bucket --bucket mysql
+    aws --profile ceph --endpoint-url http://<IP_RGW_SERVICE> s3api create-bucket --bucket mysql
     ...
     # repeat the previous command to create a bucket for each application you want to backup
 
@@ -94,7 +94,7 @@ Configure the s3-integrator charm to use the correct bucket for each application
 
 .. code-block :: text
 
-    juju config mysql-s3-integrator bucket=mysql s3-uri-style=path endpoint=http:///<IP_RGW_SERVICE> path=mysql
+    juju config mysql-s3-integrator bucket=mysql s3-uri-style=path endpoint=http://<IP_RGW_SERVICE> path=mysql
     ...
     # do the same for all necessary apps
 
@@ -166,7 +166,7 @@ So backups should be run on unit 0 or 1.
 
 .. code-block :: text
 
-    juju run glance-mysql/0 create-backup --wait 1m
+    juju run mysql/0 create-backup --wait 1m
 
 Restore
 ~~~~~~~
@@ -175,7 +175,7 @@ before running the restore-backup action. This is to avoid any issues related to
 or inconsistencies during the restore process.
 
 At the moment, there isn't a charm action to stop all control-plane services at once, so it needs
-to be done manually by running on all Openstack API services:
+to be done manually by running on all OpenStack API services:
 
 .. code-block :: bash
 
@@ -319,7 +319,7 @@ Backup
     juju create-backup --model=${CONTROLLERS_MODEL} --filename=juju-ctrl-backup.tar.gz
 
     # local client configuration
-    tar -czf juju-credentials.tar.gz .local/share/juju/*
+    tar -czf juju-credentials.tar.gz ~/.local/share/juju/*
 
 Restore
 ~~~~~~~
