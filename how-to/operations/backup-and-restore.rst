@@ -60,8 +60,8 @@ Ceph Rados Gateway (RGW) provided by the ceph-rgw charm.
     Waiting for task 317...
     external-endpoints: '{"traefik-rgw": {"url": "http://<IP_RGW_SERVICE>"}}'
 
-Install a tool like aws-cli or s3cmd and configure it with the access key and secret key obtained
-from the previous command to interact with the S3 storage provided by ceph-rgw.
+Install a tool like `aws-cli`` or `s3cmd` and configure it with the access key and secret key
+obtained from the previous command to interact with the S3 storage provided by ceph-rgw.
 
 .. code-block :: text
 
@@ -77,9 +77,9 @@ Deploy one s3-integrator application for each application that needs s3-integrat
 
     juju switch openstack
     juju deploy s3-integrator --model openstack mysql-s3-integrator
-    juju relate mysql-s3-integrator mysql
+    juju integrate mysql-s3-integrator mysql
     ...
-    # deploy and relate for all necessary apps
+    # deploy and integrate for all necessary apps
 
 
 Run the sync-s3-credentials action to configure the charm
@@ -230,6 +230,12 @@ In case you find mysql-routers on blocked state, it's necessary to re-launch the
     juju scale-application keystone-mysql-router 0
     juju scale-application keystone-mysql-router 3
 
+After the restoration, MySQL application will be in blocked state with the message:
+"Move restored cluster to another S3 repository". To unblock it, it's necessary to create a new S3
+bucket and configure the `mysql-s3-integrator`` charm to use it by running the following command:
+.. code-block :: text
+
+    juju config mysql-s3-integrator bucket=<NEW_BUCKET_NAME>
 
 Vault
 -----
@@ -359,7 +365,7 @@ If a unit has a corrupted database, it's possible to restore the backup by runni
     juju exec -u sunbeam-clusterd/{unit} -- rm /var/snap/openstack/common/state/database/000000*
 
     # restore the backup on the corrupted unit
-    juju exec -u sunbeam-clusterd/{unit} -- tar -xvf /home/ubuntu/backup.tar -C /var/snap/openstack/common/state/database/
+    juju exec -u sunbeam-clusterd/{unit} -- tar -xvf /home/ubuntu/backup.tar -C /
 
     # start the clusterd service after restoring the backup
     juju exec -a sunbeam-clusterd -- sudo systemctl start snap.openstack.clusterd.service
