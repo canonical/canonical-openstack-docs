@@ -27,9 +27,10 @@ observability related offers.
 To enable Sunbeam observability integration, run the following
 command:
 
-::
-
-   sunbeam enable observability external CONTROLLER GRAFANA_DASHBOARD_OFFER_URL PROMETHEUS_RECEIVE_REMOTE_WRITE_OFFER_URL LOKI_LOGGING_OFFER_URL
+.. literalinclude:: ../snippets/observability.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-observability-external]
+   :end-before:  [docs-view:enable-observability-external-end]
 
 ``CONTROLLER`` is the name of external Juju controller that hosts COS.
 
@@ -46,9 +47,10 @@ Disabling Observability
 
 To disable Observability, run the following command:
 
-::
-
-   sunbeam disable observability external
+.. literalinclude:: ../snippets/observability.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-observability-external]
+   :end-before:  [docs-view:disable-observability-external-end]
 
 Deploy COS in Canonical OpenStack
 ---------------------------------
@@ -60,9 +62,10 @@ Enabling Observability
 
 To enable Observability, run the following command:
 
-::
-
-   sunbeam enable observability embedded
+.. literalinclude:: ../snippets/observability.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-observability-embedded]
+   :end-before:  [docs-view:enable-observability-embedded-end]
 
 .. _disabling-observability-1:
 
@@ -71,18 +74,20 @@ Disabling Observability
 
 To disable Observability, run the following command:
 
-::
-
-   sunbeam disable observability embedded
+.. literalinclude:: ../snippets/observability.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-observability-embedded]
+   :end-before:  [docs-view:disable-observability-embedded-end]
 
 Retrieve Grafana dashboard URL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To get the URL of the dashboard use the ``dashboard-url`` command:
 
-::
-
-   sunbeam observability dashboard-url
+.. literalinclude:: ../snippets/observability.task.sh
+   :language: bash
+   :start-after: [docs-view:observability-dashboard-url]
+   :end-before:  [docs-view:observability-dashboard-url-end]
 
 Sample output:
 
