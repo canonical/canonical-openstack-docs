@@ -47,6 +47,9 @@ new endpoint address:
        type: kubernetes
        auth-types: [oauth2, clientcertificate]
        endpoint: https://10.4.2.3:16443 # <- new endpoint
+       regions:
+         localhost:
+           endpoint: https://10.4.2.3:16443 # <- new endpoint
 
 Update the controller cloud configuration
 -----------------------------------------
