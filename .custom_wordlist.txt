@@ -10,6 +10,7 @@ Aodh
 Autoscaling
 Barbican
 CADF
+CAs
 CaaS
 Caracal
 Catalogue
@@ -42,6 +43,7 @@ Geneve
 GiB
 Github
 GPUs
+HAProxy
 HOTs
 HTTP
 HTTPS
@@ -91,6 +93,7 @@ OVN
 OVS
 Passthrough
 PCI
+PEM
 PF
 PFs
 PID
@@ -115,6 +118,7 @@ IOV
 TLS
 Terraform
 Traefik
+ULA
 Uncordon
 VF
 VFs
@@ -193,6 +197,7 @@ lp
 masakari
 mds
 mem
+mgmt
 middleware
 mons
 metallb

@@ -3,9 +3,18 @@ Load Balancer as a Service
 
 This feature deploys
 `Octavia <https://docs.openstack.org/octavia/latest/index.html>`__, the
-OpenStack load balancing service. The feature supports only the `OVN
-provider
-driver <https://docs.openstack.org/octavia/latest/admin/providers/index.html#ovn-octavia-provider-driver>`__.
+OpenStack load balancing service. Two provider backends are supported:
+
+- **OVN provider** (default) – a lightweight, kernel-based provider
+  implemented through Open Virtual Network. See the upstream `OVN
+  Octavia provider documentation
+  <https://docs.openstack.org/ovn-octavia-provider/latest/admin/driver.html>`__
+  for supported features and limitations.
+- **Amphora provider** (optional) – a VM-based provider that runs a
+  dedicated HAProxy instance per load balancer, offering a broader
+  feature set. See the upstream `Amphora provider documentation
+  <https://docs.openstack.org/octavia/latest/admin/providers/index.html#amphora>`__
+  for details.
 
 Enabling Load Balancer
 ----------------------
@@ -16,11 +25,171 @@ To enable Load Balancer, run the following command:
 
    sunbeam enable loadbalancer
 
-Use OpenStack CLI to manage load balancers. See the upstream `Octavia
-documentation <https://docs.openstack.org/octavia/latest/user/guides/basic-cookbook.html>`__
-for details. The OVN Octavia provider has certain limitations that are
-documented
-`here <https://docs.openstack.org/ovn-octavia-provider/latest/admin/driver.html#limitations-of-the-ovn-provider-driver>`__.
+This enables Octavia with the OVN provider. Use the OpenStack CLI to
+manage load balancers. See the upstream `Octavia documentation
+<https://docs.openstack.org/octavia/latest/user/guides/basic-cookbook.html>`__
+for details.
+
+Enabling the Amphora provider
+-----------------------------
+
+The Amphora provider is an optional add-on to the load balancer feature,
+controlled through feature gates. It is not yet considered
+production-ready. For general information about feature gates, see
+:doc:`Manage experimental features
+</how-to/operations/manage-experimental-features>`.
+
+It requires the ``microovn-sdn`` and ``loadbalancer-amphora`` feature
+gates to be active.
+
+Step 1 – Enable the feature gate
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Enable the Amphora feature gate:
+
+::
+
+   sudo snap set openstack feature.loadbalancer-amphora=true
+
+Step 2 – Configure the Amphora provider
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Run the interactive configuration command:
+
+::
+
+   sunbeam loadbalancer configure
+
+The command presents a series of prompts. The table below describes each
+option:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35 10 55
+
+   * - Prompt
+     - Default
+     - Description
+   * - Enable Octavia Amphora provider?
+     - ``y``
+     - Activates the Amphora VM-based load-balancer backend.
+   * - Amphora image tag
+     - ``octavia-amphora``
+     - Glance tag Octavia uses to locate the Amphora VM image. An image
+       with this tag must exist in Glance before Octavia can create
+       load-balancer instances.
+   * - Auto-create Amphora image?
+     - ``n``
+     - If enabled, Sunbeam downloads the upstream Octavia Amphora image
+       from ``tarballs.opendev.org``
+       (``test-only-amphora-x64-haproxy-ubuntu-noble.qcow2``) and
+       uploads it to Glance with the tag specified above. Skip this if
+       you already have a suitable image in Glance.
+   * - Auto-create Amphora Nova flavor?
+     - ``y``
+     - If enabled, Sunbeam creates a dedicated Nova flavor for Amphora
+       VM instances automatically. Disable this if you already have a
+       suitable flavor and want to provide its ID.
+   * - Auto-create lb-mgmt network and subnet?
+     - ``y``
+     - If enabled, Sunbeam creates the Octavia ``lb-mgmt`` network and
+       subnet automatically using an IPv6 ULA subnet
+       (``fd00:a9fe:a9fe::/64``). Disable this if you already have a
+       suitable network and want to provide its IDs.
+   * - Auto-create Amphora security groups?
+     - ``y``
+     - If enabled, Sunbeam creates the Neutron security groups for
+       Amphora VM ports automatically. Disable this if you already have
+       suitable security groups and want to provide their IDs.
+
+Step 3 – Provide TLS certificates
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Octavia Amphora requires TLS certificates to secure communication
+between the controller and the Amphora VM instances. You must obtain
+two signed certificates from your Certificate Authority (CA):
+
+- **Amphora controller certificate** – a leaf (non-CA) certificate used
+  to authenticate the controller side of the Amphora TLS connection.
+- **Amphora issuing CA certificate** – a CA certificate
+  (``basicConstraints: CA:TRUE``) used by Octavia to sign certificates
+  for individual Amphora instances.
+
+Retrieve the Certificate Signing Requests (CSRs)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+List the outstanding CSRs:
+
+::
+
+   sunbeam loadbalancer list_outstanding_csrs --format yaml
+
+Sample output:
+
+::
+
+   - app_name: octavia
+     csr: |-
+       -----BEGIN CERTIFICATE REQUEST-----
+       <controller CSR PEM data>
+       -----END CERTIFICATE REQUEST-----
+     endpoint: amphora-controller-cert
+     relation_id: '215'
+     unit_name: null
+   - app_name: octavia
+     csr: |-
+       -----BEGIN CERTIFICATE REQUEST-----
+       <issuing CA CSR PEM data>
+       -----END CERTIFICATE REQUEST-----
+     endpoint: amphora-issuing-ca
+     relation_id: '216'
+     unit_name: null
+
+Extract each CSR and submit it to your CA to obtain the signed
+certificates. The ``endpoint`` field identifies the purpose of each CSR:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 30 70
+
+   * - Endpoint
+     - Certificate requirement
+   * - ``amphora-controller-cert``
+     - Leaf certificate (must **not** be a CA certificate).
+   * - ``amphora-issuing-ca``
+     - CA certificate (``basicConstraints: CA:TRUE``).
+
+Provide the signed certificates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once your CA has returned the signed certificates, provide them to
+Octavia:
+
+::
+
+   sunbeam loadbalancer provide_certificates
+
+The command prompts for each certificate in turn. For both the
+controller certificate and the issuing CA certificate, you will be asked
+to supply:
+
+- The signed certificate, base64-encoded (PEM).
+- The CA certificate that signed it, base64-encoded (PEM).
+- The full CA chain (intermediate + root CAs), base64-encoded (PEM) –
+  leave empty if the CA certificate is self-signed or no chain is
+  needed.
+
+When all certificates have been accepted, the command confirms:
+
+::
+
+   TLS certificates provided to Octavia.
+
+.. note::
+
+   If the Amphora feature is re-configured or certificates expire,
+   re-run ``sunbeam loadbalancer list_outstanding_csrs`` and
+   ``sunbeam loadbalancer provide_certificates`` to renew them.
 
 Disabling Load Balancer
 -----------------------
@@ -47,6 +216,11 @@ Create a load balancer using the following command:
 ::
 
    openstack loadbalancer create --name <name> --vip-network-id <network>
+
+To use the Amphora provider instead of the default OVN provider, add
+``--provider amphora`` to the command. This requires the Amphora
+provider to be enabled and configured first (see
+`Enabling the Amphora provider`_).
 
 For example, create the load balancer ‘test’:
 
