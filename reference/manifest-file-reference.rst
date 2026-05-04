@@ -368,6 +368,22 @@ manifest file will all its supported keys.
          #   storage:
          #     local-repository: <value>
 
+         # Configure traefik configs per application
+         # traefik-k8s:
+         #   config-map:
+         #     traefik:
+         #       tls-ca: <value>
+         #       tls-cert: <value>
+         #       tls-key: <value>
+         #     traefik-public:
+         #       tls-ca: <value>
+         #       tls-cert: <value>
+         #       tls-key: <value>
+         #     traefik-rgw:
+         #       tls-ca: <value>
+         #       tls-cert: <value>
+         #       tls-key: <value>
+
        terraform:
          <plan>:
            source: <path-to-file>
