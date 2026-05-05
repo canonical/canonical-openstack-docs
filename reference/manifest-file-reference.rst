@@ -377,6 +377,31 @@ manifest file will all its supported keys.
 
    features:
 
+     observability:
+       embedded:
+         # Storage for embedded COS can be configured before deployment.
+         # Resizing these storage options after deployment is not currently
+         # supported.
+         software:
+           charms:
+             <charm>:
+               storage:
+                 <option>: <value>
+             # Examples:
+             # prometheus-k8s:
+             #   storage:
+             #     database: "40G"              # default: 20G
+             # loki-k8s:
+             #   storage:
+             #     active-index-directory: "4G" # default: 2G
+             #     loki-chunks: "10G"           # default: 5G
+             # grafana-k8s:
+             #   storage:
+             #     database: "2G"               # default: 1G
+             # alertmanager-k8s:
+             #   storage:
+             #     data: "2G"                   # default: 1G
+
      loadbalancer:
        config:
          <option>: <value>
