@@ -24,7 +24,7 @@ Core
     - `Bugs <https://bugs.launchpad.net/charm-microceph/>`__
   * - OpenStack Snap
     - `Source <https://github.com/canonical/snap-openstack.git>`__
-    - `Bugs <https://bugs.launchpad.net/charm-rabbitmq-k8s>`__
+    - `Bugs <https://bugs.launchpad.net/snap-openstack>`__
   * - Openstack Hypervisor Snap
     - `Source <https://github.com/canonical/snap-openstack-hypervisor.git>`__
     - `Bugs <https://bugs.launchpad.net/snap-openstack-hypervisor>`__
