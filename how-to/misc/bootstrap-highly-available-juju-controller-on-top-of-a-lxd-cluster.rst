@@ -16,44 +16,14 @@ Requirements
 
 You will need:
 
+* one dedicated physical network with:
+  
+  * unlimited access to the Internet
+
 * at least three dedicated physical machines with:
 
   * hardware specifications matching minimum hardware specifications for the *Cloud* node as documented under the :doc:`Enterprise requirements</reference/enterprise-requirements>` section
   * fresh Ubuntu Server 24.04 LTS installed
-
-Prepare machines
-++++++++++++++++
-
-All machines have to be configured first to use `bridges <https://ubuntu.com/server/docs/configuring-networks#bridging-multiple-interfaces>`_ instead of physical network interfaces on the Generic network.
-
-For example, to prepare the *cloud-1* machine from the example configuration section, execute the following commands:
-
-.. code-block :: text
-
-   sudo bash -c 'cat <<EOF > /etc/netplan/config.yaml
-   network:
-       bridges:
-           br0:
-               addresses:
-               - 172.16.1.101/24
-               interfaces:
-               - eno1
-               routes:
-               - to: default
-                 via: 172.16.1.1
-               nameservers:
-                   addresses:
-                   - 8.8.8.8
-                   search:
-                   - example.com
-       ethernets:
-           eno1:
-               set-name: eno1
-           eno2:
-               set-name: eno2
-       version: 2
-   EOF'
-   sudo netplan apply
 
 Set up a LXD cluster
 ++++++++++++++++++++
@@ -73,19 +43,21 @@ When prompted, answer some interactive questions. Below is a sample output from 
 
 .. code-block :: text
 
+   Installing LXD snap, please be patient.
    Would you like to use LXD clustering? (yes/no) [default=no]: yes
    What IP address or DNS name should be used to reach this server? [default=172.16.1.101]: 172.16.1.101
    Are you joining an existing cluster? (yes/no) [default=no]: no
    What member name should be used to identify this server in the cluster? [default=cloud-1]: cloud-1
    Do you want to configure a new local storage pool? (yes/no) [default=yes]: yes
-   Name of the storage backend to use (btrfs, dir, lvm, zfs) [default=zfs]: zfs
+   Name of the storage backend to use (zfs, btrfs, dir, lvm) [default=zfs]: zfs
    Create a new ZFS pool? (yes/no) [default=yes]: yes
    Would you like to use an existing empty block device (e.g. a disk or partition)? (yes/no) [default=no]: no
    Size in GiB of the new loop device (1GiB minimum) [default=30GiB]: 30GiB
    Do you want to configure a new remote storage pool? (yes/no) [default=no]: no
    Would you like to connect to a MAAS server? (yes/no) [default=no]: no
-   Would you like to configure LXD to use an existing bridge or host interface? (yes/no) [default=no]: yes
-   Name of the existing bridge or host interface: br0
+   Would you like to configure LXD to use an existing bridge or host interface? (yes/no) [default=no]: no
+   Would you like to create a new Fan overlay network? (yes/no) [default=yes]: yes
+   What subnet should be used as the Fan underlay? [default=auto]: auto
    Would you like stale cached images to be updated automatically? (yes/no) [default=yes]: yes
    Would you like a YAML "lxd init" preseed to be printed? (yes/no) [default=no]: no
 
@@ -207,11 +179,8 @@ To create a dedicated system account and to switch into it, execute the followin
 
 .. code-block :: text
 
-   sudo groupadd bootstrap
-   sudo useradd -m -g bootstrap -s /bin/bash bootstrap
+   sudo adduser bootstrap
    sudo usermod -a -G lxd,sudo bootstrap
-   sudo passwd bootstrap
-   sudo -i
    su bootstrap
    cd
 
@@ -328,11 +297,11 @@ Sample output:
    +---------------+---------+---------------------+------+-----------+-----------+----------+
    |     NAME      |  STATE  |        IPV4         | IPV6 |   TYPE    | SNAPSHOTS | LOCATION |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
-   | juju-e4ce90-0 | RUNNING | 172.16.1.248 (eth0) |      | CONTAINER | 0         | cloud-1  |
+   | juju-e4ce90-0 | RUNNING | 240.101.0.12 (eth0) |      | CONTAINER | 0         | cloud-1  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
-   | juju-e4ce90-1 | RUNNING | 172.16.1.249 (eth0) |      | CONTAINER | 0         | cloud-2  |
+   | juju-e4ce90-1 | RUNNING | 240.102.0.34 (eth0) |      | CONTAINER | 0         | cloud-2  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
-   | juju-e4ce90-2 | RUNNING | 172.16.1.250 (eth0) |      | CONTAINER | 0         | cloud-2  |
+   | juju-e4ce90-2 | RUNNING | 240.103.0.56 (eth0) |      | CONTAINER | 0         | cloud-2  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
 
 As you can see the ``juju-e4ce90-2`` container runs on the ``cloud-2`` node, while it should run on the ``cloud-3`` node instead.
@@ -353,11 +322,11 @@ At this point you should be able to see all three containers being equally distr
    +---------------+---------+---------------------+------+-----------+-----------+----------+
    |     NAME      |  STATE  |        IPV4         | IPV6 |   TYPE    | SNAPSHOTS | LOCATION |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
-   | juju-e4ce90-0 | RUNNING | 172.16.1.248 (eth0) |      | CONTAINER | 0         | cloud-1  |
+   | juju-e4ce90-0 | RUNNING | 240.101.0.12 (eth0) |      | CONTAINER | 0         | cloud-1  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
-   | juju-e4ce90-1 | RUNNING | 172.16.1.249 (eth0) |      | CONTAINER | 0         | cloud-2  |
+   | juju-e4ce90-1 | RUNNING | 240.102.0.34 (eth0) |      | CONTAINER | 0         | cloud-2  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
-   | juju-e4ce90-2 | RUNNING | 172.16.1.250 (eth0) |      | CONTAINER | 0         | cloud-3  |
+   | juju-e4ce90-2 | RUNNING | 240.203.0.56 (eth0) |      | CONTAINER | 0         | cloud-3  |
    +---------------+---------+---------------------+------+-----------+-----------+----------+
 
 Create necessary credentials for the Sunbeam client
@@ -419,4 +388,5 @@ For example:
 
 .. code-block :: text
 
+   sunbeam prepare-node-script --bootstrap | bash -x && newgrp snap_daemon
    sunbeam cluster bootstrap --role control,compute,storage --controller mylxdcluster-default
