@@ -10,9 +10,10 @@ Enabling CaaS
 
 To enable CaaS, run the following command:
 
-::
-
-   sunbeam enable caas
+.. literalinclude:: ../snippets/caas.task.sh
+   :language: bash
+   :start-after: [docs-view:enable-caas]
+   :end-before:  [docs-view:enable-caas-end]
 
 Use the OpenStack CLI to manage container infrastructures. See the
 upstream `Magnum`_ documentation for details.
@@ -30,9 +31,10 @@ Disabling CaaS
 
 To disable CaaS, run the following command:
 
-::
-
-   sunbeam disable caas
+.. literalinclude:: ../snippets/caas.task.sh
+   :language: bash
+   :start-after: [docs-view:disable-caas]
+   :end-before:  [docs-view:disable-caas-end]
 
 Usage
 -----
@@ -70,7 +72,7 @@ Create a cluster template using the following command:
       --labels octavia_lb_algorithm=SOURCE_IP_PORT \
       --network-driver cilium \
       --coe kubernetes
- 
+
 Sample output:
 
 .. terminal::

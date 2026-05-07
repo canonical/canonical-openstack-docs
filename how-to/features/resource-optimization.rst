@@ -9,18 +9,20 @@ Enabling Resource Optimization
 
 To enable Resource Optimization, run the following command:
 
-::
-
-   sunbeam enable resource-optimization
+.. literalinclude:: ../snippets/resource-optimization.task.sh
+    :language: bash
+    :start-after: [docs-view:enable-resource-optimization]
+    :end-before:  [docs-view:enable-resource-optimization-end]
 
 Disabling Resource Optimization
 -------------------------------
 
 To disable Resource Optimization, run the following command:
 
-::
-
-   sunbeam disable resource-optimization
+.. literalinclude:: ../snippets/resource-optimization.task.sh
+    :language: bash
+    :start-after: [docs-view:disable-resource-optimization]
+    :end-before:  [docs-view:disable-resource-optimization-end]
 
 Usage
 -----

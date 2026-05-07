@@ -17,6 +17,7 @@ help:
         "* clean built doc files:                     make clean-doc \n" \
         "* clean full environment:                    make clean \n" \
         "* check links:                               make linkcheck \n" \
+        "* lint shell snippets:                       make lint \n" \
         "* check spelling:                            make spelling \n" \
         "* check spelling (without building again):   make spellcheck \n" \
         "* check inclusive language:                  make woke \n" \
