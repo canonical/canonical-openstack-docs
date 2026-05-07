@@ -26,9 +26,33 @@ To ensure the latest updates are available to the cluster charms, refresh the
    cluster. You must explicitly run the dedicated cluster refresh commands
    described below to apply updates to the running services.
 
+.. _refresh-k8s:
+
+Step 1 - Refresh Kubernetes
+----------------------------
+
+The Canonical Kubernetes (k8s) charm requires a dedicated refresh command and
+must be refreshed before the other components. Run:
+
+.. code:: text
+
+   sunbeam cluster refresh k8s
+
+This command supports **patch-level upgrades only**:
+
+- Refreshing to the latest revision within the currently deployed channel/risk.
+- Changing the risk level within the same track
+  (for example, from ``1.32/stable`` to ``1.32/edge``).
+- Refreshing to a specific revision pinned in a manifest file.
+
+.. important::
+   Track upgrades (minor or major Kubernetes version changes, for example
+   from ``1.32`` to ``1.35``) are **not supported** by this command. Attempting
+   a track upgrade will return an error.
+
 .. _refresh-vault:
 
-Step 1 - Refresh Vault
+Step 2 - Refresh Vault
 ----------------------
 
 Vault requires a dedicated refresh command. Run:
@@ -45,7 +69,7 @@ For detailed instructions on unsealing and authorizing Vault, see
 
 .. _refresh-mysql:
 
-Step 2 - Refresh MySQL
+Step 3 - Refresh MySQL
 ----------------------
 
 The MySQL database must be refreshed before the application charms that depend
@@ -78,10 +102,10 @@ not revert any changes already applied to the cluster.
 
 .. _refresh-cluster:
 
-Step 3 - Refresh the cluster
+Step 4 - Refresh the cluster
 -----------------------------
 
-Once Vault and MySQL have been refreshed, refresh all remaining OpenStack
+Once Kubernetes, Vault and MySQL have been refreshed, refresh all remaining OpenStack
 charms:
 
 .. code:: text
