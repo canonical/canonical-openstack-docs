@@ -64,6 +64,13 @@ To enable Observability, run the following command:
 
    sunbeam enable observability embedded
 
+.. note::
+   Storage size for the embedded observability stack can be configured using
+   the :doc:`manifest file </reference/manifest-file-reference>`, which is
+   consumed during the cluster bootstrap or refresh.
+
+   Changing the storage size after deployment is not currently supported.
+
 .. _disabling-observability-1:
 
 Disabling Observability
