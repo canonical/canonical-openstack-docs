@@ -78,7 +78,20 @@ Apply
 
 * Audit action plan
 
-  * Execute the watcher audit action plan.
+  * Execute the Watcher audit action plan. By default, the plan will live migrate active
+    instances and cold migrate inactive instances off the node.
+
+  * Operators can control migration behavior using the ``--disable-migration`` flag:
+
+    * ``--disable-migration=live``: Disable live migration. All instances (active and
+      inactive) will be cold migrated.
+    * ``--disable-migration=cold``: Disable cold migration. Active instances will be
+      live migrated; inactive instances will be ignored.
+    * ``--disable-migration=both`` (or ``--disable-migration`` without a value): Disable
+      all migration. Active instances will be stopped; inactive instances will be ignored.
+
+  * This is based on the `Watcher Host Maintenance strategy`_ which supports
+    ``disable_live_migration`` and ``disable_cold_migration`` parameters.
 
 Verify
 ^^^^^^
@@ -283,6 +296,7 @@ Once all roles on the node meet these conditions, the node is considered to be o
 **Maintenance** mode.
 
 .. LINKS
+.. _Watcher Host Maintenance strategy: https://docs.openstack.org/watcher/latest/strategies/host_maintenance.html
 .. _ceph administration tool: https://docs.ceph.com/en/reef/man/8/ceph/
 .. _kubectl drain: https://kubernetes.io/docs/reference/kubectl/generated/kubectl_drain/
 .. _kubectl cordon: https://kubernetes.io/docs/reference/kubectl/generated/kubectl_cordon/
