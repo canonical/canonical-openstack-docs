@@ -404,16 +404,88 @@ manifest file will all its supported keys.
 
      loadbalancer:
        config:
-         <option>: <value>
+         # Enable the Octavia Amphora VM-based load-balancer backend.
+         # Requires the microovn-sdn and loadbalancer-amphora feature gates.
+         amphora_enabled: [true, false]
+
+         # Glance tag used by Octavia to locate the Amphora VM image.
+         # An image with this tag must exist in Glance before Octavia can
+         # create load-balancer instances.
+         amp_image_tag: octavia-amphora
+
+         # If true, Sunbeam downloads the upstream Octavia Amphora image from
+         # tarballs.opendev.org and uploads it to Glance with amp_image_tag.
+         # Set to false if you already have a suitable image in Glance.
+         autocreate_image: [true, false]
+
+         # If true, Sunbeam creates a dedicated Nova flavor for Amphora VM
+         # instances automatically. Set to false to supply your own flavor ID.
+         autocreate_flavor: [true, false]
+
+         # Nova flavor ID for Amphora VM instances.
+         # Required only when autocreate_flavor is false.
+         amp_flavor_id: <flavor-id>
+
+         # If true, Sunbeam creates the Octavia lb-mgmt network and subnet
+         # automatically using an IPv6 ULA subnet (fd00:a9fe:a9fe::/64).
+         # Set to false to supply your own network and subnet IDs.
+         autocreate_network: [true, false]
+
+         # Neutron network ID for the Octavia lb-mgmt management network.
+         # Required only when autocreate_network is false.
+         lb_mgmt_network_id: <network-id>
+
+         # Neutron subnet ID within the lb-mgmt network.
+         # Required only when autocreate_network is false.
+         lb_mgmt_subnet_id: <subnet-id>
+
+         # If true, Sunbeam creates the Neutron security groups for Amphora VM
+         # ports automatically. Set to false to supply your own group IDs.
+         autocreate_securitygroups: [true, false]
+
+         # List of Neutron security group IDs for Amphora VM ports
+         # (passed to the Octavia charm as amp-secgroup-list).
+         # Required only when autocreate_securitygroups is false.
+         lb_mgmt_secgroup_ids:
+           - <secgroup-id>
+
+         # Neutron security group ID for the Octavia health manager port
+         # (lb-health-mgr-sec-grp).
+         # Required only when autocreate_securitygroups is false.
+         lb_health_secgroup_id: <secgroup-id>
+
+         # Octavia Amphora TLS certificates, keyed by CSR x500UniqueIdentifier.
+         # Run 'sunbeam loadbalancer list_outstanding_csrs' to obtain subjects.
+         # Two entries are required: one for amphora-controller-cert (leaf cert)
+         # and one for amphora-issuing-ca (CA cert).
+         certificates:
+           <CSR x500UniqueIdentifier>:
+             # Base64-encoded signed certificate (PEM).
+             # For amphora-issuing-ca this must be a CA certificate
+             # (basicConstraints: CA:TRUE).
+             certificate: <base64-encoded-certificate>
+             # Base64-encoded CA certificate that signed the certificate above.
+             ca_certificate: <base64-encoded-ca-certificate>
+             # Base64-encoded full CA chain (intermediate + root CAs).
+             # Leave empty if the CA certificate is self-signed.
+             ca_chain: <base64-encoded-ca-chain>
+
        software:
          charms:
-           <charm>:
+           octavia-k8s:
              channel: <channel>
              revision: <revision>
              config:
                <option>: <value>
-               <option>: <value>
-           ...
+           multus:
+             channel: <channel>
+             revision: <revision>
+           openstack-port-cni-k8s:
+             channel: <channel>
+             revision: <revision>
+           manual-tls-certificates:
+             channel: <channel>
+             revision: <revision>
 
      tls:
        ca:
