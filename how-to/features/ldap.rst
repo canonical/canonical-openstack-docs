@@ -72,7 +72,7 @@ LDAP servers.
 4. A new LDAP-backed domain will be created in Keystone. Verify this
    with the native ``openstack`` CLI:
 
-   openstack user list –domain dom1
+   openstack user list --domain dom1
 
 .. code:: text
 
