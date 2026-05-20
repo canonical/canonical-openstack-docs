@@ -117,6 +117,7 @@ StatefulSet
 IOV
 TLS
 Terraform
+TPM
 Traefik
 ULA
 Uncordon
@@ -307,3 +308,4 @@ snapcraftcontent
 deallocation
 sys
 switchdev
+vTPM
