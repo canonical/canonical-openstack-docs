@@ -278,11 +278,14 @@ manifest file will all its supported keys.
          # Disks to attach to MicroCeph nodes
          <node-hostname>:
            osd_devices: <device>,<device>,...
+           # WARNING: This will wipe ALL devices listed on the <node-hostname>
+           # dangerous_i_acknowledge_i_will_lose_data_wipe_disks: true
          # Examples:
          # sunbeam-1.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
          # sunbeam-2.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
+         #   dangerous_i_acknowledge_i_will_lose_data_wipe_disks: true
          # sunbeam-3.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
       endpoints:
