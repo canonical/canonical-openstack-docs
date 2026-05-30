@@ -527,7 +527,7 @@ manifest file will all its supported keys.
        <instance-name>:
          config:
            san-ip: <ip-or-hostname>
-           san-username: <username>
+           san-login: <username>
            san-password: <password>
            protocol: [fc, iscsi]
            # Shared storage config fields.
@@ -543,7 +543,7 @@ manifest file will all its supported keys.
            hitachi-storage-id: <storage-id>
            hitachi-pools: <pool>,<pool>,...
            san-ip: <ip-or-hostname>
-           san-username: <username>
+           san-login: <username>
            san-password: <password>
            protocol: [fc, iscsi]
            volume-backend-name: <backend-name>
