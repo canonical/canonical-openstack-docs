@@ -233,7 +233,7 @@ manifest file will all its supported keys.
          # external routing
          physnet: <physnet-name>
 
-       # External networking (deprecated)
+       # External networking (deprecated, use external_networks instead)
        external_network:
          nic: <interface-name> # deprecated
          nics:
