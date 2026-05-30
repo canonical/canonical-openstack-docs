@@ -55,7 +55,7 @@ Rocks
 Snaps
 ^^^^^
 
-`Snaps <https://snapcraft.io/docs>`_ are application container images that are designed to be strictly confined and secure by default. Canonical OpenStack uses snaps for the purpose of hosting OpenStack's data plane processes as well as many other software components being used in the RA.
+`Snaps <https://snapcraft.io/docs>`_ are application container images that are designed to be strictly confined and secure by default. Canonical OpenStack uses snaps for the purpose of hosting OpenStack's data plane processes as well as many other software components being used in the Reference Architecture (RA).
 
 Charms
 ^^^^^^
