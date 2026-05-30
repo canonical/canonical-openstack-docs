@@ -285,26 +285,26 @@ manifest file will all its supported keys.
          #   osd_devices: /dev/vdc,/dev/vdd
          # sunbeam-3.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
-      endpoints:
-        # Ips must be part of management_cidr defined above
-        # or public/internal spaces in MAAS deployments
-        ingress-internal: # optional
-          ip: <ip> # optional
-          hostname: <domain> # optional
-        ingress-public: # optional
-          ip: <ip> # optional
-          hostname: <domain> # optional
-        ingress-rgw: # optional
-          ip: <ip> # optional
-          hostname: <domain> # optional
-        # Examples:
-        # ingress-internal:
-        #   hostname: internal.openstack.example.com
-        # ingress-public:
-        #   ip: 192.168.29.27
-        #   hostname: public.openstack.example.com
-        # ingress-rgw:
-        #   ip: 192.168.29.28
+       endpoints:
+         # Ips must be part of management_cidr defined above
+         # or public/internal spaces in MAAS deployments
+         ingress-internal: # optional
+           ip: <ip> # optional
+           hostname: <domain> # optional
+         ingress-public: # optional
+           ip: <ip> # optional
+           hostname: <domain> # optional
+         ingress-rgw: # optional
+           ip: <ip> # optional
+           hostname: <domain> # optional
+         # Examples:
+         # ingress-internal:
+         #   hostname: internal.openstack.example.com
+         # ingress-public:
+         #   ip: 192.168.29.27
+         #   hostname: public.openstack.example.com
+         # ingress-rgw:
+         #   ip: 192.168.29.28
 
      software:
 
@@ -324,10 +324,9 @@ manifest file will all its supported keys.
            channel: <channel>
            revision: <revision>
            config:
-             <option>: <value>
-             <option>: <value>
-         ...
-         ...
+             <option1>: <value>
+             <option2>: <value>
+         # ...
          # Examples:
          # keystone-k8s:
          #   channel: 2024.1/candidate
@@ -518,7 +517,6 @@ manifest file will all its supported keys.
              <CSR x500UniqueIdentifier>:
                # Base64 encoded certificate for unit CSR Unique ID: subject
                certificate: <Base64 encoded certificate>
-      ...
    storage:
 
      # Storage is keyed by backend type, then by instance name.
