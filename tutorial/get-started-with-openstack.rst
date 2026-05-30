@@ -3,92 +3,123 @@ Get started with OpenStack
 
 Welcome!
 
-If you are here, this likely means that you decided to give `Canonical OpenStack`_ a try. You might have heard from various sources that OpenStack is a complex piece of software. And you know what? This is true. OpenStack is complex for some very good reasons. However, you should also be aware that with the use of a proper tooling its complexity can be fully tamed.
+If you are here, this likely means that you decided to give `Canonical OpenStack`_ a try.
+It's complex software that you can fully tame with the right tools.
 
-In this tutorial we will show you how to get started with Canonical OpenStack in a few simple steps. We will walk you through its installation and configuration processes and get your first VM running on top of it. You will only need one machine for this purpose and around 30 minutes to spare.
+This tutorial will help you get started with Canonical OpenStack in a few steps.
+It will guide you through installing Canonical OpenStack, bootstrapping the cloud, and provisioning a VM.
+To complete the tutorial, you need a single dedicated machine or VM and around 30 minutes to spare.
+
+What you will build
++++++++++++++++++++
+
+As a result of completing the tutorial, you will have a functioning single-node Canonical OpenStack cloud,
+with the node serving the control, compute, and storage roles.
+This cloud will be sufficient to complete all further tutorials in this documentation.
+You will also understand the four key steps of each Canonical OpenStack deployment.
 
 Ready for the adventure? Let's explore OpenStack together!
 
 .. note ::
 
-   This tutorial is intended to serve for learning purposes only. If you've looking for detailed instructions on how to deploy a production-grade cloud, please refer to the :doc:`How-to Guides section</how-to/index>` of this documentation instead.
+   This tutorial is intended to serve for learning purposes only.
+   To deploy a production-grade cloud, refer to detailed instructions in the :doc:`How-to Guides section </how-to/index>`.
 
 Requirements
 ++++++++++++
 
-You will only need one dedicated physical machine with:
+You need a dedicated physical machine with:
 
 * 4+ core amd64 processor
 * minimum of 16 GiB of RAM
 * minimum of 100 GiB SSD storage on the ``rootfs`` partition
-* fresh Ubuntu Desktop 24.04 LTS installed
+* a fresh installation of Ubuntu Desktop 24.04 LTS
 * unlimited access to the Internet
-* spare un-formatted disk for MicroCeph
+* a spare unformatted disk for MicroCeph
 
 You can also use a virtual machine instead, but you can expect some performance degradation in this case.
 
-.. warning ::
+.. note ::
 
-   All terminal commands used in this series of tutorials are run from the aforementioned machine. All web browser examples presented in this series of tutorials are run from the aforementioned machine. Neither OpenStack APIs nor any of the provisioned cloud resources, including VMs and floating IPs will be accessible from any other machine in your network than the aforementioned one. Everything runs on that machine. But it runs and it works!
+   This tutorial intentionally limits OpenStack deployment to a single machine.
+   You will run all terminal commands and web browser examples from this machine,
+   and it will not expose OpenStack APIs or any of the provisioned cloud resources
+   (such as VMs and floating IPs) to your network.
+
+   To learn about production-grade deployments, refer to :doc:`How-to Guides </how-to/index>`.
+
 
 Deploy Canonical OpenStack
 ++++++++++++++++++++++++++
 
+Canonical OpenStack can be deployed in four steps.
+This tutorial will demonstrate these steps and their meaning without going into deep details.
+
+Step 1: Install the OpenStack snap
+----------------------------------
+
 .. note ::
 
-   **Duration:** 1 minute (exact time might vary depending on your Internet connection speed)
+   **Duration:** 1 minute (depends on your Internet connection speed)
 
-Canonical OpenStack can be deployed for sample usage in four simple steps. Once you continue your journey with Canonical OpenStack and move forward with some more advanced scenarios you will find out that those steps are present in every single deployment procedure regardless of the cloud architecture and the bare metal provider being used. Thus, it is worth spending some time learning what exactly happens in each of those steps. Obviously, in more advanced scenarios, the exact procedure might vary slightly and some additional steps might be required.
+The `OpenStack snap`_ includes ``sunbeam``, a deployment and operations tool that you will use to deploy a cloud and provision resources.
+Sunbeam acts as a high-level interface to Canonical OpenStack, effectively abstracting its complexity from operators.
 
-Install the snap
-----------------
-
-We are going to start with installing the `OpenStack snap`_. The ``openstack`` snap includes the
-``sunbeam`` command which we'll further use to bootstrap the cloud and to operate it
-post-deployment. Sunbeam acts like a high-level interface to Canonical OpenStack, effectively
-abstracting its complexity from operators.
-
-To install the ``openstack`` snap, execute the following terminal command:
+To install the ``openstack`` snap, run the following terminal command:
 
 .. code-block :: text
    
    sudo snap install openstack
 
-Prepare the machine
--------------------
+Step 2: Prepare the machine
+---------------------------
 
 .. note ::
 
    **Duration:** 1 minute
 
-Before we'll be able to bootstrap the cloud, we have to prepare the machine for Canonical OpenStack usage. This process includes:
+You need to prepare the machine in order to bootstrap a Canonical OpenStack cloud.
+This preparation includes two actions:
 
-* ensuring all required software dependencies are installed, including the ``openssh-server``,
-* configuring passwordless access to the ``sudo`` command for all terminal commands for the currently logged in user (i.e. ``NOPASSWD:ALL``).
+* ensure that all required software dependencies are installed, including the ``openssh-server``,
+* configure passwordless access to the ``sudo`` command for all terminal commands for the currently logged in user (i.e. ``NOPASSWD:ALL``).
 
-In order to facilitate this process, Sunbeam can generate a script that you can further review
-and execute step by step:
-
-.. code-block :: text
-   
-   sunbeam prepare-node-script --bootstrap
-
-However, if you simply want to execute all those commands at once, you can also pipe them directly to Bash instead:
+Sunbeam generates a script to facilitate this process.
+You can pipe this script directly to Bash:
 
 .. code-block :: text
-   
+
    sunbeam prepare-node-script --bootstrap | bash -x && newgrp snap_daemon
 
-Bootstrap the cloud
--------------------
+.. note::
+
+   You can also generate a script file to review and execute step-by-step:
+
+   .. code-block :: text
+
+      sunbeam prepare-node-script --bootstrap
+
+
+Step 3: Bootstrap the cloud
+---------------------------
 
 .. note ::
 
-   **Duration:** 20 minutes (exact time might vary depending on your Internet connection speed)
+   **Duration:** 20 minutes (depends on your Internet connection speed)
 
-Now, once the machine is ready for Canonical OpenStack usage, we can bootstrap the cloud on top of
-it. Even though triggered by a single command, the overall process is relatively complex and takes
-a while to complete. In principle, Sunbeam orchestrates the following actions in the background:
+Once the machine is ready for Canonical OpenStack, you can bootstrap the cloud:
+
+.. code-block :: text
+
+   sunbeam cluster bootstrap --accept-defaults --role control,compute,storage
+
+Once this command completes, you will see the following message:
+
+.. code-block :: text
+
+   Node has been bootstrapped with roles: storage, control, compute
+
+During the bootstrap process, Sunbeam orchestrates the following actions:
 
 * Installs `Canonical Kubernetes <https://ubuntu.com/kubernetes>`_ for the purpose of hosting
   cloud control functions,
@@ -97,23 +128,11 @@ a while to complete. In principle, Sunbeam orchestrates the following actions in
 * Installs the `OpenStack Hypervisor snap`_ and plugs it into cloud control services,
 * Installs the `MicroCeph snap`_ and plugs it into cloud control services.
 
-To bootstrap the cloud for sample usage, execute the following command:
-
-.. code-block :: text
-   
-   sunbeam cluster bootstrap --accept-defaults --role control,compute,storage
-
 .. important::
 
    Bootstrapping may fail if the ``rootfs`` partition does not have sufficient
    available storage, or if there is no free, un-partitioned disk for MicroCeph.
    If any issue is encountered, consult the :doc:`Troubleshooting guide </how-to/troubleshooting/inspecting-the-cluster>`.
-
-Once it completes, you should be able to see the following message on your screen:
-
-.. code-block :: text
-   
-   Node has been bootstrapped with roles: storage, control, compute
 
 .. note ::
 
@@ -125,28 +144,44 @@ Once it completes, you should be able to see the following message on your scree
 
         sunbeam utils juju-login
 
-Configure the cloud
--------------------
+Step 4: Configure the cloud
+---------------------------
 
 .. note ::
 
-   **Duration:** 2 minutes (exact time might vary depending on your Internet connection speed)
+   **Duration:** 2 minutes (depends on your Internet connection speed)
 
-At this point your Canonical OpenStack installation is already up and running. However, to be able to demonstrate its capabilities, we have to prepare the cloud for sample use. This includes creating a ``demo`` user, populating the cloud with some common templates and creating a sandbox project with some basic configuration where we'll be able to provision resources.
+Your Canonical OpenStack cloud is already up and running.
+Now you need to prepare the cloud for provisioning sample resources (such as virtual machines) in a series of steps:
 
-We will explore in :doc:`another tutorial</tutorial/on-board-your-users>` how this process usually looks like under the hood. However, for the time being we're simply going to let Sunbeam handle that.
+1. create a ``demo`` user;
+2. populate the cloud with common templates;
+3. create a sandbox project with basic configuration.
 
-To configure the cloud for sample usage, execute the following command:
+Use Sunbeam to handle these steps:
 
 .. code-block :: text
-   
+
    sunbeam configure --accept-defaults --openrc demo-openrc
 
-Once it completes, you should be able to see the following message on your screen:
+Once the command completes, you will see the following message:
 
 .. code-block :: text
 
    Writing openrc to demo-openrc ... done
+
+
+.. hint::
+
+   You will explore how cloud configuration works under the hood in the following tutorial: :doc:`On-board your users </tutorial/on-board-your-users>`.
+
+Conclusion
+----------
+
+Your Canonical OpenStack cloud is now ready to provision resources.
+
+Once you move forward with more advanced scenarios, you will see that each deployment procedure has these four steps,
+regardless of the cloud architecture and the bare metal provider.
 
 Launch a VM
 +++++++++++
@@ -155,9 +190,9 @@ Launch a VM
 
    **Duration:** 1 minute (first VM launch always takes longer)
 
-The best way to verify whether Canonical OpenStack has been deployed successfully is to try to launch a VM on top of it. We will explore in :doc:`another tutorial</tutorial/get-familiar-with-openstack>` how this process usually looks like under the hood. However, for the time being we're simply going to let Sunbeam handle that.
+Once you have a Canonical OpenStack cloud ready, you can provision a virtual machine on the cloud using Sunbeam.
 
-In order to launch a test VM, execute the following command:
+To launch a test VM, execute the following command:
 
 .. code-block :: text
    
@@ -168,34 +203,38 @@ Sample output:
 .. code-block :: text
    
    Launching an OpenStack instance ...
-   Access instance with `ssh -i /home/ubuntu/snap/openstack/584/sunbeam ubuntu@10.20.20.94`
+   Access instance with `ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.200`
+
+.. hint::
+
+   You will explore how resource provisioning works under the hood in the following tutorial:
+   :doc:`Get familiar with OpenStack </tutorial/get-familiar-with-openstack>`.
 
 .. TODO: Update once https://bugs.launchpad.net/snap-openstack/+bug/2045266 is solved
 
-You should now be able to connect to your VM over SSH using the provided command:
+Use the provided command to connect to the VM over SSH:
 
 .. code-block :: text
    
    ssh -i /home/ubuntu/.config/openstack/sunbeam ubuntu@10.20.20.200
 
-That's it. You're now connected to the VM. You can use regular shell commands to execute various tasks:
+You can use regular shell commands to execute various tasks in the VM:
 
 .. code-block :: text
    
    $ uptime
    10:54:29 up 1 min,  1 user,  load average: 0.00, 0.00, 0.00
 
-To disconnect from the VM, type ``exit`` or press CTRL+D instead.
+To disconnect from the VM, type ``exit`` or press CTRL+D.
 
 Next steps
 ++++++++++
 
 Congratulations!
+You have completed this tutorial.
 
-You have reached the end of this tutorial.
+Explore the next steps:
 
-You can now:
-
-* Move to the next tutorial in this series - :doc:`"Get familiar with OpenStack"</tutorial/get-familiar-with-openstack>`,
-* If you need to clean up the node and start over, you can check :doc:`how to remove the node </how-to/operations/removing-the-primary-node>`,
-* Explore :doc:`How-to Guides</how-to/index>` for instructions on setting up a production-grade environment.
+* Move to the next tutorial in this series: :doc:`Get familiar with OpenStack </tutorial/get-familiar-with-openstack>`.
+* If you need to clean up and start the tutorial over, read :doc:`Removing the primary node </how-to/operations/removing-the-primary-node>`.
+* Learn how to set up a production-grade environment from :doc:`How-to Guides </how-to/index>`.
