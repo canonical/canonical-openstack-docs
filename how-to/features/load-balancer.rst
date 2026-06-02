@@ -12,7 +12,8 @@ OpenStack load balancing service. Two provider backends are supported:
   for supported features and limitations.
 - **Amphora provider** (optional) – a VM-based provider that runs a
   dedicated HAProxy instance per load balancer, offering a broader
-  feature set. See the upstream `Amphora provider documentation
+  feature set. Requires MicroOVN as the SDN. See the upstream `Amphora
+  provider documentation
   <https://docs.openstack.org/octavia/latest/admin/providers/index.html#amphora>`__
   for details.
 
@@ -41,6 +42,16 @@ production-ready. For general information about feature gates, see
 
 It requires the ``microovn-sdn`` and ``loadbalancer-amphora`` feature
 gates to be active.
+
+.. note::
+
+   The Amphora provider requires MicroOVN as the SDN. MicroOVN SDN must be enabled
+   before running ``sunbeam cluster bootstrap`` with:
+
+   ::
+
+      sudo snap set openstack feature.microovn-sdn=true
+      sudo snap set openstack ovn.provider=microovn 
 
 Step 1 – Enable the feature gate
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
