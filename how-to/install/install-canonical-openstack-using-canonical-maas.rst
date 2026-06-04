@@ -291,12 +291,13 @@ To map network space to cloud network, execute the ``sunbeam deployment space ma
 
 .. code-block :: text
 
-   sunbeam deployment space map SPACE NETWORK
+   sunbeam deployment space map SPACE:NETWORK
 
 ``SPACE`` is the MAAS space.
 
 ``NETWORK`` is the cloud network (a traffic group).
 
+If a space is given alone, it will be considered as the default space.
 For example, to map network spaces to cloud networks from the example configuration section,
 execute the following commands:
 

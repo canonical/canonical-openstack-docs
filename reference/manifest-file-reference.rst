@@ -233,7 +233,7 @@ manifest file will all its supported keys.
          # external routing
          physnet: <physnet-name>
 
-       # External networking (deprecated)
+       # External networking (deprecated, use external_networks instead)
        external_network:
          nic: <interface-name> # deprecated
          nics:
@@ -288,26 +288,26 @@ manifest file will all its supported keys.
          #   dangerous_i_acknowledge_i_will_lose_data_wipe_disks: true
          # sunbeam-3.localdomain:
          #   osd_devices: /dev/vdc,/dev/vdd
-      endpoints:
-        # Ips must be part of management_cidr defined above
-        # or public/internal spaces in MAAS deployments
-        ingress-internal: # optional
-          ip: <ip> # optional
-          hostname: <domain> # optional
-        ingress-public: # optional
-          ip: <ip> # optional
-          hostname: <domain> # optional
-        ingress-rgw: # optional
-          ip: <ip> # optional
-          hostname: <domain> # optional
-        # Examples:
-        # ingress-internal:
-        #   hostname: internal.openstack.example.com
-        # ingress-public:
-        #   ip: 192.168.29.27
-        #   hostname: public.openstack.example.com
-        # ingress-rgw:
-        #   ip: 192.168.29.28
+       endpoints:
+         # Ips must be part of management_cidr defined above
+         # or public/internal spaces in MAAS deployments
+         ingress-internal: # optional
+           ip: <ip> # optional
+           hostname: <domain> # optional
+         ingress-public: # optional
+           ip: <ip> # optional
+           hostname: <domain> # optional
+         ingress-rgw: # optional
+           ip: <ip> # optional
+           hostname: <domain> # optional
+         # Examples:
+         # ingress-internal:
+         #   hostname: internal.openstack.example.com
+         # ingress-public:
+         #   ip: 192.168.29.27
+         #   hostname: public.openstack.example.com
+         # ingress-rgw:
+         #   ip: 192.168.29.28
 
      software:
 
@@ -327,10 +327,9 @@ manifest file will all its supported keys.
            channel: <channel>
            revision: <revision>
            config:
-             <option>: <value>
-             <option>: <value>
-         ...
-         ...
+             <option1>: <value>
+             <option2>: <value>
+         # ...
          # Examples:
          # keystone-k8s:
          #   channel: 2024.1/candidate
@@ -521,7 +520,6 @@ manifest file will all its supported keys.
              <CSR x500UniqueIdentifier>:
                # Base64 encoded certificate for unit CSR Unique ID: subject
                certificate: <Base64 encoded certificate>
-      ...
    storage:
 
      # Storage is keyed by backend type, then by instance name.
@@ -530,7 +528,7 @@ manifest file will all its supported keys.
        <instance-name>:
          config:
            san-ip: <ip-or-hostname>
-           san-username: <username>
+           san-login: <username>
            san-password: <password>
            protocol: [fc, iscsi]
            # Shared storage config fields.
@@ -546,7 +544,7 @@ manifest file will all its supported keys.
            hitachi-storage-id: <storage-id>
            hitachi-pools: <pool>,<pool>,...
            san-ip: <ip-or-hostname>
-           san-username: <username>
+           san-login: <username>
            san-password: <password>
            protocol: [fc, iscsi]
            volume-backend-name: <backend-name>

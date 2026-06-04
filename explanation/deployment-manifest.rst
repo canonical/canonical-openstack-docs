@@ -44,20 +44,20 @@ Here is an example deployment configuration:
 
 .. code:: yaml
 
-   deployment:
+   core:
+     config:
+       proxy:
+         proxy_required: false
 
-     proxy:
-       proxy_required: false
+       bootstrap:
+         management_cidr: 192.168.123.0/24
 
-     bootstrap:
-       management_cidr: 192.168.123.0/24
+       k8s-addons:
+         loadbalancer: 192.168.123.81-192.168.123.90
 
-     addons:
-       metallb: 192.168.123.81-192.168.123.90
-
-     microceph_config:
-       sunbeam-1.localdomain:
-         osd_devices: /dev/vdc
+       microceph_config:
+         sunbeam-1.localdomain:
+           osd_devices: /dev/vdc
 
 Software configuration
 ~~~~~~~~~~~~~~~~~~~~~~
