@@ -11,14 +11,14 @@
 # succeed.
 name: Check and document build requirements for Sphinx venv
 on:
-  push:
-    paths:
-      - 'conf.py'
-      - 'custom_conf.py'
-  pull_request:
-    paths:
-      - 'conf.py'
-      - 'custom_conf.py'
+  # push:
+  #   paths:
+  #     - 'conf.py'
+  #     - 'custom_conf.py'
+  # pull_request:
+  #   paths:
+  #     - 'conf.py'
+  #     - 'custom_conf.py'
   workflow_dispatch:
 
 
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Install dependencies
         run: |
