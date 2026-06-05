@@ -9,9 +9,10 @@ Enabling Instance Recovery
 
 To enable Instance Recovery, run the following command:
 
-::
-
-    sunbeam enable instance-recovery
+.. literalinclude:: ../snippets/instance-recovery.task.sh
+    :language: bash
+    :start-after: [docs-view:enable-instance-recovery]
+    :end-before:  [docs-view:enable-instance-recovery-end]
 
 .. note::
    For MAAS provider, ensure to reserve an IP on storage subnet with label `<deployment name>-storage-ippool`,
@@ -23,9 +24,10 @@ Disabling Instance Recovery
 
 To disable Instance Recovery, run the following command:
 
-::
-
-    sunbeam disable instance-recovery
+.. literalinclude:: ../snippets/instance-recovery.task.sh
+    :language: bash
+    :start-after: [docs-view:disable-instance-recovery]
+    :end-before:  [docs-view:disable-instance-recovery-end]
 
 Instance Evacuation Recovery methods
 ------------------------------------
