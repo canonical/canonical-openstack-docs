@@ -3,7 +3,7 @@ Get started with OpenStack
 
 Welcome!
 
-This tutorial will guide you through deploying a `Canonical OpenStack`_ cloud and provisioning a VM in this cloud.
+In this tutorial, you will deploy a `Canonical OpenStack`_ cloud and provision a VM in this cloud.
 
 What you will build
 +++++++++++++++++++
@@ -11,13 +11,13 @@ What you will build
 As a result of completing the tutorial, you will have a functioning single-node Canonical OpenStack cloud.
 This cloud will be sufficient to complete all further tutorials in this documentation.
 
-This tutorial intentionally limits OpenStack deployment to a single machine.
-APIs and cloud resources provisioned during the tutorial
-are accessible only from that machine.
-
 .. note ::
 
    This tutorial is intended for learning purposes.
+   It intentionally limits OpenStack deployment to a single machine.
+   APIs and cloud resources provisioned during the tutorial
+   are accessible only from that machine.
+
    To deploy a production-grade cloud, refer to detailed instructions in the :doc:`How-to Guides section </how-to/index>`.
 
 Requirements
@@ -43,26 +43,18 @@ This tutorial guides you through these steps and explains their purpose.
 Step 1: Install the OpenStack snap
 ----------------------------------
 
-.. note ::
-
-   **Duration:** 1 minute (depends on your Internet connection speed)
-
-Log in to the machine used in this tutorial and run the following command to install the ``openstack`` snap:
+Log in to the machine used in this tutorial and run the following command to install the `OpenStack snap`_:
 
 .. code-block :: text
    
    sudo snap install openstack
 
-The `OpenStack snap`_ includes ``sunbeam``, a deployment and operations tool that you will use to deploy a cloud and provision resources.
+The ``openstack`` snap includes ``sunbeam``, a deployment and operations tool that you will use to deploy a cloud and provision resources.
 
 Step 2: Prepare the machine
 ---------------------------
 
-.. note ::
-
-   **Duration:** 1 minute
-
-Run the following command to prepare the machine for bootstrapping a Canonical OpenStack cloud:
+Run the following command to prepare the machine for Canonical OpenStack:
 
 .. code-block :: text
 
@@ -87,10 +79,6 @@ Once the command completes, the machine is ready to bootstrap a cloud.
 Step 3: Bootstrap the cloud
 ---------------------------
 
-.. note ::
-
-   **Duration:** 20 minutes (depends on your Internet connection speed)
-
 Run the following command to bootstrap a Canonical OpenStack cloud on the machine:
 
 .. code-block :: text
@@ -114,30 +102,26 @@ Once this command completes, you will see the following message:
    4. Installs the `OpenStack Hypervisor snap`_ and plugs it into cloud control services.
    5. Installs the `MicroCeph snap`_ and plugs it into cloud control services.
 
-.. important::
+   .. important::
 
-   Bootstrapping may fail if the ``rootfs`` partition does not have sufficient
-   available storage, or if there is no free, un-partitioned disk for MicroCeph.
-   If any issue is encountered, consult the :doc:`Troubleshooting guide </how-to/troubleshooting/inspecting-the-cluster>`.
+      Bootstrap process may fail if the ``rootfs`` partition does not have sufficient
+      available storage, or if there is no free, un-partitioned disk for MicroCeph.
+      If any issue is encountered, consult the :doc:`Troubleshooting guide </how-to/troubleshooting/inspecting-the-cluster>`.
 
-.. note ::
+   .. note ::
 
-   Sunbeam uses a set of credentials for access to the Juju controller. The
-   authenticated session expires after 24 hours. You can re-authenticate by
-   running:
+      Sunbeam creates a set of credentials to access the Juju controller.
+      An authenticated session expires after 24 hours.
+      Run the following command to re-authenticate:
 
-   .. code-block :: text
+      .. code-block :: text
 
-        sunbeam utils juju-login
+           sunbeam utils juju-login
 
 Step 4: Configure the cloud
 ---------------------------
 
-.. note ::
-
-   **Duration:** 2 minutes (depends on your Internet connection speed)
-
-Run the following command to prepare the cloud for provisioning resources:
+Run the following command to apply initial configuration that allows the cloud to provision resources:
 
 .. code-block :: text
 
