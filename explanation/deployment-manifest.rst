@@ -42,22 +42,10 @@ file, you will be asked to enter it via an
 
 Here is an example deployment configuration:
 
-.. code:: yaml
-
-   core:
-     config:
-       proxy:
-         proxy_required: false
-
-       bootstrap:
-         management_cidr: 192.168.123.0/24
-
-       k8s-addons:
-         loadbalancer: 192.168.123.81-192.168.123.90
-
-       microceph_config:
-         sunbeam-1.localdomain:
-           osd_devices: /dev/vdc
+.. literalinclude:: /explanation/_include/deployment-manifest.yaml
+   :language: yaml
+   :start-at: core:
+   :end-before: software:
 
 Software configuration
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -67,26 +55,10 @@ The software configuration consists of three subsections: ``juju``,
 
 Here is an example software configuration:
 
-.. code:: yaml
-
-   software:
-
-     juju:
-       bootstrap_args:
-       - --debug
-       - --agent-version=3.2.4
-
-     charms:
-       glance-k8s:
-         channel: 2024.1/candidate
-         revision: 66
-         config:
-           debug: True
-           pool-type: replicated
-
-     terraform:
-       hypervisor-plan:
-         source: /home/ubuntu/deploy-openstack-hypervisor
+.. literalinclude:: /explanation/_include/deployment-manifest.yaml
+   :language: yaml
+   :start-at: software:
+   :end-before: storage:
 
 ``juju`` section
 ^^^^^^^^^^^^^^^^

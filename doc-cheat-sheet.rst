@@ -208,6 +208,36 @@ Reuse
    :start-after: include_start
    :end-before: include_end
 
+Include code fragments from a file
+----------------------------------
+
+Minimal syntax:
+
+.. literalinclude:: /explanation/_include/deployment-manifest.yaml
+   :language: yaml
+
+This syntax includes the whole file.
+Empty lines at the beginning and at the end of the document are trimmed.
+
+You can optionally define lines to start at/after and end at/before:
+
+.. literalinclude:: /explanation/_include/deployment-manifest.yaml
+   :language: yaml
+   :start-at: software:
+   :end-before: storage:
+
+This syntax is checked on builds, including CI builds.
+Sphinx-build throws an error if search pattern wasn't found in the included file.
+
+Indentation is preserved.
+When including an indented fragment, you can dedent it:
+
+.. literalinclude:: /explanation/_include/deployment-manifest.yaml
+   :language: yaml
+   :start-at: juju:
+   :end-before: charms:
+   :dedent:
+
 Tabs
 ----
 

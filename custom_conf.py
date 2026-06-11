@@ -202,6 +202,8 @@ custom_required_modules = [
 # Add files or directories that should be excluded from processing.
 custom_excludes = [
     'doc-cheat-sheet*',
+    '/reuse/**',
+    '**/_include/*'
     ]
 
 # Add CSS files (located in .sphinx/_static/)
