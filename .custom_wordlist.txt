@@ -153,6 +153,7 @@ cron
 daemonset
 datapath
 datastore
+decrypt
 dev
 distro
 dom

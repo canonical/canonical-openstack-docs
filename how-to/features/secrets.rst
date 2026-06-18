@@ -68,3 +68,41 @@ Retrieve the original secret (``my_payload``) via the secret href value:
    +---------+-------------+
    | Payload | my_payload  |
    +---------+-------------+
+
+.. _audit-secret-decrypt-access:
+
+Audit secret decrypt access
+---------------------------
+
+The ``secret-decrypter`` role allows a service user in the ``services`` project
+to decrypt Barbican secret payloads. Audit users with this role regularly:
+
+::
+
+   openstack role assignment list \
+      --names \
+      --role secret-decrypter \
+      --project services \
+      --project-domain service_domain
+
+Canonical OpenStack grants this role to the Masakari service user by default so
+that instance recovery can rebuild servers with encrypted disks.
+
+Remove secret decrypt access
+----------------------------
+
+Before removing this role, verify that the service user no longer needs to
+decrypt Barbican secrets. For Masakari, disable the role request first with the
+Instance Recovery configuration described in
+:doc:`/how-to/features/instance-recovery`.
+
+For each service user that should no longer have this role, run:
+
+::
+
+   openstack role remove \
+      --user <service-user> \
+      --user-domain service_domain \
+      --project services \
+      --project-domain service_domain \
+      secret-decrypter
