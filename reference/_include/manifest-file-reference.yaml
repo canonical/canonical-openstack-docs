@@ -404,6 +404,14 @@ features:
           # alertmanager-k8s:
           #   storage:
           #     data: "2G"                   # default: 1G
+          # opentelemetry-collector-k8s:
+          #   storage:
+          #     persisted: "8G"              # default: 1G
+          #   storage-map:
+          #     opentelemetry-collector:
+          #       persisted: "2G"
+          #     opentelemetry-collector-infra:
+          #       persisted: "3G"
 
   loadbalancer:
     config:
