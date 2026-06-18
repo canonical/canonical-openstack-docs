@@ -18,6 +18,10 @@ To enable Instance Recovery, run the following command:
    see :ref:`reference<reserved-ipranges>`.
    This will be used to perform health checks over the storage network.
 
+When :doc:`Secrets </how-to/features/secrets>` is enabled, Masakari is granted
+permission to decrypt Barbican secrets by default. This allows Masakari to
+rebuild VMs with encrypted disks during instance recovery.
+
 Disabling Instance Recovery
 ---------------------------
 
@@ -26,6 +30,34 @@ To disable Instance Recovery, run the following command:
 ::
 
     sunbeam disable instance-recovery
+
+Encrypted disk recovery
+-----------------------
+
+Masakari needs access to Barbican secret payloads to recover VMs that use
+encrypted disks. Canonical OpenStack enables this access by default with the
+``enable-secret-access`` option on the ``masakari-k8s`` charm.
+
+To opt out durably, set the option in the deployment manifest:
+
+.. code:: yaml
+
+    software:
+      charms:
+        masakari-k8s:
+          config:
+            enable-secret-access: false
+
+Apply the updated manifest when enabling, or re-enabling, Instance Recovery:
+
+::
+
+    sunbeam enable --manifest <manifest file path> instance-recovery
+
+Disabling this option stops Masakari from requesting the ``secret-decrypter``
+role. It does not remove existing Keystone role assignments. To audit or remove
+existing assignments, follow :ref:`the Secrets role audit guidance
+<audit-secret-decrypt-access>`.
 
 Instance Evacuation Recovery methods
 ------------------------------------
