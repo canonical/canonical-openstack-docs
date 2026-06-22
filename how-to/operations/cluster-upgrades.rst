@@ -133,3 +133,24 @@ stored manifest:
 .. code:: text
 
    sunbeam cluster refresh --clear-manifest
+
+.. _refresh-multi-region:
+
+Multi-region deployments
+-----------------------------------------
+
+In a multi-region deployment, run the following for each secondary region
+after completing the cluster refresh. This adds the ``cors-origin`` relation
+between Horizon on the region controller and Glance in the secondary region,
+which is required for image uploads from the dashboard.
+
+::
+
+	controller="sunbeam-controller-region-controller"
+	# Usually the region controller fqdn
+	owner="$ownerFqdn"
+
+	juju switch openstack
+
+	juju consume $controller:$owner/openstack.horizon-cors-origin
+	juju integrate horizon-cors-origin glance:cors-origin

@@ -125,6 +125,7 @@ defined.
 	juju consume $controller:$owner/openstack.keystone-endpoints
 	juju consume $controller:$owner/openstack.keystone-ops
 	juju consume $controller:$owner/openstack.cert-distributor
+	juju consume $controller:$owner/openstack.horizon-cors-origin
 
 	juju integrate keystone-endpoints cinder:identity-service
 	juju integrate keystone-endpoints glance:identity-service
@@ -137,6 +138,8 @@ defined.
 	juju integrate cert-distributor neutron:receive-ca-cert
 	juju integrate cert-distributor nova:receive-ca-cert
 	juju integrate cert-distributor placement:receive-ca-cert
+
+	juju integrate horizon-cors-origin glance:cors-origin
 
 	# Run the following once Sunbeam reaches the following phase:
 	# ⠸ Deploying OpenStack Hypervisor ...
