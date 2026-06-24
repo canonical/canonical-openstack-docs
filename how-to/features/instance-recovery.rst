@@ -483,6 +483,22 @@ This section contains information that can be useful when working with Masakari.
 
     openstack segment host update --reserved=<boolean> SEGMENT HOSTNAME
 
+* VMs booting from a Cinder volume with ``multiattach=False`` might not be evacuated within the
+  Masakari evacuation window. Nova can trigger evacuation while waiting for Cinder to detach the
+  volume from the source host. In this case, the evacuation remains pending until the original
+  attachment is released or the source host becomes available again.
+
+  As a workaround, fence the failed source host or otherwise confirm that it is powered off and
+  that the original attachment is no longer active before resetting the Cinder volume state:
+
+  .. code-block:: bash
+
+    openstack volume set --state available <volume id>
+
+  Resetting the volume state earlier can allow the same boot volume to be attached on another host
+  while it is still in use on the source host, which can corrupt the guest filesystem.
+
+
 Limitations
 -----------
 
