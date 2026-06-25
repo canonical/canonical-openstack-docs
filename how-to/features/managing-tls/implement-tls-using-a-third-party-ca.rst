@@ -160,7 +160,12 @@ Request one TLS certificate for each generated CSR.
       ``enable`` command) with the CSRs. Do this via the certificate authority's web site.
 
       .. note::
-         The CA certificate needs to be generated as a CA certificate, not as a regular TLS certificate. Vault will set its `common_name` configuration option to the domain from `external_hostname` configuration set during the bootstrapping of sunbeam. The CA certificate must have the same domain defined in the `alt_names` section of the CA configuration file used to sign the CSR.
+         The CA certificate needs to be generated as a CA certificate, not as a
+         regular TLS certificate. Vault will set its ``common_name``
+         configuration option from the hostnames configured for the internal,
+         RGW, and public ingress endpoints. The CA certificate must have the
+         same domain defined in the ``alt_names`` section of the CA
+         configuration file used to sign the CSR.
 
 
 Input TLS certificates
