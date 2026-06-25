@@ -38,5 +38,10 @@ After a successful login, you should see the landing page:
 .. figure:: horizon-overview.png
    :alt: Horizon overview page
 
-You can now start managing your OpenStack cloud (e.g. create additional
+You can now start managing your OpenStack cloud (e.g. create additional
 users, launch server instances, etc.).
+
+.. important::
+   Uploading images via the dashboard requires the browser to have direct
+   access to the Glance public endpoint. Ensure this endpoint is reachable
+   from any machine used to access the dashboard.
