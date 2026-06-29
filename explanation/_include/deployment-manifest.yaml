@@ -13,6 +13,10 @@ core:
       sunbeam-1.localdomain:
         osd_devices: /dev/vdc
 
+    horizon:
+      resources:
+        custom_theme: /home/ubuntu/theme.tar.gz
+
 software:
   juju:
     bootstrap_args:

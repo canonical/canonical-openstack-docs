@@ -70,7 +70,7 @@ Lastly, obtain the OpenStack dashboard URL:
 
 .. code-block :: text
 
-   sunbeam dashboard-url
+   sunbeam dashboard url
 
 Sample output:
 
