@@ -372,6 +372,14 @@ core:
       #       tls-cert: <value>
       #       tls-key: <value>
 
+      # Configure cinder-volume configs per application
+      # cinder-volume:
+      #   config-map:
+      #     cinder-volume:
+      #       rabbit-user: <value>
+      #     cinder-volume-noha:
+      #       rabbit-user: <value>
+
     terraform:
       <plan>:
         source: <path-to-file>
