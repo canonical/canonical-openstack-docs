@@ -148,27 +148,39 @@ in the cluster:
    * - Machine tag
      - Purpose
      - Nodes to assign the tag to
+     - Required cloud networks
    * - openstack-<name>
      - Defines which machines to use in this particular deployment
      - Cloud, Control, Compute, Storage, Sunbeam Controller, Juju Controller
+     - None
    * - control
      - Defines where to host cloud control functions
      - Cloud, Control
+     - data, internal, management, public, storage
+   * - region-controller
+     - Defines where to host cloud region controller functions
+     - Region Controller
+     - internal, management, public
    * - compute
      - Defines where to host cloud compute functions
      - Cloud, Compute
+     - data, internal, management, storage
    * - storage
      - Defines where to host cloud storage functions
      - Cloud, Storage
+     - internal, management, storage, storage-cluster
    * - network
      - Defines where to host cloud network functions
      - Cloud, Network
+     - internal, management, data
    * - sunbeam
      - Defines where to host the Sunbeam controller
      - Sunbeam Controller
+     - management
    * - juju-controller
      - Defines where to host the Juju controller
      - Juju Controller
+     - management
 
 Note that the ``<name>`` suffix must match the deployment name.
 
