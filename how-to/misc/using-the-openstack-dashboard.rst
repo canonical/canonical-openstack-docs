@@ -5,11 +5,11 @@ Accessing the OpenStack Dashboard
 
 Once OpenStack has been deployed you can use the OpenStack dashboard
 (Horizon) to manage it by using a web UI. To get the URL of the
-dashboard use the ``dashboard-url`` command:
+dashboard use the ``dashboard url`` command:
 
 ::
 
-   sunbeam dashboard-url
+   sunbeam dashboard url
 
 Sample output:
 

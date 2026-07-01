@@ -85,11 +85,11 @@ To disable Observability, run the following command:
 Retrieve Grafana dashboard URL
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To get the URL of the dashboard use the ``dashboard-url`` command:
+To get the URL of the dashboard use the ``dashboard url`` command:
 
 ::
 
-   sunbeam observability dashboard-url
+   sunbeam observability dashboard url
 
 Sample output:
 

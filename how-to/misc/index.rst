@@ -9,6 +9,7 @@ Miscellaneous
    configuring-dpdk
    configuring-gpu-passthrough
    configuring-vtpm
+   configuring-the-openstack-dashboard-theme
    backup-and-restore-maas-deployment
    bootstrap-highly-available-juju-controller-on-top-of-a-lxd-cluster
    identity-provider-enablement
