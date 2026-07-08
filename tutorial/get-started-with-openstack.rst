@@ -79,6 +79,12 @@ However, if you simply want to execute all those commands at once, you can also 
    
    sunbeam prepare-node-script --bootstrap | bash -x && newgrp snap_daemon
 
+Bootstrapping may fail if you have UFW enabled, disable UFW and repeat previous step:
+
+.. code-block :: text
+
+   sudo ufw disable
+
 Bootstrap the cloud
 -------------------
 
