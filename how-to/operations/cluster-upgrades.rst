@@ -112,6 +112,12 @@ charms:
 
    sunbeam cluster refresh
 
+.. note::
+   If the ``instance-recovery`` feature is enabled, running a cluster refresh
+   may leave the ``openstack-network-agents`` and ``openstack-hypervisor``
+   charms in a blocked state on compute nodes. See
+   :ref:`Known limitations` for details and the workaround.
+
 If the snap has been refreshed to a different risk level in its channel
 (for example, from ``stable`` to ``beta``) since the last update, the command
 will prompt you to confirm before proceeding. In this case, it is recommended
