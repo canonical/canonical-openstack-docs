@@ -235,3 +235,29 @@ the lock timestamp is.
    Ensure that there are no administrative operations underway in the
    deployment when unlocking a Terraform plan. Otherwise, the deployment’s
    integrity can be compromised.
+
+Docker registry timeouts
+--------------------------
+
+While bootstrapping the controller on Kubernetes, the Sunbeam default
+bootstrap configuration uses `docker.io` for pulling images. If the pods
+fail to pull images, use the following `ghcr.io` registry configuration
+in the custom manifest file, as shown below:
+
+::
+
+   core:
+   software:
+     juju:
+       bootstrap_args:
+         - --config
+         - caas-image-repo=ghcr.io/juju
+
+.. caution::
+   Ensure that the above configuration is added to the full manifest.
+
+Use the above manifest as:
+
+::
+
+   sunbeam cluster bootstrap --manifest <name-of-the-file>
