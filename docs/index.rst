@@ -26,32 +26,41 @@ experience.
 
 ---------
 
-.. rubric:: :h2:`In this documentation`
-
-..  grid:: 1 1 2 2
-
-   ..  grid-item:: :doc:`Tutorials <tutorial/index>`
-
-       **Start here**: a hands-on introduction to Canonical OpenStack for new users
-
-   ..  grid-item:: :doc:`How-to guides <how-to/index>`
-
-      **Step-by-step guides** covering key operations and common tasks
+In this documentation
+---------------------
 
 .. grid:: 1 1 2 2
-   :reverse:
 
-   .. grid-item:: :doc:`Reference <reference/index>`
+    .. grid-item-card:: Get started
+        :link: /tutorial/index
+        :link-type: doc
 
-      **Technical information** - specifications, APIs, architecture
+        A hands-on introduction to Canonical OpenStack for new users.
 
-   .. grid-item:: :doc:`Explanation <explanation/index>`
+    .. grid-item-card:: How-to guides
+        :link: /how-to/index
+        :link-type: doc
 
-      **Discussion and clarification** of key topics
+        **Step-by-step guides** - learn key operations and customization.
+
+.. grid:: 1 1 2 2
+
+    .. grid-item-card:: Reference
+        :link: /reference/index
+        :link-type: doc
+
+        **Technical information** - review the specifications, architecture and more.
+
+    .. grid-item-card:: Explanation
+        :link: /explanation/index
+        :link-type: doc
+
+        **Concepts** - understand the key topics and design of Canonical OpenStack.
 
 ---------
 
-.. rubric:: :h2:`Community and commercial usage`
+Community and commercial usage
+------------------------------
 
 Canonical OpenStack is based on Sunbeam - an open source project that warmly
 welcomes a free-of-charge usage, constructive feedback, community discussions
