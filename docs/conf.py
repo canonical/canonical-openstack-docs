@@ -78,8 +78,8 @@ html_context = {
     "author": author,
     # Documentation license information
     "license": {
-        "name": "Apache-2.0",
-        "url": "https://github.com/canonical/snap-openstack/blob/main/LICENSE",
+        "name": "GPL-3.0",
+        "url": "https://github.com/canonical/canonical-openstack-docs/blob/main/LICENSE",
     },
 }
 

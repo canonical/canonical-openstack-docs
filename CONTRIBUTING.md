@@ -3,7 +3,7 @@
 The Canonical OpenStack Docs is the home of the documentation project for the
 Canonical OpenStack distribution. Contributions help improve the documentation
 for all of its users. The Canonical OpenStack team performs most of the work,
-but all contributyors are welcome.
+but all contributors are welcome.
 
 Common contributions include:
 

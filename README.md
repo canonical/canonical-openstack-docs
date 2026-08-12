@@ -28,8 +28,7 @@ The documentation follows the [Diátaxis](https://diataxis.fr) framework:
 ```bash
 git clone git@github.com:canonical/canonical-openstack-docs.git
 cd canonical-openstack-docs/docs
-make install
-make html
+make html serve
 ```
 
 To preview with live reload at `http://127.0.0.1:8000`:
