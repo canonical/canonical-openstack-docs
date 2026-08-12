@@ -2,7 +2,7 @@
 
 [![Automatic doc checks](https://github.com/canonical/canonical-openstack-docs/actions/workflows/automatic-doc-checks.yml/badge.svg)](https://github.com/canonical/canonical-openstack-docs/actions/workflows/automatic-doc-checks.yml)
 
-This repository contains the source for the [Canonical OpenStack documentation](https://canonical-openstack.readthedocs.io/).
+This repository contains the source for the [Canonical OpenStack documentation](https://canonical-openstack.readthedocs-hosted.com/en/latest/).
 
 Canonical OpenStack is an enterprise-grade cloud platform that delivers distilled upstream OpenStack excellence in a human-friendly product. It provides elastic, on-demand compute, network, and storage resources through a self-service portal or upstream OpenStack APIs.
 
