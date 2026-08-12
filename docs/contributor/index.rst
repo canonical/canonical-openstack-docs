@@ -1,5 +1,5 @@
-For Contributors
-================
+Contribute
+==========
 
 Reference
 ---------

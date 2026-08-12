@@ -80,11 +80,15 @@ For a commercial usage, consider visiting the following links instead:
 * `Get in touch with Canonical cloud experts for help on your on-going cloud project <https://canonical.com/openstack#get-in-touch>`_
 
 .. toctree::
-   :hidden:
-   :maxdepth: 2
+    :hidden:
+    :maxdepth: 2
 
-   tutorial/index
-   how-to/index
-   explanation/index
-   reference/index
-   For Contributors <contributor/index>
+    tutorial/index
+    how-to/index
+    explanation/index
+    reference/index
+
+.. toctree::
+    :hidden:
+
+    Contribute <contributor/index>
