@@ -235,3 +235,13 @@ the lock timestamp is.
    Ensure that there are no administrative operations underway in the
    deployment when unlocking a Terraform plan. Otherwise, the deployment’s
    integrity can be compromised.
+
+Logs from running Terraform can be found in:
+
+::
+
+    $HOME/snap/openstack/common/etc/<cloud_name>/*/terraform-*.log
+
+.. note::
+    cloud_name is the name of the juju cloud created when bootstrapping sunbeam.
+    It is usually the only directory in $HOME/snap/openstack/common/etc/.
