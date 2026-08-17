@@ -29,10 +29,10 @@ classes`_ of type Display Controller (0x03) and Processing Accelerators (0x1200)
 are filtered as GPU devices. The devices are automatically added to
 `Nova PCI passthrough list`_ and no user intervention is required.
 
-Maas mode
+MAAS mode
 ---------
 
-Maas mode works similar to Manual mode and the detected GPU devices are added
+MAAS mode works similar to Manual mode and the detected GPU devices are added
 to `Nova PCI passthrough list`_ with no user intervention.
 
 Ensure that MAAS is configured to apply the necessary kernel parameters.
