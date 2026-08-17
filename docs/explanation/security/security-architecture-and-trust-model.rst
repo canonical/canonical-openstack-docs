@@ -13,9 +13,9 @@ Conceptual security model
 ------------------------------------------------------------------------
 
 The relationships in this page can be pictured as four conceptual security planes, from the user-facing edge to the
-physical infrastructure underneath it. :doc:`architecture` and :doc:`design-considerations` describe the underlying
-deployment topology in detail. This page is concerned with a narrower question, where trust and privilege sit relative
-to each other.
+physical infrastructure underneath it. :doc:`/explanation/architecture` and :doc:`/explanation/design-considerations`
+describe the underlying deployment topology in detail. This page is concerned with a narrower question, where trust and
+privilege sit relative to each other.
 
 Controls are enforced within each plane on its own terms, but privileged access to the infrastructure that implements
 another plane can bypass the controls enforced within it. External trust dependencies connect into every plane rather
@@ -320,7 +320,7 @@ This page is intended to be read alongside the other security explanations in th
 .. TODO: link these as :doc: references once the target pages exist.
 
 * :doc:`security-in-canonical-openstack`
-* Identity and access
+* :doc:`identity-and-access`
 * Network security
 * Cryptography, certificates, and secrets
 * Workload and data protection

@@ -21,7 +21,7 @@ Controls provided by Canonical OpenStack
 Canonical OpenStack organizes deployments around governance, control-plane, compute and networking, and storage
 functions, deployed and operated through a combination of charms, rocks, and snaps on Ubuntu. Depending on the chosen
 cloud architecture, from hyper-converged to fully disaggregated, these functions can share machines or run on dedicated
-nodes. See :doc:`architecture` and :doc:`design-considerations` for the available topologies.
+nodes. See :doc:`/explanation/architecture` and :doc:`/explanation/design-considerations` for the available topologies.
 
 Canonical OpenStack also provides several security capabilities.
 
@@ -124,7 +124,7 @@ For more detailed information, refer to the following topic areas.
 .. TODO: link these as :doc: references once the target pages exist.
 
 * :doc:`security-architecture-and-trust-model`
-* Identity and access
+* :doc:`identity-and-access`
 * Network security
 * Cryptography, certificates, and secrets
 * Workload and data protection
