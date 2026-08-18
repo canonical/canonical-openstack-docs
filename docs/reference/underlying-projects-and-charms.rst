@@ -28,6 +28,9 @@ Core
   * - Openstack Hypervisor Snap
     - `Source <https://github.com/canonical/snap-openstack-hypervisor.git>`__
     - `Bugs <https://bugs.launchpad.net/snap-openstack-hypervisor>`__
+  * - Cinder Volume Snap
+    - `Source <https://github.com/canonical/snap-cinder-volume.git>`__
+    - `Bugs <https://bugs.launchpad.net/snap-cinder-volume>`__
   * - RabbitMQ Charm
     - `Source <https://github.com/openstack-charmers/charm-rabbitmq-k8s.git>`__
     - `Bugs <https://bugs.launchpad.net/charm-rabbitmq-k8s>`__
