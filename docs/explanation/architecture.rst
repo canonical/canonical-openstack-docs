@@ -50,7 +50,7 @@ Canonical OpenStack is distributed in the form of three types of artifacts.
 Rocks
 ^^^^^
 
-`Rocks <https://documentation.ubuntu.com/rockcraft/en/stable/>`_ are `OCI-compliant container images <https://opencontainers.org/about/overview/>`_ that are built to be secure and stable by design. Canonical OpenStack uses Rocks for the purpose of hosting OpenStack's control plane services as well as some other software components (i.e. the observability stack).
+`Rocks <https://ubuntu.com/containers/rockcraft/docs/stable/>`_ are `OCI-compliant container images <https://opencontainers.org/about/overview/>`_ that are built to be secure and stable by design. Canonical OpenStack uses Rocks for the purpose of hosting OpenStack's control plane services as well as some other software components (i.e. the observability stack).
 
 Snaps
 ^^^^^

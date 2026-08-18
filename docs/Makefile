@@ -34,6 +34,7 @@ help:
 	@echo "* clean full environment:                    make clean"
 	@echo "* check links:                               make linkcheck"
 	@echo "* check markdown:                            make lint-md"
+	@echo "* check shell snippets:                      make lint-sh"
 	@echo "* check spelling:                            make spelling"
 	@echo "* check spelling (without building again):   make spellcheck"
 	@echo "* check inclusive language:                  make woke"
@@ -47,7 +48,7 @@ help:
 .PHONY: help full-help html epub pdf linkcheck spelling spellcheck woke \
         vale pa11y run serve install pa11y-install   \
         vale-install pdf-prep pdf-prep-force clean clean-doc \
-        update lint-md
+        update lint-md lint-sh
 
 full-help: $(DOCS_VENVDIR)
 	@. $(DOCS_VENV); $(SPHINX_BUILD) -M help "$(DOCS_SOURCEDIR)" "$(DOCS_BUILDDIR)" $(SPHINX_OPTS) $(O)
@@ -128,6 +129,12 @@ lint-md: pymarkdownlnt-install
 	fi; \
 	echo "pymarkdownlnt exited with code $$status"; \
 	exit $$status;
+
+lint-sh: install
+	@echo "Linting shell snippets with bashate..."
+	@. $(DOCS_VENV); pip show bashate > /dev/null || (echo "--> Installing bashate..."; pip install bashate)
+	@. $(DOCS_VENV); find tutorial how-to -type f -name '*.task.sh' -print0 2>/dev/null | xargs -0 -r bashate -i E006
+	@echo "Linting finished successfully."
 
 vale-install: install
 	@. $(DOCS_VENV); test -f $(VALE_CONFIG) || python3 $(DEV_DIR)/get_vale_conf.py
