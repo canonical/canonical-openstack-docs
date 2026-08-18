@@ -220,7 +220,7 @@ core:
       # external routing
       physnet: <physnet-name>
 
-    # External networking (deprecated, use external_networks instead)
+    # External networking (deprecated, use external-networks instead)
     external_network:
       nic: <interface-name> # deprecated
       nics:
