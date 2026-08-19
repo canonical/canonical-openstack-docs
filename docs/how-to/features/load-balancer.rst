@@ -46,6 +46,12 @@ gates to be active.
 
 .. note::
 
+   The default load balancer provider is OVN. However, once the
+   Amphora provider is configured with ``sunbeam loadbalancer
+   configure``, the default provider changes to Amphora.
+
+.. note::
+
    The Amphora provider requires MicroOVN as the SDN. MicroOVN SDN must be enabled
    before running ``sunbeam cluster bootstrap`` with:
 
@@ -230,10 +236,10 @@ Create a load balancer using the following command:
 
    openstack loadbalancer create --name <name> --vip-network-id <network>
 
-To use the Amphora provider instead of the default OVN provider, add
-``--provider amphora`` to the command. This requires the Amphora
-provider to be enabled and configured first (see
-`Enabling the Amphora provider`_).
+Once the Amphora provider is enabled and configured (see
+`Enabling the Amphora provider`_), it becomes the default provider.
+To use the OVN provider instead, add ``--provider ovn`` to the
+command.
 
 For example, create the load balancer ‘test’:
 
