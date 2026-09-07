@@ -144,7 +144,6 @@ rediraffe_redirects = "redirects.txt"
 # Strips '/index.html' from destination URLs when building with 'dirhtml'
 rediraffe_dir_only = True
 
-
 ############################
 # sphinx-llm configuration #
 ############################
@@ -247,13 +246,13 @@ exclude_patterns = [
 ]
 
 # Adds custom CSS files, located remotely or in 'html_static_path'.
-# html_css_files = [
-#     "https://assets.ubuntu.com/v1/d86746ef-cookie_banner.css",
-# ]
+html_css_files = [
+    "https://assets.ubuntu.com/v1/d86746ef-cookie_banner.css",
+]
 
 # Adds custom JavaScript files, located remotely or in 'html_static_path'.
 html_js_files = [
-    "js/overwrite_script.js",
+    "js/overwrite_links.js",
     "https://assets.ubuntu.com/v1/287a5e8f-bundle.js",
 ]
 
