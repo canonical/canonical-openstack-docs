@@ -23,10 +23,10 @@ Cloud architecture
 
 Canonical OpenStack supports the following cloud architectures:
 
-* **Hyper-Converged** – each machine (aka Cloud node) in the cluster hosts governance, control, compute & network and storage functions.
-* **Converged** – each machine (aka Cloud node) in the cluster hosts control, compute & network and storage functions, while dedicated machines (aka Governor nodes) exist to host governance functions.
-* **Fully-Disaggregated** – dedicated machines (aka Governor, Control, Compute & Network and Storage nodes) exist to host individual cloud functions.
-* **Disaggregated** – some functions (e.g. compute & network and storage) are co-hosted, while dedicated machines exist to host remaining cloud functions.
+* **Hyper-Converged** – each machine (aka Cloud node) in the cluster hosts governance, control, compute, network and storage functions.
+* **Converged** – each machine (aka Cloud node) in the cluster hosts control, compute, network and storage functions, while dedicated machines (aka Governor nodes) exist to host governance functions.
+* **Fully-Disaggregated** – dedicated machines (aka Governor, Control, Compute, Network and Storage nodes) exist to host individual cloud functions.
+* **Disaggregated** – some functions (e.g. compute and storage) are co-hosted, while dedicated machines exist to host remaining cloud functions.
 
 Control, compute, network and storage function assignment is modeled through the concept of roles which are assigned during the initial deployment or when adding new machines to an existing cluster.
 

@@ -125,7 +125,7 @@ Example:
 
 :: 
 
-    sunbeam cluster bootstrap --role control,compute
+    sunbeam cluster bootstrap --role control,compute,network
     # output #
     # ...
     Configure SR-IOV? [y/n] (n): y
