@@ -10,6 +10,7 @@ Index
    :maxdepth: 1
 
    architecture
+   security/index
    baremetal-nodes
    design-considerations
    deployment-manifest
