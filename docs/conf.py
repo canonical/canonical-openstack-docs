@@ -174,6 +174,7 @@ linkcheck_ignore = [
     "https://github.com",
     r"https://matrix\.to/.*",
     "https://example.com",
+    r"https://wiki\.ubuntu\.com/.*",
     # SourceForge domains often block linkcheck
     r"https://.*\.sourceforge\.(net|io)/.*",
     # DMTF appears to block linkchecks
