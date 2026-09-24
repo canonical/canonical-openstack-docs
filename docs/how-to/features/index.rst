@@ -4,6 +4,7 @@ Optional Features
 .. toctree::
    :maxdepth: 2
 
+   backup-storage
    baremetal
    caas
    dns

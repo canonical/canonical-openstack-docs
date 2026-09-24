@@ -4,16 +4,13 @@ Backup and Restore
 Overview
 --------
 
-Regular backups of the Sunbeam cluster are a critical component of any robust disaster recovery plan,
-ensuring the resilience and continuity of the Canonical OpenStack Cluster deployment. Given that
-the procedures described below primarily focus on backing up essential control-plane elements
-including application data (MySQL, Vault), the Kubernetes control plane, Juju controller state,
-and sunbeam-clusterd.
+Sunbeam provides commands to back up, list backups, and restore MySQL and Vault
+data in an existing deployment. These commands operate on applications in the
+``openstack`` model. They do not back up virtual machine disks, volumes, or the
+entire cluster.
 
-Unexpected hardware failures, human error, or data corruption can severely compromise the
-control plane, leading to extended outages and potential data loss. By maintaining up-to-date
-backups, administrators can significantly minimize recovery time objectives (RTO) and restore the
-core management services necessary for operating the cloud infrastructure.
+Separate procedures for Kubernetes, Juju, deployment access, and sunbeam-clusterd
+are described below.
 
 
 s3-integrator
@@ -60,7 +57,7 @@ Ceph Rados Gateway (RGW) provided by the ceph-rgw charm.
     Waiting for task 317...
     external-endpoints: '{"traefik-rgw": {"url": "http://<IP_RGW_SERVICE>"}}'
 
-Install a tool like `aws-cli`` or `s3cmd` and configure it with the access key and secret key
+Install a tool like ``aws-cli`` or ``s3cmd`` and configure it with the access key and secret key
 obtained from the previous command to interact with the S3 storage provided by ceph-rgw.
 
 .. code-block :: text
@@ -98,177 +95,162 @@ Configure the s3-integrator charm to use the correct bucket for each application
     ...
     # do the same for all necessary apps
 
-MySQL
------
+MySQL and Vault
+---------------
 
 Requirements
 ~~~~~~~~~~~~
-* A deployed MySQL K8s cluster
-* Access to S3 storage
-* Configured settings for S3 storage
-* Units in active/idle
-* Control-plane units paused to avoid usage of the cluster during **restore** procedure
+
+* MySQL and Vault applications to be backed up are in active/idle state.
+* Each application has an s3-integrator relation and working S3 configuration.
+  Follow the setup above for each MySQL application and for Vault, when enabled.
+* For MySQL restore, the related OpenStack API charms provide ``pause`` and
+  ``resume`` actions.
+* For Vault restore, retain the unseal keys and root token that were in use when
+  the backup was created. See :doc:`/how-to/features/vault`.
 
 Backup
 ~~~~~~
-The backup procedure should be executed on secondary MySQL units to avoid impacting the performance
-of the primary unit. To get a secondary unit, run the following command:
+
+Create backups of the MySQL and Vault applications:
 
 .. code-block :: text
 
-    juju run mysql/leader get-cluster-status
-    Running operation 196 with 1 task
-    - task 197 on unit-mysql-2
+    sunbeam backup
 
-    Waiting for task 197...
-    status:
-    clustername: cluster-1e57de179fb5edd8c4e6392a25473b96
-    clusterrole: primary
-    defaultreplicaset:
-        name: default
-        primary: mysql-2.mysql-endpoints.openstack.svc.cluster.local.:3306
-        ssl: required
-        status: ok
-        statustext: cluster is online and can tolerate up to one failure.
-        topology:
-        mysql-0:
-            address: mysql-0.mysql-endpoints.openstack.svc.cluster.local.:3306
-            memberrole: secondary
-            mode: r/o
-            replicationlagfromimmediatesource: ""
-            replicationlagfromoriginalsource: ""
-            role: ha
-            status: online
-            version: 8.0.41
-        mysql-1:
-            address: mysql-1.mysql-endpoints.openstack.svc.cluster.local.:3306
-            memberrole: secondary
-            mode: r/o
-            replicationlagfromimmediatesource: ""
-            replicationlagfromoriginalsource: ""
-            role: ha
-            status: online
-            version: 8.0.41
-        mysql-2:
-            address: mysql-2.mysql-endpoints.openstack.svc.cluster.local.:3306
-            memberrole: primary
-            mode: r/w
-            role: ha
-            status: online
-            version: 8.0.41
-        topologymode: single-primary
-    domainname: cluster-set-1e57de179fb5edd8c4e6392a25473b96
-    groupinformationsourcemember: mysql-2.mysql-endpoints.openstack.svc.cluster.local.:3306
-    success: "True"
+Sunbeam selects a secondary MySQL unit when available and the Vault leader unit.
+Backups run concurrently. The command reports a backup ID and status for each
+application and writes a YAML manifest to the path shown in its output.
 
-It's possible to see in this case that mysql/0 and mysql/1 are secondary and mysql/2 is primary.
-So backups should be run on unit 0 or 1.
+Check that every expected application has a successful backup. Applications that
+fail readiness checks are skipped; Sunbeam asks whether to continue with the
+remaining applications.
+
+.. note::
+
+   Concurrent backups reduce the time between application backups but do not
+   guarantee a consistent snapshot across databases. Restoring backups taken at
+   different times can leave inconsistent references between OpenStack services.
+
+List backups
+~~~~~~~~~~~~
+
+List the backup IDs available in the configured S3 storage:
 
 .. code-block :: text
 
-    juju run mysql/0 create-backup --wait 1m
+    sunbeam list-backups
+
+The command displays the inventory for each application and writes a YAML
+inventory manifest to the path shown in its output. Both manifests contain
+backup metadata, not the backed-up data. They are not inputs to the restore
+command.
 
 Restore
 ~~~~~~~
-To restore it is recommended to stop all control-plane services that might be using the database
-before running the restore-backup action. This is to avoid any issues related to data corruption
-or inconsistencies during the restore process.
 
-At the moment, there isn't a charm action to stop all control-plane services at once, so it needs
-to be done manually by running on all OpenStack API services:
+Schedule a maintenance window. Restoring MySQL interrupts the related OpenStack
+API services and replaces database contents with the selected backup state.
 
-.. code-block :: bash
-
-    # get the container names of all OpenStack API services
-    kubectl get pods -n openstack -o json | jq -r '
-    .items[]
-    | select(
-        (.metadata.name | test("traefik|rabbitmq|mysql|modeloperator|ovn") | not)
-        )
-    | .metadata.name as $pod
-    | .spec.containers[]
-    | select(.name != "charm")
-    | "\($pod) => \(.name)"
-    '
-    ...
-
-    # get the pebble service names for all OpenStack API services
-    for i in {0..2}; do kubectl -n openstack exec keystone-$i -c keystone -- pebble services; done
-    # do the same for all necessary apps
-
-    # stop the containers of all OpenStack API services
-    for i in {0..2}; do kubectl -n openstack exec keystone-$i -c keystone -- pebble stop wsgi-keystone; done
-    # do the same for all necessary apps
-
-With all API services stopped, it's possible to run the restore-backup action on a MySQL unit.
-Before that is necessary to scale down the MySQL cluster to 1 replica to ensure data consistency
-during the restore process. See the `charmed MySQL documentation`_ for more details
+Restore each application from its latest successful backup:
 
 .. code-block :: text
 
-    juju scale-application mysql 1
+    sunbeam restore
 
-Then, run the restore-backup action on the unit where you want to restore the backup. E.g:
+Review the inventory and confirm the restore. Sunbeam warns before proceeding
+with missing or failed backups. A partial restore can leave inconsistent data
+between services.
+
+For each MySQL application, Sunbeam pauses the related API services, scales its
+routers to zero units and MySQL to one unit, and restores the backup. It then
+restores the original unit counts and resumes the API services. Vault is restored
+through its charm's ``restore-backup`` action.
+
+To restore MySQL to a point in time, specify a UTC timestamp:
+
 .. code-block :: text
 
-    juju run mysql/leader restore-backup backup-id=<backup-id>
+    sunbeam restore --restore-to-time "YYYY-MM-DD HH:MM:SS"
 
-After restoring all databases, it's necessary to resume the OpenStack services and scale again
-the mysql units.
+This requires a MySQL charm supporting point-in-time recovery and backup data
+covering the requested time. See the `charmed MySQL documentation`_. Vault does
+not support point-in-time recovery; Sunbeam warns and restores its latest backup
+instead.
+
+After restoring Vault, unseal it and authorize the charm using the keys and root
+token from the time of the backup. Follow :doc:`/how-to/features/vault` and the
+`Vault restore documentation`_.
+
+Check application status and verify that the restored data is accessible through
+the affected OpenStack services:
 
 .. code-block :: text
 
-    # start the containers of all OpenStack API services
-    for i in {0..2}; do kubectl -n openstack exec keystone-$i -c keystone -- pebble start wsgi-keystone; done
-    # do the same for all necessary apps
+    juju status -m openstack
 
-    juju scale-application mysql 3
+If MySQL reports ``Move restored cluster to another S3 repository``, create a new
+bucket and update the corresponding integrator. For example:
 
-In case you find mysql-routers on blocked state, it's necessary to re-launch them by running the following command:
 .. code-block :: text
 
-    juju scale-application keystone-mysql-router 0
-    juju scale-application keystone-mysql-router 3
+    juju config -m openstack mysql-s3-integrator bucket=<NEW_BUCKET_NAME>
 
-After the restoration, MySQL application will be in blocked state with the message:
-"Move restored cluster to another S3 repository". To unblock it, it's necessary to create a new S3
-bucket and configure the `mysql-s3-integrator`` charm to use it by running the following command:
+Command options
+~~~~~~~~~~~~~~~
+
+Use ``--timeout <seconds>`` to change the wait time for backup, listing, or restore
+operations. The default is 1800 seconds. For example:
+
 .. code-block :: text
 
-    juju config mysql-s3-integrator bucket=<NEW_BUCKET_NAME>
+    sunbeam backup --timeout 3600
 
-Vault
------
+The backup and restore commands accept ``--no-prompt`` for unattended use. This
+also accepts prompts to continue after applications have been skipped; check
+the reported applications and results.
 
-Requirements
-~~~~~~~~~~~~
-* Have a Vault cluster enabled in Sunbeam.
-* Units are in active idle state
-* Configured settings for S3 storage
-* Have saved your unseal keys and root-token in a secure location of your choice
+The ``--force`` option allows backup or restore to proceed despite application
+health concerns. For MySQL backup, it also allows use of the leader when cluster
+health cannot be verified. It does not bypass the S3 relation requirement and
+may result in a backup containing stale data.
 
-Backup / Restore
-~~~~~~~~~~~~~~~~
-.. code-block :: text
+Failed operations
+~~~~~~~~~~~~~~~~~
 
-    juju run vault/leader create-backup
+Backup and restore return ``0`` when all attempted operations succeed, ``1`` for
+partial failure, and ``2`` when all attempted operations fail. Listing returns
+``2`` if any application's inventory cannot be retrieved. Validation errors and
+cancelled prompts also return nonzero exit codes. Check warnings for applications
+skipped before the operation; a zero exit code does not prove they were included.
 
-    juju run vault/leader list-backups
+If restore fails, Sunbeam attempts to restore MySQL and router unit counts and
+resume the related API services. This does not undo changes to database contents.
+Recovery failures are reported separately.
 
-    juju run vault/leader restore-backup backup-id=<backup-id>
+Inspect the reported error and Juju status before retrying. A timeout does not
+establish whether the charm action completed. Check for paused services, missing
+router units, sealed Vault units, and MySQL status messages before starting
+another restore.
+
+Other components
+----------------
+
+The following procedures are separate from the Sunbeam backup and restore
+commands.
 
 K8s control plane backup
-------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 Requirements
-~~~~~~~~~~~~
+^^^^^^^^^^^^
 * Have a `velero-operator`_ deployed
 * Have the `infra-backup-operator`_ deployed
 * Have access to S3 storage
 * Configure s3-integrator
 
 Backup
-~~~~~~
+^^^^^^
 .. code-block :: text
 
     juju run velero-operator/0 create-backup \
@@ -278,7 +260,7 @@ Backup
     target=infra-backup-operator:namespaced-infra-backup
 
 Restore
-~~~~~~~
+^^^^^^^
 .. code-block :: text
 
     # list the backups
@@ -310,10 +292,10 @@ Restore
     juju run velero-operator/0 restore backup-uid=83503892-a24a-409b-b0df-553dcc2465ec
 
 Juju
-----
+~~~~
 
 Backup
-~~~~~~
+^^^^^^
 .. code-block :: text
 
     # export all models
@@ -328,20 +310,20 @@ Backup
     tar -czf juju-credentials.tar.gz ~/.local/share/juju/*
 
 Restore
-~~~~~~~
+^^^^^^^
 For restoring there is the `juju-restore`_ tool to help.
 
 
 MAAS deployment access
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 
 See the :doc:`Backup and Restore MAAS Deployment</how-to/misc/backup-and-restore-maas-deployment>` for details.
 
 Sunbeam-clusterd
-----------------
+~~~~~~~~~~~~~~~~
 
 Backup
-~~~~~~
+^^^^^^
 It's recommended to create a backup of sunbeam-clusterd data by running the following command:
 
 .. code-block :: text
@@ -352,7 +334,7 @@ Note that the backup file is created in the home directory of the ubuntu user, s
 moved to a safe location after the backup is created.
 
 Restore
-~~~~~~~
+^^^^^^^
 If a unit has a corrupted database, it's possible to restore the backup by running the following command:
 
 .. code-block :: text
@@ -375,3 +357,4 @@ If a unit has a corrupted database, it's possible to restore the backup by runni
 .. _infra-backup-operator: https://charmhub.io/infra-backup-operator/docs/tutorial
 .. _juju-restore: https://github.com/juju/juju-restore/
 .. _charmed mysql documentation: https://canonical-charmed-mysql.readthedocs-hosted.com/8.0/how-to/back-up-and-restore/restore-a-backup/
+.. _Vault restore documentation: https://canonical-vault-charms.readthedocs-hosted.com/en/latest/how-to/restore_backup/
