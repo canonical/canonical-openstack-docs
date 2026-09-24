@@ -116,6 +116,9 @@ Physical machines
 
 The example physical configuration assumes 3 Cloud nodes and 3 Governor nodes spread across 3 different physical zones for full HA regardless of the cloud architecture being used. Depending on your scenario you might not need all six machines. Please refer to instructions under tutorials and how-to guides for exact hardware requirements for each scenario.
 
+The Cloud nodes (``cloud-1``, ``cloud-2`` and ``cloud-3``) each have the
+``control``, ``compute``, ``network`` and ``storage`` roles.
+
 Virtual machines
 ----------------
 
@@ -315,17 +318,17 @@ When using Canonical MAAS as a bare metal provider, some additional parameters h
      - Network tag (eno2)
    * - cloud-1
      - AZ1
-     - openstack-mycloud, control, compute, storage
+     - openstack-mycloud, control, compute, network, storage
      - ceph
      - neutron:physnet1
    * - cloud-2
      - AZ2
-     - openstack-mycloud, control, compute, storage
+     - openstack-mycloud, control, compute, network, storage
      - ceph
      - neutron:physnet1
    * - cloud-3
      - AZ3
-     - openstack-mycloud, control, compute, storage
+     - openstack-mycloud, control, compute, network, storage
      - ceph
      - neutron:physnet1
    * - sunbeam-controller-1

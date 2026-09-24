@@ -108,13 +108,13 @@ For example, to add the *cloud-2* machine from the :doc:`Example physical config
 
 .. code-block :: text
 
-   cat cloud-2.asc | sunbeam cluster join --role control,compute,storage -
+   cat cloud-2.asc | sunbeam cluster join --role control,compute,network,storage -
 
 One finished, you should be able to see the following message on your screen:
 
 .. code-block :: text
 
-   Node joined cluster with roles: storage, control, compute
+   Node joined cluster with roles: control, compute, network, storage
 
 Resize the cluster
 ------------------

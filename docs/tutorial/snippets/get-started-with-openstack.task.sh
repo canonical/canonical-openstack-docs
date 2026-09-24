@@ -17,11 +17,11 @@ sunbeam prepare-node-script --bootstrap | bash -x
 
 
 # [docs-view:bootstrap]
-sunbeam cluster bootstrap --accept-defaults --role control,compute,storage
+sunbeam cluster bootstrap --accept-defaults --role control,compute,network,storage
 # [docs-view:bootstrap-end]
 
 # [docs-exec:bootstrap]
-sg snap_daemon 'sunbeam cluster bootstrap --accept-defaults --role control,compute'
+sg snap_daemon 'sunbeam cluster bootstrap --accept-defaults --role control,compute,network'
 # [docs-exec:bootstrap-end]
 
 

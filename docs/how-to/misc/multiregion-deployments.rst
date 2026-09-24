@@ -67,8 +67,8 @@ The token must then be passed to the bootstrap command:
 
 ::
 
-	sunbeam cluster bootstrap \
-    	--role control,compute,storage --region-controller-token=$token
+    sunbeam cluster bootstrap \
+        --role control,compute,network,storage --region-controller-token=$token
 
 During bootstrap, make sure to specify a region name other than the one of the
 region controller.
@@ -79,21 +79,21 @@ controller and one from an existing member of the secondary region.
 
 ::
 
-	sunbeam --verbose cluster join --role control,compute,storage \
-    	--region-controller-token $region_ctrl_token $same_region_token
+    sunbeam --verbose cluster join --role control,compute,network,storage \
+        --region-controller-token $region_ctrl_token $same_region_token
 
 Canonical MAAS provider mode
 ----------------------------
 
 To deploy region controller nodes, use the ``region_controller`` machine tag.
 Note that a deployment containing region controllers is not allowed
-to have other control, compute or storage nodes.
+to have other control, compute, network or storage nodes.
 
 ::
 
 	$ sunbeam cluster bootstrap
 	$ sunbeam cluster deploy
-	Deployment complete with 0 control, 0 compute and 0 storage nodes.
+	Deployment complete with 0 control, 0 compute, 0 network and 0 storage nodes.
 	Region controllers: 1. Total nodes in cluster: 1
 
 Secondary regions will reside in separate Sunbeam deployments, using a

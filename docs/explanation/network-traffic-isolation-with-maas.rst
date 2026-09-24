@@ -65,7 +65,7 @@ cloud networks. They are described below:
 | Other          | Traffic type              | Example traffic         |
 | networking     |                           |                         |
 +================+===========================+=========================+
-| “external      | hypervisor-to-external    | Remote access to        |
+| “external      | gateway-to-external       | Remote access to        |
 | networking”    | (North-South)             | instances over SSH      |
 +----------------+---------------------------+-------------------------+
 | “private       | instance-to-service       | Instances contacting    |
@@ -104,6 +104,10 @@ requirements are described here:
 | network               | MicroOVN              | management, internal, |
 |                       |                       | data                  |
 +-----------------------+-----------------------+-----------------------+
+
+Nodes with the ``network`` role also connect to the external physical
+network. Compute nodes reach gateways on separate network nodes through
+the ``data`` network.
 
 Client
 ~~~~~~

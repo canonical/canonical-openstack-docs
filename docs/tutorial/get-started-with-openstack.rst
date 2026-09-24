@@ -97,6 +97,7 @@ a while to complete. In principle, Sunbeam orchestrates the following actions in
 * Installs `Canonical Juju`_ and bootstraps a Juju controller on top of Canonical Kubernetes,
 * Installs and configures cloud control functions on top of Canonical Kubernetes,
 * Installs the `OpenStack Hypervisor snap`_ and plugs it into cloud control services,
+* Installs the `MicroOVN snap`_ to provide cloud networking and gateway services,
 * Installs the `MicroCeph snap`_ and plugs it into cloud control services.
 
 To bootstrap the cloud for sample usage, execute the following command:
@@ -116,7 +117,7 @@ Once it completes, you should be able to see the following message on your scree
 
 .. code-block :: text
 
-   Node has been bootstrapped with roles: storage, control, compute
+   Node has been bootstrapped with roles: control, compute, network, storage
 
 .. note ::
 
