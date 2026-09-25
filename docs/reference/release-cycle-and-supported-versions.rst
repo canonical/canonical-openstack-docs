@@ -119,6 +119,12 @@ Also refer to the table below:
      - EOL (under Ubuntu Pro)
      - EOL (under Legacy Support)
    * - 2024.1
+     - 24.04 LTS
+     - Jun 2026
+     - Apr 2029
+     - Apr 2034
+     - Apr 2036
+   * - 2024.1
      - 22.04 LTS
      - Dec 2024
      - Apr 2027
