@@ -20,6 +20,7 @@ Optional Features
    object-storage
    observability
    orchestration
+   rating
    resource-optimization
    secrets
    shared-filesystem
