@@ -320,3 +320,6 @@ deallocation
 sys
 switchdev
 vTPM
+# CloudKitty additions
+CloudKitty
+hashmap
