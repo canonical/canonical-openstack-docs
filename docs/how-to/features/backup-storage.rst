@@ -75,16 +75,14 @@ Setup can complete while integrators are blocked pending configuration.
 Resolve their status messages and verify the MySQL and Vault applications are
 ready before following :doc:`/how-to/operations/backup-and-restore`.
 
-To inspect discovered MySQL and Vault targets, their S3 integrations, and backup
-readiness:
+List MySQL and Vault applications configured to use S3 backup storage:
 
 .. code:: text
 
    sunbeam cluster backup target list
 
-This read-only command identifies Sunbeam-managed or externally managed
-integrations where ownership is known. It is available even when Sunbeam-managed
-backup storage has not been set up.
+The output shows each application's S3 relation and backup readiness based on
+its application status.
 
 Updating backup storage
 -----------------------
