@@ -19,6 +19,11 @@ are described below.
 
 s3-integrator
 -------------
+To deploy and configure Sunbeam-managed S3 integrations, use
+``sunbeam configure backup`` as described in
+:doc:`/how-to/features/backup-storage`. The manual procedure below can also be
+used for externally managed integrations.
+
 The Sunbeam cluster, by default, utilizes ceph-rgw within MicroCeph, which provides S3-compatible
 object storage capabilities. This built-in functionality can be used to create the S3 buckets
 necessary for the backup procedures described here. While this is convenient for initial setup
@@ -107,7 +112,8 @@ Requirements
 
 * MySQL and Vault applications to be backed up are in active/idle state.
 * Each application has an s3-integrator relation and working S3 configuration.
-  Follow the setup above for each MySQL application and for Vault, when enabled.
+  Follow :doc:`/how-to/features/backup-storage` or the manual setup above for
+  each MySQL application and for Vault, when enabled.
 * For MySQL restore, the related OpenStack API charms provide ``pause`` and
   ``resume`` actions.
 * For Vault restore, retain the unseal keys and root token that were in use when
