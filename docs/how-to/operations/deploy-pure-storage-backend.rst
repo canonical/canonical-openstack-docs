@@ -22,35 +22,41 @@ You will need:
 Inspect the available options
 -----------------------------
 
-If you want to review the supported configuration keys before deploying the
-backend, run:
+If you want to review the supported configuration keys in YAML, before
+deploying the backend, run:
 
 .. code-block:: text
 
    sunbeam storage options purestorage
 
+To check the CLI equivalents, run:
+
+.. code-block:: text
+
+   sunbeam storage add purestorage --help
+
 Create the backend configuration
 --------------------------------
 
 You can provide the backend settings in a YAML file or pass the equivalent CLI
-options directly to the deployment command. The required keys are ``san-ip``
-and ``pure-api-token``.
+options directly to the deployment command. The required keys are ``san_ip``
+and ``pure_api_token``.
 
 For example, create a file named ``purestorage.yaml`` with the following
 content:
 
 .. code-block:: yaml
 
-   san-ip: 192.0.2.10
-   pure-api-token: 01234567-89ab-cdef-0123-456789abcdef
+   san_ip: 192.0.2.10
+   pure_api_token: 01234567-89ab-cdef-0123-456789abcdef
    protocol: iscsi
-   volume-backend-name: pure-iscsi
-   backend-availability-zone: az1
-   pure-iscsi-cidr: 192.0.2.0/24
+   volume_backend_name: pure-iscsi
+   backend_availability_zone: az1
+   pure_iscsi_cidr: 192.0.2.0/24
 
 Set ``protocol`` to ``iscsi``, ``fc``, or ``nvme`` to match your deployment.
-For NVMe/TCP deployments, you can also set ``pure-nvme-cidr`` and
-``pure-nvme-transport``. Set ``pure-nvme-transport`` to ``tcp``.
+For NVMe/TCP deployments, you can also set ``pure_nvme_cidr`` and
+``pure_nvme_transport``. Set ``pure_nvme_transport`` to ``tcp``.
 
 Deploy the backend
 ------------------
