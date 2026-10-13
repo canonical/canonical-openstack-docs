@@ -4,7 +4,10 @@ Backup and restore access to a MAAS deployment
 Overview
 --------
 
-As part of the management of a MAAS deployment of Canonical OpenStack it is good practice to backup the information and credentials required to access a deployment.  This backup can also be used to provide additional nodes with access to the deployment.
+Export the configuration and credentials needed to access an existing MAAS
+deployment from another client node. Importing this configuration restores client
+access; it does not restore application data or rebuild the cluster. For MySQL
+and Vault data, see :doc:`/how-to/operations/backup-and-restore`.
 
 For the purposes of this document, the MAAS deployment name is `mycloud`; all example commands will use this name.
 
