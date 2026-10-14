@@ -131,10 +131,6 @@ Nodes with the compute role should be hardware virtualization (KVM) capable
 otherwise user-space emulation is used for instances which has a significant
 performance impact.
 
-.. note::
-   The compute role provides OVN L3 Gateway services. In the future, only Network nodes
-   will provide this functionality.
-
 Storage
 ^^^^^^^
 
@@ -145,11 +141,13 @@ Nodes with the storage role must have free, un-partitioned disks for use by Ceph
 Network
 ^^^^^^^
 
-The network role encapsulates the networking component of the cloud; this is provided by MicroOVN which provides OVN L3 Gateway services.
-.. note::
+The network role provides OVN L3 gateway services through MicroOVN. These
+services carry north-south traffic between instances and external networks,
+including remote access through floating IPs. Network nodes connect to the
+external physical network.
 
-   The network and compute roles are mutually exclusive: a node assigned the
-   network role must not also be assigned the compute role.
+The network role can be combined with the control, compute and storage
+roles, or assigned to dedicated network nodes.
 
 Topology
 --------
@@ -170,9 +168,17 @@ In a single-node deployment, all of the components of the deployed OpenStack Clo
 
 .. Image source: https://assets.ubuntu.com/v1/eac5c9be-Canonical%20OpenStack%20single-node%20topology.png
 
-In a single-node deployment the node will assume control and compute roles by default. Note that the use of the storage role currently requires pristine, un-partitioned block devices on the node being used. The network role is mutually exclusive with the compute role.
+In a single-node deployment, the node hosts the control, compute and network
+roles. The storage role can also be assigned if the node has pristine,
+un-partitioned block devices for Ceph.
 
-It is possible to deploy a single-node cloud with remote access to control plane services and instances - this is the ``remote`` option for instance networking and requires a range of IP addresses for K8s loadbalancer use on the network upon which the node being used resides - see the :doc:`Install Canonical OpenStack using the manual bare metal provider how-to guide</how-to/install/install-canonical-openstack-using-the-manual-bare-metal-provider>` for examples on how to do this.
+Remote access to instances uses the ``remote`` option for instance networking
+and requires an external network interface and an address range for
+floating IPs. Remote access to control plane
+services uses a separate range of IP addresses for Kubernetes load balancers.
+See :doc:`Install Canonical OpenStack using the manual bare metal provider
+</how-to/install/install-canonical-openstack-using-the-manual-bare-metal-provider>`
+for the deployment procedure.
 
 Multi-node
 ~~~~~~~~~~

@@ -151,7 +151,7 @@ in the cluster:
      - Required cloud networks
    * - openstack-<name>
      - Defines which machines to use in this particular deployment
-     - Cloud, Control, Compute, Storage, Sunbeam Controller, Juju Controller
+     - Cloud, Control, Compute, Network, Storage, Sunbeam Controller, Juju Controller
      - None
    * - control
      - Defines where to host cloud control functions
@@ -170,7 +170,7 @@ in the cluster:
      - Cloud, Storage
      - internal, management, storage, storage-cluster
    * - network
-     - Defines where to host cloud network functions
+     - Defines where to host gateway services for external instance connectivity
      - Cloud, Network
      - internal, management, data
    * - sunbeam
@@ -184,21 +184,46 @@ in the cluster:
 
 Note that the ``<name>`` suffix must match the deployment name.
 
-Machines from the :doc:`Example physical configuration</reference/example-physical-configuration>` section would look like as follows:
+Assign the ``network`` machine tag to every host that will provide external
+connectivity for instances.
+
+For the ``mycloud`` deployment from the
+:doc:`Example physical configuration</reference/example-physical-configuration>`,
+assign these machine tags:
+
+.. list-table:: Example machine tags
+   :header-rows: 1
+
+   * - Machines
+     - Tags
+   * - | cloud-1
+       | cloud-2
+       | cloud-3
+     - ``openstack-mycloud``, ``control``, ``compute``, ``network``, ``storage``
+   * - | sunbeam-controller-1
+       | sunbeam-controller-2
+       | sunbeam-controller-3
+     - ``openstack-mycloud``, ``sunbeam``
+   * - | juju-controller-1
+       | juju-controller-2
+       | juju-controller-3
+     - ``openstack-mycloud``, ``juju-controller``
 
 .. figure:: images/install-canonical-openstack-using-canonical-maas-02.png
    :align: center
+   :alt: MAAS machine list showing the tags assigned to each machine.
+
+   Machine tags in the MAAS machine list.
 
 Refer to `MAAS documentation`_ for more information on assigning machine tags.
 
 Configure network
 """""""""""""""""
 
-In addition to configuring network interfaces attached to the Generic physical network (or any
-other physical networks if using more than one for traffic segmentation purposes), operators must
-also configure the network interface attached to the External physical network. This is done by
-leaving the *Subnet* field of this interface as *Unconfigured* and assigning the
-``neutron:physnet1`` network tag.
+On each machine tagged ``network``, configure the interface attached to the
+External physical network in addition to the interfaces used for other
+cloud traffic. Leave the *Subnet* field of the external interface as
+*Unconfigured* and assign the ``neutron:physnet1`` network tag.
 
 For example, network configuration of the *cloud-1* machine from the :doc:`Example physical configuration</reference/example-physical-configuration>`
 section would look like as follows:
@@ -414,7 +439,7 @@ One finished, you should be able to see the following message on your screen:
 
 .. code-block :: text
 
-   Deployment complete with 3 control, 3 compute and 3 storage nodes. Total nodes in cluster: 3
+   Deployment complete with 3 control, 3 compute, 3 network and 3 storage nodes. Region controllers: 0. Total nodes in cluster: 3
 
 Configure the cloud
 -------------------

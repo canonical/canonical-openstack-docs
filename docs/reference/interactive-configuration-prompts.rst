@@ -54,7 +54,7 @@ preceding question.
    * - **Local or remote access to VMs**
      - | If 'local' is selected then VMs will **only** be accessible from the local host, whereas if 'remote' is selected then VMs will **only** be accessible from remote hosts.
        |
-       | For the remote case, you will subsequently be asked to specify what network interface to dedicate to VM access traffic. The intended remote hosts must have connectivity to this interface.
+       | For the remote case, you will subsequently be asked to specify what network interface to dedicate to VM access traffic on hosts with the ``network`` role. The intended remote hosts must have connectivity to this interface.
    * - **External network - arbitrary but must not be in use**
      - | *Question will appear for local access only.*
        |
@@ -80,7 +80,7 @@ preceding question.
    * - **External network's interface**
      - | *Question will appear for remote access only.*
        |
-       | The network interface used for external access to VMs. The interface should be connected to an appropriate physical network. Detected unconfigured (free) interfaces will be listed as acceptable values. However, an interface not appearing in the list can still be entered.
+       | The network interface used for external access to VMs on a host with the ``network`` role. The interface should be connected to an appropriate physical network. Detected unconfigured (free) interfaces will be listed as acceptable values. However, an interface not appearing in the list can still be entered.
        |
        | Remote hosts intending to access VMs must be able to contact this interface.
    * - **Populate OpenStack cloud with demo user, default images, flavors, etc.**

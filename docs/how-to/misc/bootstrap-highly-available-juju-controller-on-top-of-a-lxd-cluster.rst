@@ -419,4 +419,4 @@ For example:
 
 .. code-block :: text
 
-   sunbeam cluster bootstrap --role control,compute,storage --controller mylxdcluster-default
+   sunbeam cluster bootstrap --role control,compute,network,storage --controller mylxdcluster-default
