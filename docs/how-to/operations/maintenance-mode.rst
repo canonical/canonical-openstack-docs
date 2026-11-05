@@ -143,4 +143,4 @@ If the output confirms a safe transition, disable maintenance mode:
    Disable maintenance for node: <node>
 
 .. LINKS
-.. _OpenStack Watcher: https://wiki.openstack.org/wiki/Watcher
+.. _OpenStack Watcher: https://docs.openstack.org/watcher/latest/
