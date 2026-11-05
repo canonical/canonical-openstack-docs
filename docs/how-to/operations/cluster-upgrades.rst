@@ -100,12 +100,24 @@ You will be prompted to confirm before resetting the state. This action
 resets the internal upgrade tracking and starts a new refresh process. It does
 not revert any changes already applied to the cluster.
 
+.. _refresh-ingress:
+
+Step 4 - Refresh ingress
+------------------------
+
+The traefik instances (traefik, traefik-public and traefik-rgw) require a
+dedicated refresh command. Run the following command to refresh:
+
+.. code:: text
+
+   sunbeam cluster refresh ingress
+
 .. _refresh-cluster:
 
-Step 4 - Refresh the cluster
+Step 5 - Refresh the cluster
 -----------------------------
 
-Once Kubernetes, Vault and MySQL have been refreshed, refresh all remaining OpenStack
+Once Kubernetes, Vault, MySQL and ingress have been refreshed, refresh all remaining OpenStack
 charms:
 
 .. code:: text
