@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 725" width="100%" role="img" aria-labelledby="diagTitle diagDesc" font-family="Ubuntu, -apple-system, Segoe UI, Helvetica, Arial, sans-serif">
+<title id="diagTitle">Trust And Privilege Planes In Canonical OpenStack</title>
+<desc id="diagDesc">Four conceptual security planes, tenant/user, OpenStack service, infrastructure/orchestration, and host/storage/hardware, connected by bidirectional boundaries: the API and policy boundary, deployment and service trust, and machine and infrastructure trust. Controls are enforced within each plane, and sufficiently privileged access to a lower plane can bypass controls enforced above it. A dashed side panel for external trust dependencies, identity providers, certificate authorities, DNS and NTP, and package or update sources, connects into every plane.</desc>
+<rect x="0" y="0" width="1000" height="725" fill="#ffffff"/>
+<defs>
+  <marker id="arrowBoth" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0,0 L10,5 L0,10 z" fill="#3b6a86"/>
+  </marker>
+</defs>
+<text x="500.0" y="46" font-size="19" font-weight="600" fill="#2c2c30" text-anchor="middle">Trust and Privilege Planes In Canonical OpenStack</text>
+<text x="500.0" y="66" font-size="13" fill="#54555a" text-anchor="middle">Controls are enforced within each plane. Privileged access to a lower plane can bypass controls enforced above it.</text>
+<rect x="40" y="106" width="600" height="58" rx="6" fill="#f3f5f7" stroke="#3b4652" stroke-width="1.5"/>
+<text x="340.0" y="130" font-size="15" font-weight="600" fill="#2c2c30" text-anchor="middle">Tenant / User Plane</text>
+<text x="340.0" y="150" font-size="12.5" fill="#54555a" text-anchor="middle">Project Networks, Security Groups, Floating IPs, VMs, Workload Data</text>
+<rect x="40" y="256" width="600" height="75" rx="6" fill="#f3f5f7" stroke="#3b4652" stroke-width="1.5"/>
+<text x="340.0" y="280" font-size="15" font-weight="600" fill="#2c2c30" text-anchor="middle">OpenStack Service Plane</text>
+<text x="340.0" y="300" font-size="12.5" fill="#54555a" text-anchor="middle">Keystone, Nova, Neutron, Cinder, Service APIs, Service Identities</text>
+<text x="340.0" y="317" font-size="12.5" fill="#54555a" text-anchor="middle">Identity, Roles, and API Policy Determine What Each Identity Can Do</text>
+<rect x="40" y="423" width="600" height="58" rx="6" fill="#f3f5f7" stroke="#3b4652" stroke-width="1.5"/>
+<text x="340.0" y="447" font-size="15" font-weight="600" fill="#2c2c30" text-anchor="middle">Infrastructure / Orchestration Plane</text>
+<text x="340.0" y="467" font-size="12.5" fill="#54555a" text-anchor="middle">Sunbeam, Juju, Kubernetes Control Plane, MAAS, Vault</text>
+<rect x="40" y="573" width="600" height="58" rx="6" fill="#f3f5f7" stroke="#3b4652" stroke-width="1.5"/>
+<text x="340.0" y="597" font-size="15" font-weight="600" fill="#2c2c30" text-anchor="middle">Host, Storage, and Hardware Plane</text>
+<text x="340.0" y="617" font-size="12.5" fill="#54555a" text-anchor="middle">Hypervisors, Ceph/Storage, Ubuntu Hosts, BMC/IPMI/Redfish</text>
+<line x1="340.0" y1="170" x2="340.0" y2="246" stroke="#3b6a86" stroke-width="2.5" marker-start="url(#arrowBoth)" marker-end="url(#arrowBoth)"/>
+<rect x="271.0" y="201.5" width="138" height="17" fill="#ffffff"/>
+<text x="340.0" y="214.3" font-size="12" font-weight="600" fill="#3b6a86" text-anchor="middle">API / Policy Boundary</text>
+<line x1="340.0" y1="337" x2="340.0" y2="413" stroke="#3b6a86" stroke-width="2.5" marker-start="url(#arrowBoth)" marker-end="url(#arrowBoth)"/>
+<rect x="255.0" y="368.5" width="170" height="17" fill="#ffffff"/>
+<text x="340.0" y="381.3" font-size="12" font-weight="600" fill="#3b6a86" text-anchor="middle">Deployment / Service Trust</text>
+<line x1="340.0" y1="487" x2="340.0" y2="563" stroke="#3b6a86" stroke-width="2.5" marker-start="url(#arrowBoth)" marker-end="url(#arrowBoth)"/>
+<rect x="246.5" y="518.5" width="187" height="17" fill="#ffffff"/>
+<text x="340.0" y="531.3" font-size="12" font-weight="600" fill="#3b6a86" text-anchor="middle">Machine / Infrastructure Trust</text>
+<rect x="700" y="106" width="260" height="525" rx="6" fill="#fbfaf6" stroke="#7a828c" stroke-width="1.5" stroke-dasharray="5,4"/>
+<text x="830.0" y="128" font-size="13.5" font-weight="600" fill="#2c2c30" text-anchor="middle">External Trust</text>
+<text x="830.0" y="146" font-size="13.5" font-weight="600" fill="#2c2c30" text-anchor="middle">Dependencies</text>
+<text x="830.0" y="168" font-size="12" fill="#54555a" text-anchor="middle">Identity Providers</text>
+<text x="830.0" y="186" font-size="12" fill="#54555a" text-anchor="middle">Certificate Authorities</text>
+<text x="830.0" y="204" font-size="12" fill="#54555a" text-anchor="middle">DNS and NTP</text>
+<text x="830.0" y="222" font-size="12" fill="#54555a" text-anchor="middle">Package/Update Sources</text>
+<line x1="640" y1="135.0" x2="700" y2="135.0" stroke="#7a828c" stroke-width="1.5" stroke-dasharray="3,4"/>
+<line x1="640" y1="293.5" x2="700" y2="293.5" stroke="#7a828c" stroke-width="1.5" stroke-dasharray="3,4"/>
+<line x1="640" y1="452.0" x2="700" y2="452.0" stroke="#7a828c" stroke-width="1.5" stroke-dasharray="3,4"/>
+<line x1="640" y1="602.0" x2="700" y2="602.0" stroke="#7a828c" stroke-width="1.5" stroke-dasharray="3,4"/>
+<line x1="40" y1="659" x2="80" y2="659" stroke="#3b6a86" stroke-width="2.5" marker-start="url(#arrowBoth)" marker-end="url(#arrowBoth)"/>
+<text x="92" y="663" font-size="12.5" fill="#2c2c30">Boundary where trust, authorization, or administrative responsibility changes</text>
+<line x1="40" y1="685" x2="80" y2="685" stroke="#7a828c" stroke-width="1.5" stroke-dasharray="3,4"/>
+<text x="92" y="689" font-size="12.5" fill="#2c2c30">External trust dependency connected into a plane</text>
+</svg>
