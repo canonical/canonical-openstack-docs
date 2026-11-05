@@ -21,6 +21,13 @@ To ensure the latest updates are available to the cluster charms, refresh the
 * **Manual provider:** Run ``sudo snap refresh openstack`` on all nodes.
 * **MAAS provider:** Run it on the sunbeam client node only.
 
+Then hold the ``openstack`` snap refreshes so that the snap is not
+auto-refreshed to a different revision:
+
+.. code:: text
+
+   sudo snap refresh --hold openstack
+
 .. important::
    Refreshing the ``openstack`` snap does not automatically refresh the
    cluster. You must explicitly run the dedicated cluster refresh commands
