@@ -248,6 +248,7 @@ exclude_patterns = [
 # Adds custom CSS files, located remotely or in 'html_static_path'.
 html_css_files = [
     "https://assets.ubuntu.com/v1/d86746ef-cookie_banner.css",
+    "dropdown.css",
 ]
 
 # Adds custom JavaScript files, located remotely or in 'html_static_path'.

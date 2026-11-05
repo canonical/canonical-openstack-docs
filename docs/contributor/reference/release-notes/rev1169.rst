@@ -1,0 +1,401 @@
+rev1169
+=======
+
+This revision is a bug fix release for Canonical OpenStack 2024.1. It focuses
+on stability and bug fixes in the ``openstack`` snap, the infrastructure snaps,
+and the charms, and also includes a small set of enhancements.
+
+Upgrade notes
+-------------
+
+To upgrade your deployment to this revision, see :doc:`Cluster upgrades
+</how-to/operations/cluster-upgrades>`.
+
+Enhancements
+------------
+
+- A new ``sunbeam cluster refresh ingress`` command refreshes the traefik instances (traefik, traefik-public and traefik-rgw) on their own schedule, without requiring a full cluster refresh.
+- TLS support for storage backends: certificates and CA material can be passed through charm configuration (with the private key stored as a Juju secret), and TLS material is validated and rendered for the ``cinder-volume`` storage backends, including NetApp.
+- The ``openstack-hypervisor`` snap and charm expose the ``block-device-allocate-retries`` and ``block-device-allocate-retries-interval`` options, so that VM builds do not abort on slow Cinder backends.
+- The QoS service plugin is enabled in ``neutron-k8s``.
+- The ``process-all-instances`` option is available in ``masakari-k8s``.
+- The OVSDB election timer can be configured in ``ovn-central-k8s``.
+- The new ``cinder-volume-dellpowerflex`` charm is available for PowerFlex storage backends.
+
+Important changes
+-----------------
+
+- Refresh commands validate that reapplying the openstack plan would not change any infrastructure application (such as traefik, mysql and vault) — a refresh that would change an infrastructure application is rejected instead of applied. A manifest passed with ``-m`` is stored once validation passes, before the changes are applied; the dedicated infrastructure refresh commands (``sunbeam cluster refresh mysql``, ``vault``, ``ingress``) store the manifest only after the refresh succeeds.
+- The ``rabbitmq-k8s`` charm is refactored for resiliency: cheap health checks instead of load-heavy probes, missing AMQP credentials are reported as blocked, stable peer credentials are preserved across pod recreation, and transient Pebble disconnects are deferred instead of triggering cluster reformation.
+
+Bug fixes
+---------
+
+- `LP#2129793 <https://bugs.launchpad.net/snap-openstack/+bug/2129793>`_ — maintenance mode no longer fails with node not found: node names are resolved per subsystem, openstacksdk 4.x is supported and watcher SKIPPED actions are treated as terminal
+- `LP#2161593 <https://bugs.launchpad.net/sunbeam-charms/+bug/2161593>`_ — sunbeam-machine: tolerates kernels without ``linux-modules-extra``
+- `LP#2161732 <https://bugs.launchpad.net/bugs/2161732>`_ — cinder-volume: NetApp TLS material is templated correctly
+- `LP#2163212 <https://bugs.launchpad.net/snap-openstack/+bug/2163212>`_ — removing a node from a MAAS deployment no longer leaves leftover state: stale OpenStack and Cinder references and Ceph OSDs are removed, and empty CRUSH hosts are cleaned up
+- `LP#2164695 <https://bugs.launchpad.net/sunbeam-charms/+bug/2164695>`_ — ovn-central-k8s: departed units are removed from OVN RAFT clusters
+- `LP#2164877 <https://bugs.launchpad.net/snap-openstack/+bug/2164877>`_ — mysql: mysql-router-k8s is refreshed before mysql-k8s during the mysql refresh command
+- `LP#2165002 <https://bugs.launchpad.net/sunbeam-charms/+bug/2165002>`_ — cinder-volume-infinidat: CHAP is opt-in and requires credentials
+- `LP#2165816 <https://bugs.launchpad.net/snap-openstack/+bug/2165816>`_ — caas: errors from clusterctl commands include the stderr output in the sunbeam log file
+- `LP#2167289 <https://bugs.launchpad.net/snap-openstack/+bug/2167289>`_ — the sunbeam CLI no longer fails with a permission error when reading the clusterd socket
+- `LP#2168493 <https://bugs.launchpad.net/snap-openstack/+bug/2168493>`_ — NetApp backends are no longer assumed to be highly available; HA support is determined per protocol
+- `LP#2168558 <https://bugs.launchpad.net/sunbeam-charms/+bug/2168558>`_ — sunbeam-clusterd: certificate rotation works when the cluster certificate has expired
+- `LP#2169153 <https://bugs.launchpad.net/snap-openstack/+bug/2169153>`_ — observability: the embedded charm channel defaults from ``feature.py`` are honored when deploying with a manifest
+- `LP#2169225 <https://bugs.launchpad.net/snap-openstack/+bug/2169225>`_ — the opentelemetry-collector-infra relation is created when enabling observability with an external COS
+- `LP#2169709 <https://bugs.launchpad.net/bugs/2169709>`_ — openstack-hypervisor: QEMU guest agent sockets of running VMs survive snap refreshes
+- `LP#2169717 <https://bugs.launchpad.net/sunbeam-charms/+bug/2169717>`_ — neutron-k8s: the ``[placement]`` section is rendered so placement resource providers and aggregates are created for routed network segments
+- `LP#2169836 <https://bugs.launchpad.net/snap-openstack/+bug/2169836>`_ — sunbeam-clusterd recovers from transient HTTPS transport failures
+- `LP#2170234 <https://bugs.launchpad.net/snap-openstack/+bug/2170234>`_ — SR-IOV physical function selection and PCI exclusions are honored in MAAS deployments
+- `LP#2170273 <https://bugs.launchpad.net/snap-openstack/+bug/2170273>`_ — cluster refresh no longer upgrades mysql-router units when their channel changes; the openstack plan is validated against deployed infrastructure applications before it is reapplied
+- `LP#2170964 <https://bugs.launchpad.net/snap-openstack/+bug/2170964>`_ — NO_PROXY ordering is stabilized, so order-only changes no longer modify ``juju-no-proxy``
+- `LP#2171602 <https://bugs.launchpad.net/sunbeam-charms/+bug/2171602>`_ — tempest-k8s: QoS policy tag tests are skipped on plugin versions before 2.11
+- `LP#2172299 <https://bugs.launchpad.net/snap-openstack/+bug/2172299>`_ — the non-HA cinder-volume snap is refreshed from the manifest during cluster refresh
+- `LP#2172588 <https://bugs.launchpad.net/snap-openstack/+bug/2172588>`_ — sunbeam-clusterd enforces leaf-only certificate verification for mTLS authentication, preventing an authentication bypass through unverified client certificate chains
+
+Known issues
+------------
+
+- `mysql-operators#567 <https://github.com/canonical/mysql-operators/issues/567>`_ — mysql-k8s scale-out: when scaling the MySQL cluster with ``sunbeam cluster resize``, new units can be rejected as "Old incarnation" and the InnoDB cluster can lose quorum without self-healing
+- `LP#2173575 <https://bugs.launchpad.net/snap-openstack/+bug/2173575>`_ — sunbeam cluster refresh mysql: in multi DB topology deployments, ``sunbeam cluster refresh mysql`` fails with Error: 'mysql' instead of refreshing the multiple database clusters, which blocks further planned upgrades for the cluster
+
+Pull requests
+-------------
+
+.. dropdown:: snap-openstack
+
+   - `#879 <https://github.com/canonical/snap-openstack/pull/879>`_ — Fix traefik tls certs during refresh
+   - `#925 <https://github.com/canonical/snap-openstack/pull/925>`_ — fix(sunbeam-python): use Deployment Client to determine LoadbalancerFeature requirements
+   - `#935 <https://github.com/canonical/snap-openstack/pull/935>`_ — fix: CI failures with terraform output
+   - `#937 <https://github.com/canonical/snap-openstack/pull/937>`_ — fix(storage): determine NetApp HA support per protocol
+   - `#942 <https://github.com/canonical/snap-openstack/pull/942>`_ — Backport juju provider 2024.1
+   - `#943 <https://github.com/canonical/snap-openstack/pull/943>`_ — fix(observability): handle remote COS offers for infra collector
+   - `#948 <https://github.com/canonical/snap-openstack/pull/948>`_ — fix: align observability channel defaults with feature.py
+   - `#952 <https://github.com/canonical/snap-openstack/pull/952>`_ — fix(clusterd): recover from transient HTTPS transport failures
+   - `#954 <https://github.com/canonical/snap-openstack/pull/954>`_ — CaaS backports stable/2024.1
+   - `#958 <https://github.com/canonical/snap-openstack/pull/958>`_ — feat(microceph): declare nfs endpoint binding on storage space
+   - `#968 <https://github.com/canonical/snap-openstack/pull/968>`_ — fix(maas): honor SR-IOV selection and PCI exclusions
+   - `#972 <https://github.com/canonical/snap-openstack/pull/972>`_ — fix(mysql): refresh mysql-router before mysql-k8s
+   - `#976 <https://github.com/canonical/snap-openstack/pull/976>`_ — feat(storage): align TLS backend UX contracts
+   - `#980 <https://github.com/canonical/snap-openstack/pull/980>`_ — fix(proxy): stabilize NO_PROXY ordering
+   - `#983 <https://github.com/canonical/snap-openstack/pull/983>`_ — Refresh backports stable/2024.1
+   - `#989 <https://github.com/canonical/snap-openstack/pull/989>`_ — fix(maas): clean up node state before removal
+   - `#996 <https://github.com/canonical/snap-openstack/pull/996>`_ — fix(maintenance): resolve node names per subsystem in maintenance commands
+   - `#998 <https://github.com/canonical/snap-openstack/pull/998>`_ — fix(refresh): ignore unpinned revision drift in INFRA_APPS gate
+   - `#1004 <https://github.com/canonical/snap-openstack/pull/1004>`_ — fix(refresh): refresh non-HA cinder-volume snap from manifest
+   - `#1010 <https://github.com/canonical/snap-openstack/pull/1010>`_ — fix(clusterd): enforce leaf-only certificate verification for mTLS auth
+   - `#1012 <https://github.com/canonical/snap-openstack/pull/1012>`_ — fix: bump snap-helpers to fix SnapCtl pipe deadlock
+   - `#1014 <https://github.com/canonical/snap-openstack/pull/1014>`_ — fix(terraform): surface terraform error diagnostics on command failure
+
+.. dropdown:: sunbeam-charms
+
+   - `51e8c132 <https://opendev.org/openstack/sunbeam-charms/commit/51e8c132>`_ — feat(upgrade): add rpc-cache-refresh action to nova and cinder charms
+   - `90bbcd6 <https://opendev.org/openstack/sunbeam-charms/commit/90bbcd6>`_ — Tolerate kernels without linux-modules-extra
+   - `c59e95a <https://opendev.org/openstack/sunbeam-charms/commit/c59e95a>`_ — Enable qos service plugin
+   - `fd4ff9e <https://opendev.org/openstack/sunbeam-charms/commit/fd4ff9e>`_ — feat(refresh-snap): add optional channel param, stop hooks from swapping on track change
+   - `cf052b7 <https://opendev.org/openstack/sunbeam-charms/commit/cf052b7>`_ — Fix certificate rotation when the cluster certificate has expired
+   - `7108467 <https://opendev.org/openstack/sunbeam-charms/commit/7108467>`_ — fix(cinder-volume-infinidat): make CHAP opt-in and require credentials
+   - `ff519b1 <https://opendev.org/openstack/sunbeam-charms/commit/ff519b1>`_ — storage: validate and pass TLS material
+   - `9ee8509 <https://opendev.org/openstack/sunbeam-charms/commit/9ee8509>`_ — feat(openstack-hypervisor): expose block-device-allocate-retries config
+   - `6ed7ad6 <https://opendev.org/openstack/sunbeam-charms/commit/6ed7ad6>`_ — feat(masakari-k8s): expose process-all-instances option
+   - `4733d38 <https://opendev.org/openstack/sunbeam-charms/commit/4733d38>`_ — neutron-k8s: render [placement] for network segment aggregates
+   - `f93a257 <https://opendev.org/openstack/sunbeam-charms/commit/f93a257>`_ — fix(tempest): skip QoS policy tag tests on pre-2.11 plugin
+   - `f784bf7 <https://opendev.org/openstack/sunbeam-charms/commit/f784bf7>`_ — fix(ovn-central-k8s): remove departed units from OVN RAFT clusters
+   - `0237466 <https://opendev.org/openstack/sunbeam-charms/commit/0237466>`_ — fix(ovn-central-k8s): implement ovsdb election timer config
+   - `05b61d9 <https://opendev.org/openstack/sunbeam-charms/commit/05b61d9>`_ — storage/dellpowerflex: backport charm to 2024.1
+   - `ab844e6 <https://opendev.org/openstack/sunbeam-charms/commit/ab844e6>`_ — feat(designate-bind): support the BIND 9.20 rock
+
+.. dropdown:: sunbeam-terraform
+
+   - `#172 <https://github.com/canonical/sunbeam-terraform/pull/172>`_ — fix: correct masakari mysql-services config
+   - `#168 <https://github.com/canonical/sunbeam-terraform/pull/168>`_ — feat: use traefik 26.04 base by default
+   - `#165 <https://github.com/canonical/sunbeam-terraform/pull/165>`_ — chore: upgrade juju terraform provider (1.5.6, then 2.3.1)
+
+.. dropdown:: charm-rabbitmq-k8s
+
+   - `#15 <https://github.com/canonical/charm-rabbitmq-k8s/pull/15>`_ — feat: rewrite charm to follow holistic pattern
+
+.. dropdown:: consul-client-operator
+
+   - No changes.
+
+.. dropdown:: snap-openstack-hypervisor
+
+   - `#229 <https://github.com/canonical/snap-openstack-hypervisor/pull/229>`_ — fix: move /var/lib/libvirt to $SNAP_COMMON so QGA sockets survive snap refreshes
+   - `#233 <https://github.com/canonical/snap-openstack-hypervisor/pull/233>`_ — feat: expose nova block_device_allocate_retries snap config keys
+
+.. dropdown:: snap-cinder-volume
+
+   - `#104 <https://github.com/canonical/snap-cinder-volume/pull/104>`_ — fix: ensure backend tls materials correctly templated
+   - `#108 <https://github.com/canonical/snap-cinder-volume/pull/108>`_ — fix: tolerate incomplete config in install hook
+
+.. dropdown:: snap-openstack-network-agents
+
+   - No changes.
+
+.. dropdown:: snap-epa-orchestrator
+
+   - No changes.
+
+.. dropdown:: snap-manila-data
+
+   - `#29 <https://github.com/canonical/snap-manila-data/pull/29>`_ — fix: correct PYTHONPATH for the manila Debian package
+
+.. dropdown:: snap-consul
+
+   - No changes.
+
+Promoted revisions
+------------------
+
+The charm and snap revisions shipped in this release:
+
+.. dropdown:: Charm and snap revisions
+
+   .. code:: yaml
+
+      charms:
+      - app: aodh-k8s
+        current_revision: 241
+        promoted_revision: 272
+      - app: barbican-k8s
+        current_revision: 240
+        promoted_revision: 271
+      - app: ceilometer-k8s
+        current_revision: 238
+        promoted_revision: 276
+      - app: cinder-ceph-k8s
+        current_revision: 146
+        promoted_revision: 146
+      - app: cinder-k8s
+        current_revision: 308
+        promoted_revision: 346
+      - app: cinder-volume
+        current_revision: 180
+        promoted_revision: 220
+      - app: cinder-volume-ceph
+        current_revision: 161
+        promoted_revision: 192
+      - app: cinder-volume-hitachi
+        current_revision: 98
+        promoted_revision: 122
+      - app: cinder-volume-purestorage
+        current_revision: 107
+        promoted_revision: 131
+      - app: cinder-volume-hpe3par
+        current_revision: 58
+        promoted_revision: 81
+      - app: cinder-volume-infinidat
+        current_revision: 52
+        promoted_revision: 84
+      - app: designate-k8s
+        current_revision: 238
+        promoted_revision: 269
+      - app: epa-orchestrator
+        current_revision: 146
+        promoted_revision: 178
+      - app: glance-k8s
+        current_revision: 301
+        promoted_revision: 340
+      - app: gnocchi-k8s
+        current_revision: 251
+        promoted_revision: 285
+      - app: heat-k8s
+        current_revision: 254
+        promoted_revision: 286
+      - app: horizon-k8s
+        current_revision: 310
+        promoted_revision: 350
+      - app: ironic-k8s
+        current_revision: 133
+        promoted_revision: 170
+      - app: ironic-conductor-k8s
+        current_revision: 129
+        promoted_revision: 163
+      - app: keystone-k8s
+        current_revision: 440
+        promoted_revision: 474
+      - app: keystone-ldap-k8s
+        current_revision: 216
+        promoted_revision: 250
+      - app: keystone-saml-k8s
+        current_revision: 134
+        promoted_revision: 168
+      - app: magnum-k8s
+        current_revision: 252
+        promoted_revision: 284
+      - app: manila-cephfs-k8s
+        current_revision: 150
+        promoted_revision: 182
+      - app: manila-data
+        current_revision: 130
+        promoted_revision: 164
+      - app: manila-k8s
+        current_revision: 146
+        promoted_revision: 183
+      - app: masakari-k8s
+        current_revision: 189
+        promoted_revision: 230
+      - app: neutron-k8s
+        current_revision: 339
+        promoted_revision: 396
+      - app: neutron-baremetal-switch-config-k8s
+        current_revision: 119
+        promoted_revision: 153
+      - app: neutron-generic-switch-config-k8s
+        current_revision: 115
+        promoted_revision: 149
+      - app: nova-k8s
+        current_revision: 327
+        promoted_revision: 369
+      - app: nova-ironic-k8s
+        current_revision: 128
+        promoted_revision: 162
+      - app: octavia-k8s
+        current_revision: 280
+        promoted_revision: 318
+      - app: openstack-exporter-k8s
+        current_revision: 270
+        promoted_revision: 301
+      - app: openstack-hypervisor
+        current_revision: 458
+        promoted_revision: 507
+      - app: openstack-images-sync-k8s
+        current_revision: 207
+        promoted_revision: 238
+      - app: openstack-network-agents
+        current_revision: 129
+        promoted_revision: 162
+      - app: openstack-port-cni-k8s
+        current_revision: 82
+        promoted_revision: 113
+      - app: sunbeam-ovn-proxy
+        current_revision: 82
+        promoted_revision: 113
+      - app: placement-k8s
+        current_revision: 266
+        promoted_revision: 300
+      - app: sunbeam-clusterd
+        current_revision: 215
+        promoted_revision: 251
+      - app: sunbeam-machine
+        current_revision: 221
+        promoted_revision: 259
+      - app: tempest-k8s
+        current_revision: 258
+        promoted_revision: 303
+      - app: watcher-k8s
+        current_revision: 190
+        promoted_revision: 221
+      - app: ovn-relay-k8s
+        current_revision: 270
+        promoted_revision: 300
+      - app: ovn-central-k8s
+        current_revision: 284
+        promoted_revision: 318
+      - app: consul-k8s
+        current_revision: 4
+        promoted_revision: 4
+      - app: consul-client
+        current_revision: 21
+        promoted_revision: 21
+      - app: rabbitmq-k8s
+        current_revision: 72
+        promoted_revision: 74
+      - app: designate-bind-k8s
+        current_revision: 216
+        promoted_revision: 252
+      snaps:
+      - app: openstack
+        current_revision: 1168
+        promoted_revision: 1169
+      - app: openstack-hypervisor
+        current_revision: 731
+        promoted_revision: 752
+      - app: cinder-volume
+        current_revision: 137
+        promoted_revision: 163
+      - app: openstack-network-agents
+        current_revision: 109
+        promoted_revision: 109
+      - app: manila-data
+        current_revision: 7
+        promoted_revision: 14
+      - app: epa-orchestrator
+        current_revision: 43
+        promoted_revision: 43
+      - app: consul-client
+        current_revision: 24
+        promoted_revision: 24
+      dependent_charms:
+      - app: mysql-k8s
+        channel: 8.0/stable
+        stable_revision: 459
+      - app: mysql-router-k8s
+        channel: 8.0/stable
+        stable_revision: 929
+      - app: traefik-k8s
+        channel: latest/stable
+        stable_revision: 505
+      - app: vault-k8s
+        channel: 1.18/stable
+        stable_revision: 591
+      - app: self-signed-certificates
+        channel: 1/stable
+        stable_revision: 710
+      - app: manual-tls-certificates
+        channel: 1/stable
+        stable_revision: 225
+      - app: opentelemetry-collector
+        channel: 2/stable
+        stable_revision: 334
+      - app: opentelemetry-collector-k8s
+        channel: 2/stable
+        stable_revision: 210
+      - app: kratos-external-idp-integrator
+        channel: 0.2/stable
+        stable_revision: 192
+      - app: microceph
+        channel: squid/stable
+        stable_revision: 331
+      - app: microovn
+        channel: 24.03/stable
+        stable_revision: 287
+      - app: microcluster-token-distributor
+        channel: v1/stable
+        stable_revision: 9
+      - app: role-distributor
+        channel: latest/stable
+        stable_revision: 11
+      - app: multus
+        channel: latest/stable
+        stable_revision: 58
+      - app: alertmanager-k8s
+        channel: 1/stable
+        stable_revision: 180
+      - app: grafana-k8s
+        channel: 1/stable
+        stable_revision: 160
+      - app: catalogue-k8s
+        channel: 1/stable
+        stable_revision: 87
+      - app: prometheus-k8s
+        channel: 1/stable
+        stable_revision: 247
+      - app: loki-k8s
+        channel: 1/stable
+        stable_revision: 199
+      - app: hardware-observer
+        channel: latest/stable
+        stable_revision: 952
+      dependent_snaps:
+      - app: microceph
+        channel: squid/stable
+        stable_revision: 2136
+      - app: microovn
+        channel: 24.03/stable
+        stable_revision: 1192
+      - app: k8s
+        channel: 1.32-classic/stable
+        stable_revision: 5806

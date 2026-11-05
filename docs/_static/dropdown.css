@@ -1,0 +1,5 @@
+/* Release notes: plain PR dropdown bars (no grey highlight) */
+.sd-dropdown .sd-summary-title,
+.sd-dropdown .sd-summary-title:hover {
+  background-color: transparent;
+}
