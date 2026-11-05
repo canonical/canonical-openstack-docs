@@ -48,6 +48,13 @@ Remove Juju configuration:
    sudo rm -rf /var/lib/juju/system-identity
    sudo rm -rf /var/lib/juju/bootstrap-params
 
+Remove the Juju certificate from the LXD trust store:
+
+.. code-block :: text
+
+   lxc config trust list   # copy the fingerprint from the 'juju' entry
+   lxc config trust remove <FINGERPRINT>
+
 Remove the ``openstack-hypervisor`` and ``openstack`` snaps:
 
 .. code-block :: text
