@@ -162,7 +162,7 @@ OpenStack clouds deployed with third-party tools which use OpenStack packages fr
 
 OpenStack versions shipped through the `Ubuntu Archive (UA) <https://packages.ubuntu.com/>`_ benefit from Canonical's generic commitment to packages from the archive, including up to 12 years of security maintenance for all LTS versions of Ubuntu. However, since Canonical recommends using only LTS versions of Ubuntu in production environments, this limits available OpenStack versions to one by default.
 
-Therefore, Canonical maintains an additional archive - `Ubuntu Cloud Archive (UCA) <https://wiki.ubuntu.com/OpenStack/CloudArchive>`_ - to provide access to newer versions of OpenStack on Ubuntu LTS versions. OpenStack versions shipped through the UCA are maintained for a shorter period of time (usually 18 or 36 months).
+Therefore, Canonical maintains an additional archive - `Ubuntu Cloud Archive (UCA) <https://launchpad.net/~ubuntu-cloud-archive>`_ - to provide access to newer versions of OpenStack on Ubuntu LTS versions. OpenStack versions shipped through the UCA are maintained for a shorter period of time (usually 18 or 36 months).
 
 Release cycle of OpenStack packages on Ubuntu can be represented this way:
 
