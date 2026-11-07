@@ -238,8 +238,12 @@ openrc
 openssh
 openstack
 openstackclient
+openstacksdk
 os
 ovs
+ovsdb
+stderr
+param
 passthrough
 passwordless
 pcap
@@ -252,6 +256,7 @@ preflight
 proxied
 pyCADF
 qcow
+qos
 rebalance
 rebalancing
 refstack
@@ -272,6 +277,7 @@ subnet
 subnets
 sudo
 tcpdump
+templated
 topologies
 tls
 ubuntu
