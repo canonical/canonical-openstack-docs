@@ -21,6 +21,13 @@ To ensure the latest updates are available to the cluster charms, refresh the
 * **Manual provider:** Run ``sudo snap refresh openstack`` on all nodes.
 * **MAAS provider:** Run it on the sunbeam client node only.
 
+Then hold the ``openstack`` snap refreshes so that the snap is not
+auto-refreshed to a different revision:
+
+.. code:: text
+
+   sudo snap refresh --hold openstack
+
 .. important::
    Refreshing the ``openstack`` snap does not automatically refresh the
    cluster. You must explicitly run the dedicated cluster refresh commands
@@ -100,12 +107,24 @@ You will be prompted to confirm before resetting the state. This action
 resets the internal upgrade tracking and starts a new refresh process. It does
 not revert any changes already applied to the cluster.
 
+.. _refresh-ingress:
+
+Step 4 - Refresh ingress
+------------------------
+
+The traefik instances (traefik, traefik-public and traefik-rgw) require a
+dedicated refresh command. Run the following command to refresh:
+
+.. code:: text
+
+   sunbeam cluster refresh ingress
+
 .. _refresh-cluster:
 
-Step 4 - Refresh the cluster
+Step 5 - Refresh the cluster
 -----------------------------
 
-Once Kubernetes, Vault and MySQL have been refreshed, refresh all remaining OpenStack
+Once Kubernetes, Vault, MySQL and ingress have been refreshed, refresh all remaining OpenStack
 charms:
 
 .. code:: text
