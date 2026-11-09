@@ -6,6 +6,7 @@ Miscellaneous
 
    adding-amd-sev-enabled-compute-node
    configuring-sriov
+   configuring-dpu
    configuring-dpdk
    configuring-gpu-passthrough
    configuring-vtpm
