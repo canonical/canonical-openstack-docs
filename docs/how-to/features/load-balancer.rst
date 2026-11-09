@@ -20,12 +20,18 @@ OpenStack load balancing service. Two provider backends are supported:
 Enabling Load Balancer
 ----------------------
 
+.. note::
+
+   The :doc:`Vault </how-to/features/vault>` and :doc:`Secrets </how-to/features/secrets>` 
+   features are dependencies of the Load Balancer feature and should be enabled 
+   prior to enabling Octavia.
+
 To enable Load Balancer, run the following command:
 
-.. literalinclude:: ../snippets/load-balancer.task.sh
+.. literalinclude:: ../snippets/loadbalancer.task.sh
    :language: bash
-   :start-after: [docs-view:enable-load-balancer]
-   :end-before:  [docs-view:enable-load-balancer-end]
+   :start-after: [docs-view:enable-loadbalancer]
+   :end-before:  [docs-view:enable-loadbalancer-end]
 
 This enables Octavia with the OVN provider. Use the OpenStack CLI to
 manage load balancers. See the upstream `Octavia documentation
@@ -90,12 +96,12 @@ option:
      - Description
    * - Enable Octavia Amphora provider?
      - ``y``
-     - Activates the Amphora VM-based load-balancer backend.
+     - Activates the Amphora VM-based loadbalancer backend.
    * - Amphora image tag
      - ``octavia-amphora``
      - Glance tag Octavia uses to locate the Amphora VM image. An image
        with this tag must exist in Glance before Octavia can create
-       load-balancer instances.
+       loadbalancer instances.
    * - Auto-create Amphora image?
      - ``n``
      - If enabled, Sunbeam downloads the upstream Octavia Amphora image
@@ -214,10 +220,10 @@ Disabling Load Balancer
 
 To disable Load Balancer, run the following command:
 
-.. literalinclude:: ../snippets/load-balancer.task.sh
+.. literalinclude:: ../snippets/loadbalancer.task.sh
    :language: bash
-   :start-after: [docs-view:disable-load-balancer]
-   :end-before:  [docs-view:disable-load-balancer-end]
+   :start-after: [docs-view:disable-loadbalancer]
+   :end-before:  [docs-view:disable-loadbalancer-end]
 
 Usage
 -----
