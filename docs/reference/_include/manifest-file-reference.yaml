@@ -198,6 +198,11 @@ core:
 
     k8s-addons:
       # Load balancer ranges
+      # Each range must contain at least 10 addresses, as the first 10 addresses
+      # of each range are reserved for internal services that allocate their IP
+      # automatically (e.g. rabbitmq-lb, ovn-relay-lb, mysql-router).
+      # Operator-provided ingress endpoint IPs must be chosen from after the
+      # first 10 addresses of the range.
       loadbalancer: <cidr>,<cidr>,...
 
     user:
@@ -278,6 +283,10 @@ core:
     endpoints:
       # Ips must be part of management_cidr defined above
       # or public/internal spaces in MAAS deployments
+      # The first 10 addresses of the load balancer range are reserved for
+      # internal services that allocate their IP automatically (rabbitmq-lb,
+      # ovn-relay-lb, mysql-router), so ingress endpoint IPs must be chosen
+      # from after the first 10 addresses of the range.
       ingress-internal: # optional
         ip: <ip> # optional
         hostname: <domain> # optional

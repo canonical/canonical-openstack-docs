@@ -42,9 +42,11 @@ preceding question.
    * - **Management network**
      - | The network addresses of the subnets used for management traffic. This is typically the same as the network used by the machines supporting the deployment. Multiple CIDRs can be specified, separated by commas.
    * - **OpenStack APIs IP ranges**
-     - | OpenStack services are exposed via virtual IP addresses. This range should contain at least ten addresses and must not overlap with external network CIDR. To access APIs from a remote host, the range must reside within the subnet that the primary network interface is on.
+     - | OpenStack services are exposed via virtual IP addresses. Each range must contain at least ten addresses and must not overlap with the external network CIDR. To access APIs from a remote host, the range must reside within the subnet that the primary network interface is on.
        |
        | On multi-node deployments, the range must be addressable from all nodes in the deployment.
+       |
+       | The first 10 addresses of each range are reserved for internal services that allocate their IP automatically (e.g. ``rabbitmq-lb``, ``ovn-relay-lb``, ``mysql-router``). Any IP address you specify for an ingress endpoint (e.g. ``ingress-internal``) must be chosen from after the first 10 addresses.
    * - **Hostname for Traefik internal endpoint**
      - | The hostname for the internal endpoint of the Traefik service. This is used to configure TLS Vault.
    * - **Hostname for Traefik public endpoint**
