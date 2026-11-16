@@ -53,6 +53,7 @@ Bug fixes
 - `LP#2171602 <https://bugs.launchpad.net/sunbeam-charms/+bug/2171602>`_ — tempest-k8s: QoS policy tag tests are skipped on plugin versions before 2.11
 - `LP#2172299 <https://bugs.launchpad.net/snap-openstack/+bug/2172299>`_ — the non-HA cinder-volume snap is refreshed from the manifest during cluster refresh
 - `LP#2172588 <https://bugs.launchpad.net/snap-openstack/+bug/2172588>`_ — sunbeam-clusterd enforces leaf-only certificate verification for mTLS authentication, preventing an authentication bypass through unverified client certificate chains
+- `LP2174029 <https://bugs.launchpad.net/snap-openstack/+bug/2174029>`_ — cinder-volume snap: NetappBackendContext.supports_cluster = True breaks NetApp backends on cinder-volume-noha
 
 Known issues
 ------------
@@ -129,6 +130,7 @@ Pull requests
 
    - `#104 <https://github.com/canonical/snap-cinder-volume/pull/104>`_ — fix: ensure backend tls materials correctly templated
    - `#108 <https://github.com/canonical/snap-cinder-volume/pull/108>`_ — fix: tolerate incomplete config in install hook
+   - `#125 <https://github.com/canonical/snap-cinder-volume/pull/125>`_ — fix: netapp iscsi driver supports cluster should be false
 
 .. dropdown:: snap-openstack-network-agents
 
@@ -315,7 +317,7 @@ The charm and snap revisions shipped in this release:
         promoted_revision: 752
       - app: cinder-volume
         current_revision: 137
-        promoted_revision: 163
+        promoted_revision: 173
       - app: openstack-network-agents
         current_revision: 109
         promoted_revision: 109
