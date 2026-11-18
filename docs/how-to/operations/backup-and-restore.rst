@@ -98,6 +98,8 @@ Configure the s3-integrator charm to use the correct bucket for each application
     ...
     # do the same for all necessary apps
 
+.. _backup-restore-mysql:
+
 MySQL
 -----
 
@@ -236,6 +238,8 @@ bucket and configure the `mysql-s3-integrator`` charm to use it by running the f
 .. code-block :: text
 
     juju config mysql-s3-integrator bucket=<NEW_BUCKET_NAME>
+
+.. _backup-restore-vault:
 
 Vault
 -----
