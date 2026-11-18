@@ -62,6 +62,10 @@ This command supports **patch-level upgrades only**:
 Step 2 - Refresh Vault
 ----------------------
 
+Before refreshing Vault, it is recommended to back up its data and ensure that your unseal keys and
+root token are stored securely. See
+:ref:`Vault backup and restore instructions <backup-restore-vault>`.
+
 Vault requires a dedicated refresh command. Run:
 
 .. code:: text
@@ -80,8 +84,11 @@ Step 3 - Refresh MySQL
 ----------------------
 
 The MySQL database must be refreshed before the application charms that depend
-on it. Run the following command to refresh the charm to the latest revision
-in its channel:
+on it. Before refreshing MySQL, it is recommended to back up the database. See
+:ref:`MySQL backup and restore instructions <backup-restore-mysql>`.
+
+Run the following command to refresh the charm to the latest revision in its
+channel:
 
 .. code:: text
 
