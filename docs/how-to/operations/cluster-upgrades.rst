@@ -33,6 +33,13 @@ auto-refreshed to a different revision:
    cluster. You must explicitly run the dedicated cluster refresh commands
    described below to apply updates to the running services.
 
+.. note::
+   Deployments that enabled Ubuntu Pro on 2026.1.0 run the
+   ``ubuntu-advantage`` charm, which the cluster refresh commands do not
+   replace when you upgrade to 2026.1.1. To move to the ``ubuntu-pro`` charm, disable and enable Ubuntu Pro
+   after refreshing the ``openstack`` snap, as described in
+   :ref:`ubuntu-pro-move-charm`.
+
 .. _refresh-k8s:
 
 Step 1 - Refresh Kubernetes
