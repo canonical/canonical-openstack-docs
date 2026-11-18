@@ -431,7 +431,7 @@ For example, to enable the :doc:`Ubuntu Pro feature</how-to/features/ubuntu-pro>
 
 .. code-block :: text
 
-   sunbeam enable pro --token <ubuntu pro token>
+   sunbeam enable pro <ubuntu pro token>
 
 .. note ::
 
