@@ -11,6 +11,19 @@ Before proceeding, refer to the :doc:`Maintenance Mode </explanation/maintenance
 Enabling Maintenance feature
 ----------------------------
 
+The maintenance feature is controlled through a feature gate. It is not yet
+considered production-ready. For general information about feature gates, see
+:doc:`Manage experimental features
+</how-to/operations/manage-experimental-features>`.
+
+Enable the feature gate:
+
+.. code:: text
+
+   sudo snap set openstack feature.maintenance=true
+
+Then enable the feature:
+
 .. code:: text
 
    sunbeam enable maintenance

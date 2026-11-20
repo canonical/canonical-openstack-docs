@@ -12,6 +12,17 @@ Alternatively, regions can exist within the same physical site, used to
 partition a large cluster and distribute load among critical components like
 databases or message brokers.
 
+Multi-region support is controlled through a feature gate. It is not yet
+considered production-ready. For general information about feature gates, see
+:doc:`Manage experimental features
+</how-to/operations/manage-experimental-features>`.
+
+Enable the feature gate on each machine where you run the commands below:
+
+::
+
+	sudo snap set openstack feature.multi-region=true
+
 Manual bare metal provider
 --------------------------
 

@@ -8,8 +8,18 @@ as opposed to virtual machines.
 Enabling Baremetal
 ------------------
 
-This feature requires the storage role. To enable this feature, run the
-following command:
+This feature requires the storage role. It is controlled through a feature
+gate and is not yet considered production-ready. For general information
+about feature gates, see :doc:`Manage experimental features
+</how-to/operations/manage-experimental-features>`.
+
+Enable the feature gate:
+
+::
+
+   sudo snap set openstack feature.baremetal=true
+
+Then enable the feature:
 
 ::
 
