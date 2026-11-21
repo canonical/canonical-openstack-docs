@@ -39,6 +39,7 @@ Bug fixes
 - `LP#2164877 <https://bugs.launchpad.net/snap-openstack/+bug/2164877>`_ — mysql: mysql-router-k8s is refreshed before mysql-k8s during the mysql refresh command
 - `LP#2165002 <https://bugs.launchpad.net/sunbeam-charms/+bug/2165002>`_ — cinder-volume-infinidat: CHAP is opt-in and requires credentials
 - `LP#2165816 <https://bugs.launchpad.net/snap-openstack/+bug/2165816>`_ — caas: errors from clusterctl commands include the stderr output in the sunbeam log file
+- `LP#2167107 <https://bugs.launchpad.net/sunbeam-charms/+bug/2167107>`_ — neutron: QoS policy creation fails with 404 error
 - `LP#2167289 <https://bugs.launchpad.net/snap-openstack/+bug/2167289>`_ — the sunbeam CLI no longer fails with a permission error when reading the clusterd socket
 - `LP#2168493 <https://bugs.launchpad.net/snap-openstack/+bug/2168493>`_ — NetApp backends are no longer assumed to be highly available; HA support is determined per protocol
 - `LP#2168558 <https://bugs.launchpad.net/sunbeam-charms/+bug/2168558>`_ — sunbeam-clusterd: certificate rotation works when the cluster certificate has expired
