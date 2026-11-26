@@ -31,6 +31,57 @@ To disable Ubuntu Pro support, run the following command:
 
    sunbeam disable pro
 
+.. _ubuntu-pro-move-from-ubuntu-advantage:
+
+Moving from the ubuntu-advantage charm
+--------------------------------------
+
+Earlier versions of Canonical OpenStack deploy Ubuntu Pro support with the
+``ubuntu-advantage`` charm. This charm is deprecated, and current versions
+deploy the ``ubuntu-pro`` charm instead. Both use the Juju application name
+``ubuntu-pro``.
+
+There is no in-place upgrade from ``ubuntu-advantage`` to ``ubuntu-pro``.
+Refreshing the ``openstack`` snap and running ``sunbeam cluster refresh`` keeps
+the existing ``ubuntu-advantage`` charm. To move to the ``ubuntu-pro`` charm,
+disable the feature and then enable it again.
+
+To check which charm is deployed, run:
+
+::
+
+   juju status -m openstack-machines ubuntu-pro
+
+The ``Charm`` column shows ``ubuntu-advantage`` or ``ubuntu-pro``.
+
+If it shows ``ubuntu-advantage``, first refresh the ``openstack`` snap to the
+new version. Then disable the feature:
+
+::
+
+   sunbeam disable pro
+
+This command detaches every machine from the Ubuntu Pro subscription before it
+removes the application. Then enable the feature again with your token:
+
+::
+
+   sunbeam enable pro <pro token>
+
+If a manifest sets options for this feature under the ``ubuntu-advantage``
+charm key, rename the key to ``ubuntu-pro`` before you run these commands.
+
+.. warning::
+
+   Do not run ``sunbeam enable pro`` again without disabling the feature
+   first. The command replaces the application but does not relate the new
+   one to the machines, so no ``ubuntu-pro`` units are deployed, and the
+   command still reports success.
+
+Between ``sunbeam disable pro`` and ``sunbeam enable pro``, the machines are
+not attached to Ubuntu Pro, so services such as ESM and Livepatch are not
+active.
+
 Usage
 -----
 

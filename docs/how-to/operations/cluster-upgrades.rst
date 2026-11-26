@@ -28,6 +28,11 @@ auto-refreshed to a different revision:
 
    sudo snap refresh --hold openstack
 
+.. note::
+   If Ubuntu Pro is enabled with the deprecated ``ubuntu-advantage`` charm,
+   the cluster refresh keeps that charm. To move to the ``ubuntu-pro`` charm,
+   see :ref:`ubuntu-pro-move-from-ubuntu-advantage`.
+
 .. important::
    Refreshing the ``openstack`` snap does not automatically refresh the
    cluster. You must explicitly run the dedicated cluster refresh commands
